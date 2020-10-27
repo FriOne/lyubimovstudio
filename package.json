@@ -25,7 +25,9 @@
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "docker-pull-all-images": "docker pull dpage/pgadmin4 && docker pull postgres:13 && docker pull nginx:1.19",
+    "docker-dev": "docker-compose -f docker-compose-dev.yml up -d"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +43,7 @@
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
     "@nrwl/angular": "10.3.0",
+    "@nrwl/nx-cloud": "^10.1.6",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.5",
     "zone.js": "^0.10.2"

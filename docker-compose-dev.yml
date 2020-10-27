@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  db:
+    image: lyubimovstudio-db:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.db
+    ports:
+      - "4000:5432"
+    networks:
+      - postgres
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "9090:80"
+    networks:
+      - postgres
+    volumes:
+      - pgadmindata:/var/lib/pgadmin
+      - ./docker/init/servers.json:/pgadmin4/servers.json
+    environment:
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_DEFAULT_EMAIL: lubimov.nsk@gmail.com
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  dbdata:
+  pgadmindata:

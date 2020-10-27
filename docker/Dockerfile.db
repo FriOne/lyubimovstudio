@@ -1,0 +1,3 @@
+FROM postgres:13
+
+COPY docker/init/init-user-db.sh /docker-entrypoint-initdb.d/
