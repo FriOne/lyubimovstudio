@@ -1,0 +1,7 @@
+<ul class="list">
+  <li class="list-item" *ngFor="let link of links">
+    <a class="link" [routerLink]=[link.href] routerLinkActive>
+      {{link.title}}
+    </a>
+  </li>
+</ul>

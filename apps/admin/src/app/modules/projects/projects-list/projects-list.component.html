@@ -1,0 +1,64 @@
+<h1 class="title">
+  Список проектов
+</h1>
+
+<div class="top">
+  <a
+    class="new-project-link btn btn-outline-secondary"
+    routerLink="./new"
+  >
+    Добавить новый проект
+  </a>
+
+  <div
+    *ngIf="loading$ | async"
+    class="spinner spinner-border text-primary"
+    role="status"
+  >
+    <span class="sr-only">Загрузка...</span>
+  </div>
+</div>
+
+<div
+  *ngIf="noProjects$ | async"
+  class="no-projects"
+>
+  Не было найдено ни одного проекта
+</div>
+
+<table
+  *ngIf="!(loading$ | async)"
+  class="list table table-bordered table-striped table-sm"
+>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Название</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr
+      *ngFor="let project of projects$ | async"
+      class="list-row"
+      (click)="onRowClick(project)"
+    >
+      <td>
+        {{project.id}}
+      </td>
+      <td>
+        {{project.ruTitle}}
+      </td>
+
+      <td class="actions-cell">
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="onRemoveClick($event, project)"
+        >
+          Удалить
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

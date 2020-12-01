@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  padding: 0 30px;
+  border-bottom: 1px solid gray;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-block;
+  padding: 10px;
+}

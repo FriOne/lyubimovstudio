@@ -1,0 +1,26 @@
+.list {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.spinner {
+  margin-left: 20px;
+}
+
+.list-row {
+  cursor: pointer;
+}
+
+.actions-cell {
+  text-align: right;
+}
+
+.no-projects {
+  line-height: 45px;
+  text-align: center;
+}

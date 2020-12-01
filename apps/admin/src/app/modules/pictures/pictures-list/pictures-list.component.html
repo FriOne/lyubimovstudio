@@ -1,0 +1,25 @@
+<h1 class="title">
+  Список картинок
+</h1>
+
+<div
+  *ngIf="loading$ | async"
+  class="spinner spinner-border text-primary"
+  role="status"
+>
+  <span class="sr-only">Загрузка...</span>
+</div>
+
+<div
+  *ngIf="noPictures$ | async"
+  class="no-projects"
+>
+  Не было найдено ни одной картинки
+</div>
+
+<div class="pictures">
+  <img
+    class="picture" *ngFor="let picture of pictures$ | async"
+    [src]="picture.name | picturePath"
+  />
+</div>

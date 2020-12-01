@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lyubimovstudio-root',
+  selector: 'ls-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'admin';
+  links = [
+    { title: 'Проекты', href: '/projects' },
+    { title: 'Картинки', href: '/pictures' },
+  ];
 }

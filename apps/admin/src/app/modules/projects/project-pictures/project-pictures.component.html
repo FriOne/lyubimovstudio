@@ -1,0 +1,11 @@
+<ngx-dropzone accept="image/*" (change)="onSelectFiles($event)">
+  <ngx-dropzone-label *ngIf="pictures.length === 0">
+    Загрузить картинки
+  </ngx-dropzone-label>
+
+  <ls-picture-dropzone-preview
+    *ngFor="let picture of pictures"
+    [projectPicture]="picture"
+    (removed)="onRemoveFile($event)"
+  ></ls-picture-dropzone-preview>
+</ngx-dropzone>

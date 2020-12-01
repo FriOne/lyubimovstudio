@@ -31,15 +31,6 @@
     }
   },
   "projects": {
-    "client": {
-      "tags": []
-    },
-    "client-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "client"
-      ]
-    },
     "api": {
       "tags": []
     },
