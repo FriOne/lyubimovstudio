@@ -28,12 +28,12 @@ export class ProjectsListComponent implements OnInit {
     this.loadProjects();
   }
 
-  removeProject(id: string) {
+  removeProject(id: number) {
     this.projectsService
       .removeProject(id)
       .subscribe(() => {
         const projects = [...this.projects$.getValue()];
-        const projectIndex = projects.findIndex(project => project.id === id);
+        const projectIndex = projects.findIndex(project => (project.id === id));
 
         projects.splice(projectIndex, 1);
 

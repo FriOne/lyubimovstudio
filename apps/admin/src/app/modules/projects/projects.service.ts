@@ -25,7 +25,7 @@ export class ProjectsService {
       : this.http.post<Project>(`/api/projects`, project);
   }
 
-  removeProject(id: string) {
+  removeProject(id: number) {
     return this.http.delete(`/api/projects/${id}`);
   }
 }

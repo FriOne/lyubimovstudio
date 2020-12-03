@@ -1,0 +1,5 @@
+.project-view {
+  &__picture {
+    max-width: 100%;
+  }
+}

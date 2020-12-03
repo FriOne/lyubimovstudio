@@ -7,7 +7,7 @@ import { ProjectPictureEntity } from './project-picture.entity';
 @Entity()
 export class ProjectEntity implements Project {
   @PrimaryGeneratedColumn()
-  id?: string;
+  id?: number;
 
   @Column()
   ruTitle: string;

@@ -1,0 +1,7 @@
+.project-gallery-view {
+  cursor: pointer;
+
+  &__picture {
+    max-width: 100%;
+  }
+}

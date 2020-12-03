@@ -12,7 +12,9 @@ export class ProjectsService {
   ) {}
 
   findAll(): Promise<ProjectEntity[]> {
-    return this.projectsRepository.find({ });
+    return this.projectsRepository.find({
+      relations: ['pictures', 'pictures.image'],
+    });
   }
 
   findOne(id: string): Promise<ProjectEntity> {
