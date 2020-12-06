@@ -1,0 +1,34 @@
+version: "3.3"
+
+services:
+  db:
+    image: lyubimovstudio-db:latest
+    networks:
+      - server
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+  api:
+    image: lyubimovstudio-api:latest
+    volumes:
+      - uploads:/home/node/app/uploads
+    depends_on:
+      - db
+    networks:
+      - server
+
+  nginx:
+    image: lyubimovstudio-server:latest
+    depends_on:
+      - api
+    networks:
+      - server
+    ports:
+      - "80:80"
+
+networks:
+  server:
+
+volumes:
+  dbdata:
+  uploads:

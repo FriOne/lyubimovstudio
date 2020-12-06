@@ -1,0 +1,16 @@
+FROM lyubimovstudio-backend:latest AS backend
+FROM node:15.3.0 as api
+
+WORKDIR /home/node/app
+
+COPY decorate-angular-cli.js ./
+COPY package.json yarn.lock ./
+RUN yarn
+
+COPY .env ./
+
+COPY --from=backend /dist/apps/api /home/node/app/
+RUN mkdir /home/node/app/uploads
+CMD node main.js
+
+EXPOSE 3333

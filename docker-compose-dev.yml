@@ -3,17 +3,12 @@ version: "3.3"
 services:
   db:
     image: lyubimovstudio-db:latest
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.db
     ports:
       - "4000:5432"
     networks:
       - postgres
     volumes:
       - dbdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: password
 
   pgadmin:
     image: dpage/pgadmin4
@@ -30,7 +25,6 @@ services:
 
 networks:
   postgres:
-    driver: bridge
 
 volumes:
   dbdata:

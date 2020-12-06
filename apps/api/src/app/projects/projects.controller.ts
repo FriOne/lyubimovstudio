@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
-import * as omit from 'lodash/omit';
 
 import { ProjectsService } from './projects.service';
 
@@ -25,7 +24,9 @@ export class ProjectsController {
 
   @Post()
   async create(@Body() body) {
-    return this.projectsService.save(omit(body, ['id']));
+    const { id, ...project } = body;
+
+    return this.projectsService.save(project);
   }
 
   @Delete(':id')

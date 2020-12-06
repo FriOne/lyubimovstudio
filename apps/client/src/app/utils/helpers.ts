@@ -7,5 +7,5 @@ export const bemClassName = withNaming({
 });
 
 export function getPicturesUrl(pictureName: string) {
-  return `/upload/${pictureName}`;
+  return `/uploads/${pictureName}`;
 }

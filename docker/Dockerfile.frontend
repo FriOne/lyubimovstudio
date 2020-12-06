@@ -1,0 +1,15 @@
+FROM node:15.3.0
+
+WORKDIR /
+
+COPY angular.json babel.config.json decorate-angular-cli.js nx.json tsconfig.base.json ./
+COPY package.json yarn.lock ./
+RUN yarn
+
+COPY libs libs/
+
+COPY apps/admin ./apps/admin/
+RUN yarn nx build admin --prod
+
+COPY apps/client ./apps/client/
+RUN yarn nx build client --prod

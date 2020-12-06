@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { ProjectsModule } from './projects/projects.module';
@@ -12,26 +13,27 @@ import { PicturesModule } from './pictures/pictures.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'assets'),
-      serveRoot: '/assets',
+      rootPath: join(__dirname, 'uploads'),
+      serveRoot: '/uploads',
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'upload'),
-      serveRoot: '/upload',
-    }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 4000,
-      username: 'lyubimov',
-      password: 'lyubiroman',
-      database: 'lyubimovstudio',
-      entities: [
-        PictureEntity,
-        ProjectPictureEntity,
-        ProjectEntity,
-      ],
-      synchronize: true,
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DATABASE_HOST', 'localhost'),
+        port: configService.get('DATABASE_PORT', 4000),
+        username: configService.get('DATABASE_USER', 'lyubimov'),
+        password: configService.get('DATABASE_PASSWORD', 'lyubiroman'),
+        database: configService.get('DATABASE_NAME', 'lyubimovstudio'),
+        entities: [
+          PictureEntity,
+          ProjectPictureEntity,
+          ProjectEntity,
+        ],
+        synchronize: true,
+      }),
     }),
     ProjectsModule,
     PicturesModule,

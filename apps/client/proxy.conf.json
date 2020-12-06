@@ -7,7 +7,7 @@
     "target": "http://localhost:3333",
     "secure": false
   },
-  "/upload": {
+  "/uploads": {
     "target": "http://localhost:3333",
     "secure": false
   }

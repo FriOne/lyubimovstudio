@@ -28,7 +28,7 @@ export class PicturesController {
   @Put('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
-    const uploadFolder = path.join(__dirname, 'upload');
+    const uploadFolder = path.join(__dirname, 'uploads');
     const extension = extname(file.originalname);
     const newFileName = `${uuid()}${extension}`;
     const filePath = `${uploadFolder}/${newFileName}`;

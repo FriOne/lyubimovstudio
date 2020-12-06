@@ -10,7 +10,7 @@ export class PicturesService {
   constructor(private http: HttpClient) {}
 
   getPicturePath(pictureName: string) {
-    return `/upload/${pictureName}`;
+    return `/uploads/${pictureName}`;
   }
 
   fetchPictures() {

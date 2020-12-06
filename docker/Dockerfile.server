@@ -1,0 +1,8 @@
+FROM lyubimovstudio-frontend:latest AS frontend
+FROM nginx:stable
+
+COPY --from=frontend /dist/apps /usr/share/nginx/html/
+COPY docker/init/nginx.conf /etc/nginx/conf.d/default.conf
+
+CMD ["/etc/init.d/nginx", "restart;"]
+CMD ["nginx", "-g", "daemon off;"]
