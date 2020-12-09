@@ -26,15 +26,8 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "docker-pull-all-images": "docker pull dpage/pgadmin4 && docker pull postgres:13 && docker pull nginx:stable && docker pull node:15.3.0",
-    "docker-dev": "npm run docker-build-db && docker-compose -f docker-compose-dev.yml up -d",
-    "docker-build-db": "docker build -f docker/Dockerfile.db -t lyubimovstudio-db:latest .",
-    "docker-build-frontend": "docker build -f docker/Dockerfile.frontend -t lyubimovstudio-frontend:latest .",
-    "docker-build-backend": "docker build -f docker/Dockerfile.backend -t lyubimovstudio-backend:latest .",
-    "docker-build-server": "docker build -f docker/Dockerfile.server -t lyubimovstudio-server:latest .",
-    "docker-build-api": "docker build -f docker/Dockerfile.api -t lyubimovstudio-api:latest .",
-    "docker-build-modules": "docker build -f docker/Dockerfile.modules -t lyubimovstudio-modules:latest .",
-    "docker-build": "npm run docker-build-modules && npm run docker-build-db && npm run docker-build-frontend && npm run docker-build-backend && npm run docker-build-server && npm run docker-build-api"
+    "docker-pull-all-images": "docker pull dpage/pgadmin4 && docker pull postgres:13 && docker pull nginx:stable && docker pull node:15.3.0-alpine",
+    "docker-dev": "docker-compose -f docker-compose-dev.yml up -d"
   },
   "private": true,
   "dependencies": {

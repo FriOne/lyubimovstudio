@@ -3,13 +3,21 @@ version: "3.3"
 services:
   db:
     image: lyubimovroman/lyubimovstudio-db:latest
-    networks:
-      - server
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.db
     volumes:
       - dbdata:/var/lib/postgresql/data
+    networks:
+      - server
 
   api:
     image: lyubimovroman/lyubimovstudio-api:latest
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.api
     volumes:
       - uploads:/home/node/app/uploads
     depends_on:
@@ -17,8 +25,13 @@ services:
     networks:
       - server
 
-  nginx:
+  server:
     image: lyubimovroman/lyubimovstudio-server:latest
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.server
+    volumes:
+      - ./node_modules:/usr/share/nginx/html/node_modules
     depends_on:
       - api
     networks:

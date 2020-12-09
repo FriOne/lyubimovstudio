@@ -1,16 +1,30 @@
-FROM lyubimovstudio-backend:latest AS backend
-FROM node:15.3.0 as api
+FROM node:15.3.0-alpine as builder
 
 WORKDIR /home/node/app
 
-COPY decorate-angular-cli.js ./
+COPY angular.json babel.config.json decorate-angular-cli.js nx.json tsconfig.base.json ./
 COPY package.json yarn.lock ./
 RUN yarn
 
+VOLUME /home/node/app/node_modules
+
+COPY libs libs/
+
+COPY apps/api ./apps/api/
+RUN yarn nx build api --prod
+
+
+FROM node:15.3.0-alpine
+
+WORKDIR /home/node/app
+
+RUN mkdir /home/node/app/uploads
+
 COPY .env ./
 
-COPY --from=backend /dist/apps/api /home/node/app/
-RUN mkdir /home/node/app/uploads
+COPY --from=builder /home/node/app/dist/apps/api /home/node/app/
+COPY --from=builder /home/node/app/node_modules /home/node/app/node_modules/
+
 CMD node main.js
 
 EXPOSE 3333

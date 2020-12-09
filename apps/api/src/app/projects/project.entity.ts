@@ -24,7 +24,7 @@ export class ProjectEntity implements Project {
   @OneToMany(
     () => ProjectPictureEntity,
     picture => picture.project,
-    { cascade: ['insert', 'update'] },
+    { cascade: ['insert', 'update', 'remove'] },
   )
   pictures: ProjectPicture[];
 }
