@@ -4,6 +4,7 @@ import { join } from 'path';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
+import { AppController } from './app.controller';
 import { ProjectsModule } from './projects/projects.module';
 import { PictureEntity } from './pictures/picture.entity';
 import { ProjectPictureEntity } from './projects/project-picture.entity';
@@ -38,5 +39,6 @@ import { PicturesModule } from './pictures/pictures.module';
     ProjectsModule,
     PicturesModule,
   ],
+  controllers: [AppController]
 })
 export class AppModule {}

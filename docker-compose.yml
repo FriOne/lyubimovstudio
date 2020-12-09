@@ -2,14 +2,14 @@ version: "3.3"
 
 services:
   db:
-    image: lyubimovstudio-db:latest
+    image: lyubimovroman/lyubimovstudio-db:latest
     networks:
       - server
     volumes:
       - dbdata:/var/lib/postgresql/data
 
   api:
-    image: lyubimovstudio-api:latest
+    image: lyubimovroman/lyubimovstudio-api:latest
     volumes:
       - uploads:/home/node/app/uploads
     depends_on:
@@ -18,7 +18,7 @@ services:
       - server
 
   nginx:
-    image: lyubimovstudio-server:latest
+    image: lyubimovroman/lyubimovstudio-server:latest
     depends_on:
       - api
     networks:
