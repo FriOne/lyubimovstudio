@@ -24,7 +24,7 @@ export class ProjectFormComponent implements OnInit {
 
   id$ = this.route.params.pipe(map(params => params.id));
   isNew$ = this.id$.pipe(map(id => id === 'new'));
-  title$ = this.isNew$.pipe(map(isNew => isNew ? 'Создание нового проекта' : 'Редактирование проекта'));
+  title$ = this.isNew$.pipe(map(isNew => isNew ? 'Новый проект' : 'Редактирование проекта'));
   buttonText$ = this.isNew$.pipe(map(isNew => isNew ? 'Создать' : 'Сохранить'));
   loading$ = new BehaviorSubject<boolean>(false);
   error$ = new BehaviorSubject<string | null>(null);

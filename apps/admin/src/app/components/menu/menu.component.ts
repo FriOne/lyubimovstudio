@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
 type Link = {
   title: string;
@@ -12,4 +12,10 @@ type Link = {
 })
 export class MenuComponent {
   @Input() links: Link[];
+
+  opened = false;
+
+  onTogglerClick() {
+    this.opened = !this.opened;
+  }
 }

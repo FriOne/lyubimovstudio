@@ -1,5 +1,12 @@
-<ngx-dropzone accept="image/*" (change)="onSelectFiles($event)">
-  <ngx-dropzone-label *ngIf="pictures.length === 0">
+<ngx-dropzone
+  class="drop-zone"
+  accept="image/*"
+  (change)="onSelectFiles($event)"
+>
+  <ngx-dropzone-label
+    *ngIf="pictures.length === 0"
+    class="label"
+  >
     Загрузить картинки
   </ngx-dropzone-label>
 

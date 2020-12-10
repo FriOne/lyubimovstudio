@@ -1,6 +1,15 @@
+:host {
+  display: block;
+}
+
 .top {
   display: flex;
   align-items: center;
+}
+
+.title {
+  margin-left: 20px;
+  margin-bottom: 0;
 }
 
 .spinner {
@@ -8,8 +17,26 @@
 }
 
 .form {
-  max-width: 500px;
   margin-top: 30px;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: stretch;
+}
+
+.form-left,
+.form-right {
+  flex: 1 1 auto;
+  max-width: 50%;
+}
+
+.form-right {
+  margin-left: 20px;
+}
+
+.project-pictures {
+  padding: 33px 0 16px;
 }
 
 .error {

@@ -24,7 +24,7 @@ import { PicturesModule } from './pictures/pictures.module';
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get('DATABASE_HOST', 'localhost'),
-        port: configService.get('DATABASE_PORT', 4000),
+        port: configService.get('DATABASE_PORT', 5432),
         username: configService.get('DATABASE_USER', 'lyubimov'),
         password: configService.get('DATABASE_PASSWORD', 'lyubiroman'),
         database: configService.get('DATABASE_NAME', 'lyubimovstudio'),

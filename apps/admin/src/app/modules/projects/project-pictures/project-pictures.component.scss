@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.drop-zone {
+  flex-wrap: wrap;
+  align-items: start;
+  min-height: 200px;
+  height: 100%;
+}
+
+.label {
+  display: block;
+  width: 100%;
+  text-align: center;
+}

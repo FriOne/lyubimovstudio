@@ -17,6 +17,9 @@ export class ProjectsListComponent implements OnInit {
   noProjects$ = combineLatest(this.projects$, this.loading$).pipe(
     map(([projects, loading]) => !loading && projects.length === 0),
   );
+  hasProjects$ = combineLatest(this.projects$, this.loading$).pipe(
+    map(([projects, loading]) => !loading && projects.length > 0),
+  );
 
   constructor(
     private router: Router,

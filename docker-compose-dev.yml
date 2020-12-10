@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.db
     ports:
-      - "4000:5432"
+      - "5432:5432"
     networks:
       - postgres
     volumes:
