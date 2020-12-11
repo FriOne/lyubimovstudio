@@ -1,16 +1,19 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 
 import { ProjectsService } from './projects.service';
+import { Public } from '../auth/guards/is-public-route';
 
 @Controller('projects')
 export class ProjectsController {
   constructor(private projectsService: ProjectsService) {}
 
+  @Public()
   @Get()
   findAll() {
     return this.projectsService.findAll();
   }
 
+  @Public()
   @Get(':id')
   async findOne(@Param('id') id) {
     const project = await this.projectsService.findOne(id);

@@ -2,7 +2,7 @@
   display: flex;
 
   &__project {
-    max-width: 300px;
+    width: 50%;
     margin-left: 10px;
   }
 }
