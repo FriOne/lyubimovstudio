@@ -17,25 +17,37 @@ export const ProjectView: FunctionComponent<Props> = (props) => {
   const { className = '', project } = props;
   const { ruTitle, ruDescription, pictures = [] } = project;
 
+  const [firstPicture, ...restPictures] = pictures;
+
   return (
     <div className={cls(null, [className])}>
-      <h1 className={cls('title')}>
-        {ruTitle}
-      </h1>
+      <img
+        key={firstPicture.id}
+        className={cls('picture', { first: true })}
+        src={getPicturesUrl(firstPicture.image.name)}
+      />
 
-      {ruDescription && (
-        <div className={cls('description')}>
-          {ruDescription}
-        </div>
-      )}
+      <div className={cls('title-and-description')}>
+        <h1 className={cls('title')}>
+          {ruTitle}
+        </h1>
 
-      {pictures.map((picture) => (
-        <img
-          key={picture.id}
-          className={cls('picture')}
-          src={getPicturesUrl(picture.image.name)}
-        />
-      ))}
+        {ruDescription && (
+          <div className={cls('description')}>
+            {ruDescription}
+          </div>
+        )}
+      </div>
+
+      <div className={cls('pictures-list')}>
+        {restPictures.map((picture) => (
+          <img
+            key={picture.id}
+            className={cls('picture')}
+            src={getPicturesUrl(picture.image.name)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

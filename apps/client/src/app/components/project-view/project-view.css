@@ -1,5 +1,20 @@
 .project-view {
+  &__title-and-description {
+    margin-top: 40px;
+    padding: 0 40px;
+  }
+
+  &__pictures-list {
+    margin-top: 40px;
+  }
+
   &__picture {
+    display: block;
     max-width: 100%;
+    margin-top: 20px;
+
+    &_first {
+      margin-top: 0;
+    }
   }
 }
