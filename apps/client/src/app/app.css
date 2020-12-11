@@ -9,8 +9,4 @@
   &__navigation {
     flex: 0 0 auto;
   }
-
-  &__content {
-    padding: 10px;
-  }
 }

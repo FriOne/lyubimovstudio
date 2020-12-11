@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import Masonry from 'react-masonry-css';
 
 import './projects-gallery.css';
 
@@ -19,7 +20,11 @@ export const ProjectsGallery: FunctionComponent<Props> = (props) => {
   const { className = '', projects, onProjectClick } = props;
 
   return (
-    <div className={cls(null, [className])}>
+    <Masonry
+      breakpointCols={{ default: 2, 768: 1 }}
+      className={cls(null, [className])}
+      columnClassName={cls('column')}
+    >
       {projects.map((project) => (
         <ProjectGalleryView
           key={project.id}
@@ -28,6 +33,6 @@ export const ProjectsGallery: FunctionComponent<Props> = (props) => {
           onProjectClick={onProjectClick}
         />
       ))}
-    </div>
+    </Masonry>
   );
 };

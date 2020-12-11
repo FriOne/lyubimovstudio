@@ -1,7 +1,10 @@
 .project-gallery-view {
+  border-radius: 3px;
+  overflow: hidden;
   cursor: pointer;
 
   &__picture {
+    display: block;
     max-width: 100%;
   }
 }

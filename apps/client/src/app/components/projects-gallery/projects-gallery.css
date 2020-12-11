@@ -2,7 +2,11 @@
   display: flex;
 
   &__project {
-    width: 50%;
-    margin-left: 10px;
+    margin: 10px;
+    opacity: .9;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
