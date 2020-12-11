@@ -1,7 +1,16 @@
 @import '~normalize.css';
 
 .app {
-  &__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  height: 100%;
 
+  &__navigation {
+    flex: 0 0 auto;
+  }
+
+  &__content {
+    padding: 10px;
   }
 }

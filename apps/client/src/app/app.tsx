@@ -6,7 +6,7 @@ import './app.css';
 import { bemClassName } from './utils/helpers';
 import { HomePage } from './pages/home-page/home-page';
 import { ProjectPage } from './pages/project-page/project-page';
-import { Link, Menu } from './components/menu/menu';
+import { Link, Navigation } from './components/navigation/navigation';
 
 const cls = bemClassName('app');
 const links: Link[] = [
@@ -16,8 +16,8 @@ const links: Link[] = [
 export function App() {
   return (
     <div className={cls()}>
-      <Menu
-        className={cls('menu')}
+      <Navigation
+        className={cls('navigation')}
         links={links}
       />
 
