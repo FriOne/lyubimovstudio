@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
@@ -20,7 +19,6 @@ import { PictureDropzonePreviewComponent } from './picture-dropzone-preview/pict
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     ProjectsRoutingModule,
     ReactiveFormsModule,
     NgxDropzoneModule,

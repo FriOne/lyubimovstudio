@@ -5,9 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  links = [
-    { title: 'Проекты', href: '/projects' },
-    { title: 'Картинки', href: '/pictures' },
-  ];
-}
+export class AppComponent {}

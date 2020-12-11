@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 
 import { PicturesRoutingModule } from './pictures-routing.module';
 import { PicturesListComponent } from './pictures-list/pictures-list.component';
@@ -14,7 +13,6 @@ import { PicturePathPipe } from './picture-path.pipe';
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     PicturesRoutingModule,
   ],
   providers: [PicturesService],
