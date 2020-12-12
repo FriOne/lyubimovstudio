@@ -27,7 +27,9 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "docker-pull-all-images": "docker pull dpage/pgadmin4 && docker pull postgres:13 && docker pull nginx:stable && docker pull node:15.3.0-alpine",
-    "docker-dev": "docker-compose -f docker-compose-dev.yml up -d"
+    "docker-dev": "docker-compose -f docker-compose-dev.yml up -d",
+    "nx-dev": "nx run-many --target=serve --projects=client,admin,api --parallel --maxParallel=100",
+    "dev": "npm run docker-dev && npm run nx-dev"
   },
   "private": true,
   "dependencies": {
