@@ -4,7 +4,7 @@ services:
   db:
     image: lyubimovroman/lyubimovstudio-db:latest
     env_file:
-      - .env
+      - .env.prod
     build:
       context: .
       dockerfile: ./docker/Dockerfile.db
@@ -30,8 +30,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.server
-    volumes:
-      - ./node_modules:/usr/share/nginx/html/node_modules
     depends_on:
       - api
     networks:

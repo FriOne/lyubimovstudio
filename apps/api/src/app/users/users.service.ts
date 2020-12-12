@@ -12,7 +12,7 @@ export class UsersService {
     },
     {
       userId: 2,
-      email: 'lubimov.nsk@gmail.ru',
+      email: 'lubimov.nsk@gmail.com',
       password: '4444',
     },
   ];

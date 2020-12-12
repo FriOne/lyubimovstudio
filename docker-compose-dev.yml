@@ -2,9 +2,8 @@ version: "3.3"
 
 services:
   db:
-    image: lyubimovroman/lyubimovstudio-db:latest
     env_file:
-      - .env
+      - .env.prod
     build:
       context: .
       dockerfile: ./docker/Dockerfile.db
@@ -17,6 +16,8 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
+    env_file:
+      - .env.prod
     ports:
       - "9090:80"
     networks:
@@ -24,9 +25,6 @@ services:
     volumes:
       - pgadmindata:/var/lib/pgadmin
       - ./docker/init/servers.json:/pgadmin4/servers.json
-    environment:
-      PGADMIN_DEFAULT_PASSWORD: password
-      PGADMIN_DEFAULT_EMAIL: lubimov.nsk@gmail.com
 
 networks:
   postgres:

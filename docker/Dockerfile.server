@@ -4,9 +4,7 @@ WORKDIR /home/node/app/
 
 COPY angular.json babel.config.json decorate-angular-cli.js nx.json tsconfig.base.json ./
 COPY package.json yarn.lock ./
-RUN yarn
-
-VOLUME /home/node/app/node_modules
+RUN yarn install --frozen-lockfile
 
 COPY libs libs/
 
