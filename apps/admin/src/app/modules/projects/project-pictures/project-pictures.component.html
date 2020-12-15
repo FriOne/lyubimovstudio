@@ -1,4 +1,5 @@
 <ngx-dropzone
+  cdkScrollable
   class="drop-zone"
   accept="image/*"
   (change)="onSelectFiles($event)"
@@ -10,9 +11,21 @@
     Загрузить картинки
   </ngx-dropzone-label>
 
-  <ls-picture-dropzone-preview
-    *ngFor="let picture of pictures"
-    [projectPicture]="picture"
-    (removed)="onRemoveFile($event)"
-  ></ls-picture-dropzone-preview>
+  <div
+    class="pictures-drop-list"
+    cdkScrollable
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <ls-picture-dropzone-preview
+      *ngFor="let picture of pictures"
+      class="picture-preview"
+      cdkDrag
+      [projectPicture]="picture"
+      (removed)="onRemoveFile($event)"
+    >
+      <div *cdkDragPlaceholder class="picture-placeholder"></div>
+    </ls-picture-dropzone-preview>
+  </div>
 </ngx-dropzone>

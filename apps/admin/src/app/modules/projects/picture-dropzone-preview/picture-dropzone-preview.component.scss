@@ -8,9 +8,9 @@
   justify-content: center;
   flex: 0 0 auto;
   width: 200px;
-  height: 45%;
-  margin: 5px;
+  height: 200px;
   border: 1px solid map-get($grays, '400');
+  background-color: map-get($grays, '400');
   opacity: .9;
 
   &:hover {

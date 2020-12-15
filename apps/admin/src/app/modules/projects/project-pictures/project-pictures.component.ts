@@ -4,6 +4,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { noop } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Picture, ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
@@ -20,13 +21,18 @@ import { PicturesService } from '../../pictures/pictures.service';
   }]
 })
 export class ProjectPicturesComponent implements ControlValueAccessor {
-  pictureMap = new Map<ProjectPicture, File>();
   pictures: ProjectPicture[] = [];
   disabled = false;
   private onChange = (pictures: ProjectPicture[]) => {};
   private onTouched = noop;
 
   constructor(private picturesService: PicturesService) {}
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.pictures, event.previousIndex, event.currentIndex);
+
+    this.updateValue(this.pictures.map((picture, index) => ({ ...picture, order: index })));
+  }
 
   registerOnChange(fn: any) {
     this.onChange = fn;
@@ -56,7 +62,10 @@ export class ProjectPicturesComponent implements ControlValueAccessor {
         .uploadPicture(file)
         .pipe(
           filter(event => (event.type === HttpEventType.Response)),
-          map(event => ({ image: (event as HttpResponse<Picture>).body }))
+          map(event => ({
+            image: (event as HttpResponse<Picture>).body,
+            order: this.pictures.length,
+          }))
         )
         .subscribe(picture => {
           this.updateValue([...this.pictures, picture]);

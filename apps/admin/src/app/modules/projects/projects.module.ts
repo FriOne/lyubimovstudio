@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { ProjectsListComponent } from './projects-list/projects-list.component';
 import { ProjectsRoutingModule } from './projects-routing.module';
@@ -22,6 +24,8 @@ import { PictureDropzonePreviewComponent } from './picture-dropzone-preview/pict
     ProjectsRoutingModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
+    DragDropModule,
+    ScrollingModule,
   ],
   providers: [ProjectsService],
 })

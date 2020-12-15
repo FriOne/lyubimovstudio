@@ -22,6 +22,9 @@ export class ProjectPictureEntity implements ProjectPicture {
   @Column({ default: '' })
   enDescription?: string;
 
+  @Column({ default: 0 })
+  order: number;
+
   @OneToOne(() => PictureEntity, { cascade: ['insert', 'update', 'remove'] })
   @JoinColumn()
   image: PictureEntity;

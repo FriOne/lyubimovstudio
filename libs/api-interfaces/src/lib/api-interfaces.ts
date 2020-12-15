@@ -19,4 +19,5 @@ export interface ProjectPicture {
   ruDescription?: string;
   enDescription?: string;
   image: Picture;
+  order: number;
 }

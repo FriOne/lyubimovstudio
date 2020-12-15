@@ -19,6 +19,9 @@ export class GlobalExceptionFilter extends BaseExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    // TODO change to logger
+    console.error(exception);
+
     response.sendStatus(status);
   }
 }

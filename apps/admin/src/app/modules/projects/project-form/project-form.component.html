@@ -31,47 +31,45 @@
 >
   <input type="hidden" formControlName="id">
 
-  <div class="form-wrapper">
-    <div class="form-left">
-      <div class="form-group">
-        <label>Название</label>
-        <input
-          class="form-control"
-          formControlName="ruTitle"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label>Описание</label>
-        <textarea
-          class="form-control"
-          formControlName="ruDescription"
-        ></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>Английское название</label>
-        <input
-          class="form-control"
-          formControlName="enTitle"
-        >
-      </div>
-
-      <div class="form-group">
-        <label>Английское описание</label>
-        <textarea
-          class="form-control"
-          formControlName="enDescription"
-        ></textarea>
-      </div>
+  <div class="form-fields">
+    <div class="form-group">
+      <label>Название</label>
+      <input
+        class="form-control"
+        formControlName="ruTitle"
+        required
+      />
     </div>
 
-    <ls-project-pictures
-      class="project-pictures form-right"
-      formControlName="pictures"
-    ></ls-project-pictures>
+    <div class="form-group">
+      <label>Описание</label>
+      <textarea
+        class="form-control"
+        formControlName="ruDescription"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Английское название</label>
+      <input
+        class="form-control"
+        formControlName="enTitle"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Английское описание</label>
+      <textarea
+        class="form-control"
+        formControlName="enDescription"
+      ></textarea>
+    </div>
   </div>
+
+  <ls-project-pictures
+    class="project-pictures"
+    formControlName="pictures"
+  ></ls-project-pictures>
 
   <button
     class="submit btn btn-primary"

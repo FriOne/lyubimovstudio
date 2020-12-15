@@ -18,9 +18,13 @@ export class ProjectsService {
   }
 
   findOne(id: string): Promise<ProjectEntity> {
-    return this.projectsRepository.findOne(id, {
-      relations: ['pictures', 'pictures.image'],
-    });
+    return this.projectsRepository
+      .createQueryBuilder('project')
+      .leftJoinAndSelect('project.pictures', 'pictures')
+      .leftJoinAndSelect('pictures.image', 'images')
+      .whereInIds(id)
+      .orderBy('pictures.order', 'ASC')
+      .getOne();
   }
 
   async exists(id: string): Promise<boolean> {
