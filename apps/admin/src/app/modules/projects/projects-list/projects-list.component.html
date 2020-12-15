@@ -30,6 +30,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Название</th>
+      <th scope="col">Кол-во картинок</th>
       <th scope="col">Дата создания</th>
       <th scope="col">Дата обновления</th>
       <th scope="col"></th>
@@ -47,6 +48,9 @@
       </td>
       <td>
         {{project.ruTitle}}
+      </td>
+      <td>
+        {{project.pictures.length}}
       </td>
       <td>
         {{project.createdAt| date: 'short'}}
