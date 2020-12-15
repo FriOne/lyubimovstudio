@@ -12,7 +12,11 @@ export class PicturesService {
   ) {}
 
   findAll(): Promise<PictureEntity[]> {
-    return this.picturesRepository.find();
+    return this.picturesRepository.find({
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 
   findOne(id: string): Promise<PictureEntity> {

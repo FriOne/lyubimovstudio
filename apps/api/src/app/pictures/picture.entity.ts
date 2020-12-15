@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 import { Picture } from '@lyubimovstudio/api-interfaces';
 
@@ -9,4 +9,10 @@ export class PictureEntity implements Picture {
 
   @Column()
   name: string;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: string;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: string;
 }

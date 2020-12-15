@@ -24,12 +24,14 @@
 
 <table
   *ngIf="hasProjects$ | async"
-  class="list table table-bordered table-striped table-sm"
+  class="list table table-bordered table-hover table-striped table-sm"
 >
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Название</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col">Дата обновления</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -45,6 +47,12 @@
       </td>
       <td>
         {{project.ruTitle}}
+      </td>
+      <td>
+        {{project.createdAt| date: 'short'}}
+      </td>
+      <td>
+        {{project.updatedAt| date: 'short'}}
       </td>
 
       <td class="actions-cell">

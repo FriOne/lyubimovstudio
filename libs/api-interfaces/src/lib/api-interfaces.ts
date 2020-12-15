@@ -5,11 +5,15 @@ export interface Project {
   ruDescription?: string;
   enDescription?: string;
   pictures: ProjectPicture[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Picture {
   id: number;
   name: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ProjectPicture {
@@ -20,4 +24,6 @@ export interface ProjectPicture {
   enDescription?: string;
   image: Picture;
   order: number;
+  createdAt?: string;
+  updatedAt?: string;
 }

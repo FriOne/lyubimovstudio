@@ -14,6 +14,9 @@ export class ProjectsService {
   findAll(): Promise<ProjectEntity[]> {
     return this.projectsRepository.find({
       relations: ['pictures', 'pictures.image'],
+      order: {
+        createdAt: 'DESC',
+      },
     });
   }
 
@@ -23,6 +26,7 @@ export class ProjectsService {
       .leftJoinAndSelect('project.pictures', 'pictures')
       .leftJoinAndSelect('pictures.image', 'images')
       .whereInIds(id)
+      .orderBy('createdAt', 'DESC')
       .orderBy('pictures.order', 'ASC')
       .getOne();
   }

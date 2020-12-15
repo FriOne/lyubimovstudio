@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 import { Project, ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
@@ -27,4 +27,10 @@ export class ProjectEntity implements Project {
     { cascade: ['insert', 'update', 'remove'] },
   )
   pictures: ProjectPicture[];
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: string;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: string;
 }

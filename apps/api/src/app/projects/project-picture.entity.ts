@@ -1,4 +1,13 @@
-import { Entity, Column, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm';
 
 import { Project, ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
@@ -31,4 +40,10 @@ export class ProjectPictureEntity implements ProjectPicture {
 
   @ManyToOne(() => ProjectEntity, project => project.pictures)
   project: Project;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: string;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: string;
 }

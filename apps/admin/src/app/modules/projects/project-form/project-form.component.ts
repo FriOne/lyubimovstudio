@@ -48,7 +48,13 @@ export class ProjectFormComponent implements OnInit {
       switchMap(id => this.projectsService.fetchProject(id)),
     ).subscribe(
       (project) => {
-        this.projectForm.setValue(project);
+        const newValue = {};
+
+        for (const valueKey of Object.keys(this.projectForm.value)) {
+          newValue[valueKey] = project[valueKey];
+        }
+
+        this.projectForm.setValue(newValue);
         this.loading$.next(false);
       },
       (error: Error) => {
