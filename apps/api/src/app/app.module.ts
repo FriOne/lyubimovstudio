@@ -3,17 +3,18 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { PictureEntity } from './entities/picture.entity';
+import { ProjectPictureEntity } from './entities/project-picture.entity';
+import { ProjectEntity } from './entities/project.entity';
+
 import { AppController } from './app.controller';
 import { ProjectsModule } from './projects/projects.module';
-import { PictureEntity } from './pictures/picture.entity';
-import { ProjectPictureEntity } from './projects/project-picture.entity';
-import { ProjectEntity } from './projects/project.entity';
 import { PicturesModule } from './pictures/pictures.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { GlobalExceptionFilter } from './global-exception.filter';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [

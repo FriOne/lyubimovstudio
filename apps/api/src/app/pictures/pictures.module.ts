@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
-import { PictureEntity } from './picture.entity';
+import { PictureEntity } from '../entities/picture.entity';
 import { PicturesController } from './pictures.controller';
 import { PicturesService } from './pictures.service';
 
@@ -19,5 +19,6 @@ import { PicturesService } from './pictures.service';
   ],
   controllers: [PicturesController],
   providers: [PicturesService],
+  exports: [PicturesService],
 })
 export class PicturesModule {}

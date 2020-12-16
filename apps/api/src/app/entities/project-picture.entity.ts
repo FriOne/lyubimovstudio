@@ -9,12 +9,9 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-import { Project, ProjectPicture } from '@lyubimovstudio/api-interfaces';
+import { Project, ProjectPicture, Picture } from '@lyubimovstudio/api-interfaces';
 
-import { PictureEntity } from '../pictures/picture.entity';
-import { ProjectEntity } from './project.entity';
-
-@Entity()
+@Entity({ name: 'project_picture' })
 export class ProjectPictureEntity implements ProjectPicture {
   @PrimaryGeneratedColumn()
   id: number;
@@ -34,16 +31,24 @@ export class ProjectPictureEntity implements ProjectPicture {
   @Column({ default: 0 })
   order: number;
 
-  @OneToOne(() => PictureEntity, { cascade: ['insert', 'update', 'remove'] })
-  @JoinColumn()
-  image: PictureEntity;
-
-  @ManyToOne(() => ProjectEntity, project => project.pictures)
-  project: Project;
-
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: string;
 
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: string;
+
+  @OneToOne(
+    'PictureEntity',
+    'projectPicture',
+    { onDelete: 'CASCADE', cascade: true }
+  )
+  @JoinColumn()
+  image: Picture;
+
+  @ManyToOne(
+    'ProjectEntity',
+    'pictures',
+    { onDelete: 'CASCADE' }
+  )
+  project: Project;
 }

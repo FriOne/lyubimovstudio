@@ -2,9 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, Up
 
 import { Project, ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
-import { ProjectPictureEntity } from './project-picture.entity';
-
-@Entity()
+@Entity({ name: 'project' })
 export class ProjectEntity implements Project {
   @PrimaryGeneratedColumn()
   id?: number;
@@ -21,16 +19,16 @@ export class ProjectEntity implements Project {
   @Column({ default: '' })
   enDescription?: string;
 
-  @OneToMany(
-    () => ProjectPictureEntity,
-    picture => picture.project,
-    { cascade: ['insert', 'update', 'remove'] },
-  )
-  pictures: ProjectPicture[];
-
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: string;
 
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: string;
+
+  @OneToMany(
+    'ProjectPictureEntity',
+    'project',
+    { cascade: true },
+  )
+  pictures: ProjectPicture[];
 }

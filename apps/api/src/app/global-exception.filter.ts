@@ -1,12 +1,14 @@
 import {
   ArgumentsHost,
   Catch, HttpException,
-  HttpStatus
+  HttpStatus, Logger
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 
 @Catch()
 export class GlobalExceptionFilter extends BaseExceptionFilter {
+  private readonly logger = new Logger('global');
+
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
@@ -19,8 +21,7 @@ export class GlobalExceptionFilter extends BaseExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    // TODO change to logger
-    console.error(exception);
+    this.logger.error(exception.toString());
 
     response.sendStatus(status);
   }
