@@ -12,17 +12,19 @@
     [ngClass]="{show: opened}"
   >
     <div class="navbar-nav">
-      <a
-         *ngFor="let link of links"
-         class="nav-item nav-link"
-         [routerLink]=[link.href]
-         routerLinkActive="active"
-      >
-        {{link.title}}
-      </a>
+      <div class="general-links">
+        <a
+           *ngFor="let link of links"
+           class="nav-item nav-link"
+           [routerLink]=[link.href]
+           routerLinkActive="active"
+        >
+          {{link.title}}
+        </a>
+      </div>
 
       <a
-        class="nav-item nav-link"
+        class="nav-item nav-link logout-link"
         href="#"
         (click)="onLogOutClick($event)"
       >
