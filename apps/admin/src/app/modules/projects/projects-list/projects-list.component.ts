@@ -21,6 +21,8 @@ export class ProjectsListComponent implements OnInit {
     map(([projects, loading]) => !loading && projects.length > 0),
   );
 
+  deletedProjects = new Set<number>();
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -32,6 +34,8 @@ export class ProjectsListComponent implements OnInit {
   }
 
   removeProject(id: number) {
+    this.deletedProjects.add(id);
+
     this.projectsService
       .removeProject(id)
       .subscribe(() => {
@@ -40,6 +44,7 @@ export class ProjectsListComponent implements OnInit {
 
         projects.splice(projectIndex, 1);
 
+        this.deletedProjects.delete(id);
         this.projects$.next(projects);
       });
   }

@@ -6,7 +6,7 @@
     Добавить новый проект
   </a>
 
-  <ls-spinner *ngIf="loading$ | async">
+  <ls-spinner *ngIf="loading$ | async" class="loading">
     <span class="sr-only">Загрузка...</span>
   </ls-spinner>
 </div>
@@ -34,6 +34,7 @@
     <tr
       *ngFor="let project of projects$ | async"
       class="list-row"
+      [ngClass]="{ 'list-row_deleted': deletedProjects.has(project.id) }"
       (click)="onRowClick(project)"
     >
       <td class="cell">{{project.id}}</td>
@@ -43,9 +44,20 @@
       <td class="cell">{{project.updatedAt| date: 'short'}}</td>
 
       <td class="cell_actions">
-        <button class="btn btn-danger btn-sm" (click)="onRemoveClick($event, project)">
+        <button
+          *ngIf="!deletedProjects.has(project.id)"
+          class="btn btn-danger btn-sm"
+          (click)="onRemoveClick($event, project)"
+        >
           Удалить
         </button>
+
+        <ls-spinner
+          *ngIf="deletedProjects.has(project.id)"
+          class="text-secondary"
+          [style]="{width: '1.5rem', height: '1.5rem'}"
+        >
+        </ls-spinner>
       </td>
     </tr>
   </tbody>

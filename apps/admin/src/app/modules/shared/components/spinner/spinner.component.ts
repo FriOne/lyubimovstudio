@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'ls-spinner',
   templateUrl: './spinner.component.html',
   host: {
-    'class': 'spinner spinner-border text-primary',
+    'class': 'spinner spinner-border',
     'role': 'status',
   }
 })
