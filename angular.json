@@ -94,8 +94,7 @@
             "aot": true,
             "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "apps/admin/src/styles.css"
+              "apps/admin/src/styles.scss"
             ],
             "scripts": []
           },

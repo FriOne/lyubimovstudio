@@ -65,6 +65,8 @@ export class ProjectFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.projectForm.markAllAsTouched();
+
     if (this.projectForm.invalid) {
       return;
     }

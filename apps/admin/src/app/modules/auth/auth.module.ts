@@ -8,6 +8,7 @@ import { AuthPageComponent } from './auth-page/auth-page.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
+import { SharedModule } from '../shared/shared.module';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -22,6 +23,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: { tokenGetter },
     }),
+    SharedModule,
   ],
 })
 export class AuthModule {

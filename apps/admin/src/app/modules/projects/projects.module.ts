@@ -11,6 +11,7 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectsService } from './projects.service';
 import { ProjectPicturesComponent } from './project-pictures/project-pictures.component';
 import { PictureDropzonePreviewComponent } from './picture-dropzone-preview/picture-dropzone-preview.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { PictureDropzonePreviewComponent } from './picture-dropzone-preview/pict
     NgxDropzoneModule,
     DragDropModule,
     ScrollingModule,
+    SharedModule,
   ],
   providers: [ProjectsService],
 })

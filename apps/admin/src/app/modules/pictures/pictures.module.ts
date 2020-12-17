@@ -5,6 +5,7 @@ import { PicturesRoutingModule } from './pictures-routing.module';
 import { PicturesListComponent } from './pictures-list/pictures-list.component';
 import { PicturesService } from './pictures.service';
 import { PicturePathPipe } from './picture-path.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { PicturePathPipe } from './picture-path.pipe';
   imports: [
     CommonModule,
     PicturesRoutingModule,
+    SharedModule,
   ],
   providers: [PicturesService],
 })

@@ -21,7 +21,16 @@
 }
 
 .form-fields {
-  max-width: 570px;
+  display: flex;
+}
+
+.left-fields,
+.right-fields {
+  flex: 1 1 50%;
+}
+
+.right-fields {
+  margin-left: 30px;
 }
 
 .project-pictures {

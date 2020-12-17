@@ -36,13 +36,9 @@
         Войти
       </button>
 
-      <div
-        *ngIf="authorizing$ | async"
-        class="spinner spinner-border text-primary"
-        role="status"
-      >
+      <ls-spinner *ngIf="authorizing$ | async">
         <span class="sr-only">Загрузка...</span>
-      </div>
+      </ls-spinner>
     </div>
   </form>
 </div>

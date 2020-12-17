@@ -6,19 +6,12 @@
     Добавить новый проект
   </a>
 
-  <div
-    *ngIf="loading$ | async"
-    class="spinner spinner-border text-primary"
-    role="status"
-  >
+  <ls-spinner *ngIf="loading$ | async">
     <span class="sr-only">Загрузка...</span>
-  </div>
+  </ls-spinner>
 </div>
 
-<div
-  *ngIf="noProjects$ | async"
-  class="no-projects"
->
+<div *ngIf="noProjects$ | async" class="no-projects">
   Не было найдено ни одного проекта
 </div>
 
@@ -28,12 +21,12 @@
 >
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Название</th>
-      <th scope="col">Кол-во картинок</th>
-      <th scope="col">Дата создания</th>
-      <th scope="col">Дата обновления</th>
-      <th scope="col"></th>
+      <th scope="col" class="cell">#</th>
+      <th scope="col" class="cell">Название</th>
+      <th scope="col" class="cell">Кол-во картинок</th>
+      <th scope="col" class="cell">Дата создания</th>
+      <th scope="col" class="cell">Дата обновления</th>
+      <th scope="col" class="cell"></th>
     </tr>
   </thead>
 
@@ -43,27 +36,14 @@
       class="list-row"
       (click)="onRowClick(project)"
     >
-      <td>
-        {{project.id}}
-      </td>
-      <td>
-        {{project.ruTitle}}
-      </td>
-      <td>
-        {{project.pictures.length}}
-      </td>
-      <td>
-        {{project.createdAt| date: 'short'}}
-      </td>
-      <td>
-        {{project.updatedAt| date: 'short'}}
-      </td>
+      <td class="cell">{{project.id}}</td>
+      <td class="cell">{{project.ruTitle}}</td>
+      <td class="cell">{{project.pictures.length}}</td>
+      <td class="cell">{{project.createdAt| date: 'short'}}</td>
+      <td class="cell">{{project.updatedAt| date: 'short'}}</td>
 
-      <td class="actions-cell">
-        <button
-          class="btn btn-danger btn-sm"
-          (click)="onRemoveClick($event, project)"
-        >
+      <td class="cell_actions">
+        <button class="btn btn-danger btn-sm" (click)="onRemoveClick($event, project)">
           Удалить
         </button>
       </td>
