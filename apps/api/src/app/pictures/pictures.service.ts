@@ -5,6 +5,7 @@ import fs from 'fs';
 import { promisify } from 'util';
 import path, { extname } from 'path';
 import { v4 as uuid } from 'uuid';
+import sharp from 'sharp';
 
 import { PictureEntity } from '../entities/picture.entity';
 import { UPLOAD_FOLDER } from './constants';
@@ -51,12 +52,15 @@ export class PicturesService {
   }
 
   async saveFile(file: any) {
-    const extension = extname(file.originalname);
-    const newFileName = `${uuid()}${extension}`;
+    const newFileName = `${uuid()}.jpg`;
     const filePath = path.resolve(`${UPLOAD_FOLDER}/${newFileName}`);
 
     await mkdir(UPLOAD_FOLDER, { recursive: true } as any);
-    await writeFile(filePath, file.buffer);
+
+    await sharp(file.buffer)
+      .resize(2000, null, { withoutEnlargement: true })
+      .toFormat('jpg')
+      .toFile(filePath);
 
     return newFileName;
   }
