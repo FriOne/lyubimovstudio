@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Picture } from '@lyubimovstudio/api-interfaces';
+import { PagedResponse, Picture } from '@lyubimovstudio/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class PicturesService {
   }
 
   fetchPictures() {
-    return this.http.get<Picture[]>('/api/pictures');
+    return this.http.get<PagedResponse<Picture>>('/api/pictures');
   }
 
   uploadPicture(picture: File) {

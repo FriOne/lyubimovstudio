@@ -1,5 +1,6 @@
 import {
-  Controller, Get,
+  Controller,
+  Get,
   Put,
   UploadedFile,
   UseInterceptors
@@ -7,14 +8,15 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { PicturesService } from './pictures.service';
+import { IntQuery } from '../pipes';
 
 @Controller('pictures')
 export class PicturesController {
   constructor(private picturesService: PicturesService) {}
 
-  @Get('')
-  async findAll() {
-    return this.picturesService.findAll();
+  @Get()
+  async findAll(@IntQuery('page') page, @IntQuery('limit') limit) {
+    return this.picturesService.findAll(Number(page), Number(limit));
   }
 
   @Put('upload')

@@ -27,3 +27,8 @@ export interface ProjectPicture {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export type PagedResponse<T> = {
+  rows: T[];
+  total: number;
+};

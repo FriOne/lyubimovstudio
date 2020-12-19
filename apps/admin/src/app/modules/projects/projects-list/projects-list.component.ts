@@ -1,17 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, finalize, map } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
 
 import { Project } from '@lyubimovstudio/api-interfaces';
+
 import { ProjectsService } from '../projects.service';
+
+type PageData = {
+  page: number;
+  pageSize: number;
+};
 
 @Component({
   selector: 'ls-projects-list',
   templateUrl: './projects-list.component.html',
   styleUrls: ['./projects-list.component.scss']
 })
-export class ProjectsListComponent implements OnInit {
+export class ProjectsListComponent implements OnInit, OnDestroy {
+  pageData$ = new BehaviorSubject<PageData>({ page: 0, pageSize: 10});
+  page$ = this.pageData$.pipe(map(pageData => pageData.page + 1));
+  pageSize$ = this.pageData$.pipe(map(pageData => pageData.pageSize));
+  total$ = new BehaviorSubject<number>(0);
+  hasMoreThanOnePage$ = combineLatest(this.total$, this.pageData$).pipe(
+    map(([total, { pageSize }]) => (total > pageSize)),
+  );
+
   projects$ = new BehaviorSubject<Project[]>([]);
   loading$ = new BehaviorSubject<boolean>(false);
   noProjects$ = combineLatest(this.projects$, this.loading$).pipe(
@@ -21,7 +35,10 @@ export class ProjectsListComponent implements OnInit {
     map(([projects, loading]) => !loading && projects.length > 0),
   );
 
+  pageSizeOptions = [10, 20, 50];
   deletedProjects = new Set<number>();
+
+  private pageDataSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -30,7 +47,26 @@ export class ProjectsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadProjects();
+    this.pageDataSubscription = this.pageData$
+      .pipe(
+        switchMap(({ page, pageSize }) => {
+          this.loading$.next(true);
+
+          return this.projectsService.fetchProjects(page, pageSize);
+        }),
+        catchError(() => of({ rows: [], total: 0 })),
+      )
+      .subscribe(response => {
+        const { rows: projects, total } = response;
+
+        this.loading$.next(false);
+        this.total$.next(total);
+        this.projects$.next(projects);
+      });
+  }
+
+  ngOnDestroy() {
+    this.pageDataSubscription.unsubscribe();
   }
 
   removeProject(id: number) {
@@ -49,16 +85,18 @@ export class ProjectsListComponent implements OnInit {
       });
   }
 
-  loadProjects() {
-    this.loading$.next(true);
+  onPageChange(newPage: number) {
+    const { page, pageSize } = this.pageData$.getValue();
 
-    this.projectsService
-      .fetchProjects()
-      .pipe(
-        catchError(() => of([])),
-        finalize(() => this.loading$.next(false))
-      )
-      .subscribe(projects => this.projects$.next(projects));
+    if ((newPage - 1) === page) {
+      return;
+    }
+
+    this.pageData$.next({ page: (newPage - 1), pageSize });
+  }
+
+  onPageSizeChange(pageSize: number) {
+    this.pageData$.next({ page: 0, pageSize });
   }
 
   onRowClick(project: Project) {

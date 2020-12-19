@@ -1,0 +1,19 @@
+<div ngbDropdown>
+  <button
+    class="btn btn-outline-primary dropdown-toggle"
+    [ngClass]="{ 'btn-sm': (size === 'sm') }"
+    ngbDropdownToggle
+  >
+    {{value}}
+  </button>
+  <div ngbDropdownMenu class="dropdown-menu">
+    <button
+      *ngFor="let option of options"
+      class="dropdown-item"
+      ngbDropdownItem
+      (click)="onOptionClick(option)"
+    >
+      {{option.label || option}}
+    </button>
+  </div>
+</div>

@@ -30,9 +30,9 @@ export class PicturesListComponent implements OnInit {
     this.pictureService
       .fetchPictures()
       .pipe(
-        catchError(() => of([])),
+        catchError(() => of({ rows: [], total: 0 })),
         finalize(() => this.loading$.next(false))
       )
-      .subscribe(pictures => this.pictures$.next(pictures));
+      .subscribe(({ rows: pictures }) => this.pictures$.next(pictures));
   }
 }

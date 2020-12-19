@@ -15,50 +15,68 @@
   Не было найдено ни одного проекта
 </div>
 
-<table
-  *ngIf="hasProjects$ | async"
-  class="list table table-bordered table-hover table-striped table-sm"
->
-  <thead>
-    <tr>
-      <th scope="col" class="cell">#</th>
-      <th scope="col" class="cell">Название</th>
-      <th scope="col" class="cell">Кол-во картинок</th>
-      <th scope="col" class="cell">Дата создания</th>
-      <th scope="col" class="cell">Дата обновления</th>
-      <th scope="col" class="cell"></th>
-    </tr>
-  </thead>
+<ng-template [ngIf]="hasProjects$ | async">
+  <table class="list table table-bordered table-hover table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col" class="cell">#</th>
+        <th scope="col" class="cell">Название</th>
+        <th scope="col" class="cell">Кол-во картинок</th>
+        <th scope="col" class="cell">Дата создания</th>
+        <th scope="col" class="cell">Дата обновления</th>
+        <th scope="col" class="cell"></th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <tr
-      *ngFor="let project of projects$ | async"
-      class="list-row"
-      [ngClass]="{ 'list-row_deleted': deletedProjects.has(project.id) }"
-      (click)="onRowClick(project)"
-    >
-      <td class="cell">{{project.id}}</td>
-      <td class="cell">{{project.ruTitle}}</td>
-      <td class="cell">{{project.pictures.length}}</td>
-      <td class="cell">{{project.createdAt| date: 'short'}}</td>
-      <td class="cell">{{project.updatedAt| date: 'short'}}</td>
+    <tbody>
+      <tr
+        *ngFor="let project of projects$ | async"
+        class="list-row"
+        [ngClass]="{ 'list-row_deleted': deletedProjects.has(project.id) }"
+        (click)="onRowClick(project)"
+      >
+        <td class="cell">{{project.id}}</td>
+        <td class="cell">{{project.ruTitle}}</td>
+        <td class="cell">{{project.pictures.length}}</td>
+        <td class="cell">{{project.createdAt| date: 'short'}}</td>
+        <td class="cell">{{project.updatedAt| date: 'short'}}</td>
 
-      <td class="cell_actions">
-        <button
-          *ngIf="!deletedProjects.has(project.id)"
-          class="btn btn-danger btn-sm"
-          (click)="onRemoveClick($event, project)"
-        >
-          Удалить
-        </button>
+        <td class="cell_actions">
+          <button
+            *ngIf="!deletedProjects.has(project.id)"
+            class="btn btn-danger btn-sm"
+            (click)="onRemoveClick($event, project)"
+          >
+            Удалить
+          </button>
 
-        <ls-spinner
-          *ngIf="deletedProjects.has(project.id)"
-          class="text-secondary"
-          [style]="{width: '1.5rem', height: '1.5rem'}"
-        >
-        </ls-spinner>
-      </td>
-    </tr>
-  </tbody>
-</table>
+          <ls-spinner
+            *ngIf="deletedProjects.has(project.id)"
+            class="text-secondary"
+            [style]="{width: '1.5rem', height: '1.5rem'}"
+          >
+          </ls-spinner>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="bottom">
+    <ngb-pagination
+      *ngIf="hasMoreThanOnePage$ | async"
+      size="sm"
+      [page]="page$ | async"
+      [pageSize]="pageSize$ | async"
+      [collectionSize]="total$ | async"
+      (pageChange)="onPageChange($event)"
+    ></ngb-pagination>
+
+    <ls-select
+      class="page-size"
+      size="sm"
+      [options]="pageSizeOptions"
+      [value]="pageSize$ | async"
+      (valueChange)="onPageSizeChange($event)"
+    ></ls-select>
+  </div>
+</ng-template>

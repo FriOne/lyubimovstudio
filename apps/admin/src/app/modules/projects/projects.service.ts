@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Project } from '@lyubimovstudio/api-interfaces';
+import { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectsService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
-  fetchProjects() {
-    return this.http.get<Project[]>('/api/projects');
+  fetchProjects(page = 0, limit = 10) {
+    const params = { page: page.toString(), limit: limit.toString() };
+
+    return this.http.get<PagedResponse<Project>>('/api/projects', { params });
   }
 
   fetchProject(id: string) {

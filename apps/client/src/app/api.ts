@@ -1,4 +1,4 @@
-import { Project } from '@lyubimovstudio/api-interfaces';
+import { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
 
 async function fetchRequest<Response>(input: RequestInfo, init?: RequestInit): Promise<Response> {
    const response = await fetch(input, init);
@@ -11,7 +11,7 @@ async function fetchRequest<Response>(input: RequestInfo, init?: RequestInit): P
 }
 
 export function fetchProjects() {
-  return fetchRequest<Project[]>('/api/projects');
+  return fetchRequest<PagedResponse<Project>>('/api/projects');
 }
 
 export function fetchProject(id: number) {

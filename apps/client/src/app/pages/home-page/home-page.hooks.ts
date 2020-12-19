@@ -11,7 +11,7 @@ export function useProjects() {
 
   useEffect(() => {
     fetchProjects()
-      .then(setProjects)
+      .then(({ rows: projects }) => setProjects(projects))
       .catch(setError)
       .then(() => setLoading(false));
   }, []);

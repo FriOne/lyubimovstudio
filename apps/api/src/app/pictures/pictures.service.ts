@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import fs from 'fs';
 import { promisify } from 'util';
-import path, { extname } from 'path';
+import path from 'path';
 import { v4 as uuid } from 'uuid';
 import sharp from 'sharp';
 
@@ -11,7 +11,6 @@ import { PictureEntity } from '../entities/picture.entity';
 import { UPLOAD_FOLDER } from './constants';
 
 const unlinkFile = promisify(fs.unlink);
-const writeFile = promisify(fs.writeFile);
 const mkdir = promisify(fs.mkdir);
 
 @Injectable()
@@ -21,12 +20,16 @@ export class PicturesService {
     private picturesRepository: Repository<PictureEntity>,
   ) {}
 
-  findAll(): Promise<PictureEntity[]> {
-    return this.picturesRepository.find({
+  async findAll(page = 0, limit) {
+    const [rows, total] = await this.picturesRepository.findAndCount({
+      take: limit,
+      skip: page * limit,
       order: {
         createdAt: 'DESC',
       },
     });
+
+    return { rows, total };
   }
 
   findOne(id: number): Promise<PictureEntity> {

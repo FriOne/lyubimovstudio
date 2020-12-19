@@ -19,13 +19,17 @@ export class ProjectsService {
     private picturesService: PicturesService,
   ) {}
 
-  findAll(): Promise<ProjectEntity[]> {
-    return this.projectsRepository.find({
+  async findAll(page = 0, limit) {
+    const [rows, total] = await this.projectsRepository.findAndCount({
+      take: limit,
+      skip: page * limit,
       relations: ['pictures', 'pictures.image'],
       order: {
         createdAt: 'DESC',
       },
     });
+
+    return { rows, total };
   }
 
   findOne(id: string): Promise<ProjectEntity> {

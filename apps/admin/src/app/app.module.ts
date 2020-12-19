@@ -3,7 +3,6 @@ import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import ruLocale from '@angular/common/locales/ru';
 
 import { AppComponent } from './app.component';
@@ -25,7 +24,6 @@ registerLocaleData(ruLocale, 'ru-RUS');
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule,
     AuthModule.forRoot(),
   ],
   providers: [

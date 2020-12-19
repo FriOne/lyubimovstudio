@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Patch, Post } from '@nestjs/common';
 
 import { ProjectsService } from './projects.service';
 import { Public } from '../auth/guards/is-public-route';
+import { IntParam, IntQuery } from '../pipes';
 
 @Controller('projects')
 export class ProjectsController {
@@ -9,13 +10,13 @@ export class ProjectsController {
 
   @Public()
   @Get()
-  findAll() {
-    return this.projectsService.findAll();
+  findAll(@IntQuery('page') page, @IntQuery('limit') limit) {
+    return this.projectsService.findAll(page, limit);
   }
 
   @Public()
   @Get(':id')
-  async findOne(@Param('id') id) {
+  async findOne(@IntParam('id') id) {
     const project = await this.projectsService.findOne(id);
 
     if (!project) {
@@ -33,12 +34,12 @@ export class ProjectsController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id) {
+  async remove(@IntParam('id') id) {
     return this.projectsService.remove(id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id, @Body() body) {
+  async update(@IntParam('id') id, @Body() body) {
     const projectExists = await this.projectsService.exists(id);
 
     if (!projectExists) {
