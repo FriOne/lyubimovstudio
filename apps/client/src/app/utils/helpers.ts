@@ -7,5 +7,7 @@ export const bemClassName = withNaming({
 });
 
 export function getPicturesUrl(pictureName: string) {
-  return `/uploads/${pictureName}`;
+  const isMobile = window.innerWidth < 1025;
+
+  return `/uploads/${isMobile ? 'sm-' : ''}${pictureName}`;
 }

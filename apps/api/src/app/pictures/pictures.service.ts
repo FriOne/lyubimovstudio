@@ -57,13 +57,19 @@ export class PicturesService {
   async saveFile(file: any) {
     const newFileName = `${uuid()}.jpg`;
     const filePath = path.resolve(`${UPLOAD_FOLDER}/${newFileName}`);
+    const mobileFilePath = path.resolve(`${UPLOAD_FOLDER}/sm-${newFileName}`);
 
     await mkdir(UPLOAD_FOLDER, { recursive: true } as any);
 
     await sharp(file.buffer)
-      .resize(2000, null, { withoutEnlargement: true })
+      .resize(2048, null, { withoutEnlargement: true })
       .toFormat('jpg')
       .toFile(filePath);
+
+    await sharp(file.buffer)
+      .resize(1024, null, { withoutEnlargement: true })
+      .toFormat('jpg')
+      .toFile(mobileFilePath);
 
     return newFileName;
   }
@@ -71,6 +77,7 @@ export class PicturesService {
   async removeFile(name: string, silent = true) {
     try {
       await unlinkFile(path.resolve(UPLOAD_FOLDER, name));
+      await unlinkFile(path.resolve(UPLOAD_FOLDER, `sm-${name}`));
     }
     catch(error) {
       if (!silent) {

@@ -10,7 +10,9 @@ export class PicturesService {
   constructor(private http: HttpClient) {}
 
   getPicturePath(pictureName: string) {
-    return `/uploads/${pictureName}`;
+    const isMobile = window.innerWidth < 1025;
+
+    return `/uploads/${isMobile ? 'sm-' : ''}${pictureName}`;
   }
 
   fetchPictures() {
