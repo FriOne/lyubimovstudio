@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SelectComponent } from './components/select/select.component';
+import { AppToastsComponent } from './components/app-toasts/app-toasts.component';
+import { ToastsService } from './services/toasts.service';
 
 @NgModule({
   imports: [
@@ -13,8 +15,20 @@ import { SelectComponent } from './components/select/select.component';
   exports: [
     NgbModule,
     SpinnerComponent,
-    SelectComponent
+    SelectComponent,
+    AppToastsComponent,
   ],
-  declarations: [SpinnerComponent, SelectComponent],
+  declarations: [
+    SpinnerComponent,
+    SelectComponent,
+    AppToastsComponent,
+  ],
 })
-export class SharedModule {}
+export class SharedModule {
+  static forRoot(): ModuleWithProviders<SharedModule> {
+    return {
+      ngModule: SharedModule,
+      providers: [ToastsService],
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
 import { Project } from '@lyubimovstudio/api-interfaces';
 
 import { ProjectsService } from '../projects.service';
+import { ToastsService } from '../../shared/services/toasts.service';
 
 type PageData = {
   page: number;
@@ -44,6 +45,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private projectsService: ProjectsService,
+    private toastsService: ToastsService,
   ) {}
 
   ngOnInit(): void {
@@ -77,11 +79,14 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         const projects = [...this.projects$.getValue()];
         const projectIndex = projects.findIndex(project => (project.id === id));
+        const project = projects[projectIndex];
 
         projects.splice(projectIndex, 1);
 
         this.deletedProjects.delete(id);
         this.projects$.next(projects);
+
+        this.toastsService.showSuccess(`Проект "${project.ruTitle}" удален`);
       });
   }
 

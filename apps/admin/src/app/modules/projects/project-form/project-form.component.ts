@@ -6,6 +6,7 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 
 import { ProjectsService } from '../projects.service';
 import { PicturesService } from '../../pictures/pictures.service';
+import { ToastsService } from '../../shared/services/toasts.service';
 
 @Component({
   selector: 'ls-project-form',
@@ -36,9 +37,10 @@ export class ProjectFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private fb: FormBuilder,
     private projectsService: ProjectsService,
     private picturesService: PicturesService,
-    private fb: FormBuilder,
+    private toastsService: ToastsService,
   ) {}
 
   ngOnInit() {
@@ -71,17 +73,23 @@ export class ProjectFormComponent implements OnInit {
       return;
     }
 
+    const project = this.projectForm.value;
+
     this.loading$.next(true);
     this.projectsService
       .saveProject(this.projectForm.value)
       .subscribe(
         () => {
           this.loading$.next(false);
+
+          this.toastsService.showSuccess(`Проект "${project.ruTitle}" успешно сохранен`);
+
           this.router.navigate(['../'], { relativeTo: this.route });
         },
         (error) => {
           this.error$.next(error.message);
           this.loading$.next(false);
+          this.toastsService.showError(`Произошла ошибка при сохранении проекта`);
         }
       );
   }

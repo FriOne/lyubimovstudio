@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MenuComponent } from './components/menu/menu.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AuthModule } from './modules/auth/auth.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 registerLocaleData(ruLocale, 'ru-RUS');
 
@@ -25,6 +26,7 @@ registerLocaleData(ruLocale, 'ru-RUS');
     HttpClientModule,
     AppRoutingModule,
     AuthModule.forRoot(),
+    SharedModule.forRoot(),
   ],
   providers: [
     {
