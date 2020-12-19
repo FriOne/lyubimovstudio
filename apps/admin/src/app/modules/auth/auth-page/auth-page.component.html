@@ -28,6 +28,10 @@
       />
     </div>
 
+    <div *ngIf="error$ | async" class="alert alert-danger">
+      {{error$ | async}}
+    </div>
+
     <div class="bottom">
       <button
         *ngIf="!(authorizing$ | async)"

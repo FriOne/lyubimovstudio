@@ -10,6 +10,7 @@ COPY libs libs/
 
 COPY apps/api ./apps/api/
 RUN yarn nx build api --prod
+RUN yarn nx build api-console --prod
 
 
 FROM node:15.3.0-alpine
@@ -23,6 +24,7 @@ COPY .env.prod ./.env
 RUN ls -la
 
 COPY --from=builder /home/node/app/dist/apps/api /home/node/app/
+COPY --from=builder /home/node/app/dist/apps/api-console /home/node/app/api-console/
 COPY --from=builder /home/node/app/node_modules /home/node/app/node_modules/
 
 CMD node main.js

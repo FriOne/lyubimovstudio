@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PictureEntity } from './entities/picture.entity';
 import { ProjectPictureEntity } from './entities/project-picture.entity';
 import { ProjectEntity } from './entities/project.entity';
+import { UserEntity } from './entities/user.entity';
 
 import { AppController } from './app.controller';
 import { ProjectsModule } from './projects/projects.module';
@@ -33,6 +34,7 @@ import { GlobalExceptionFilter } from './global-exception.filter';
           PictureEntity,
           ProjectPictureEntity,
           ProjectEntity,
+          UserEntity,
         ],
         synchronize: true,
       }),

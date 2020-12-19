@@ -1,23 +1,45 @@
 import { Injectable } from '@nestjs/common';
+import bcrypt from 'bcrypt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-export type User = any;
+import { UserEntity } from '../entities/user.entity';
+
+export type User = {
+  id: number;
+  email: string;
+};
+
+export type UserWithPassword = Omit<User, 'id'> & { password: string; };
+
+const SALT_ROUNDS = 10;
 
 @Injectable()
 export class UsersService {
-  private readonly users = [
-    {
-      userId: 1,
-      email: 'lyubimov@eml.ru',
-      password: '333',
-    },
-    {
-      userId: 2,
-      email: 'lubimov.nsk@gmail.com',
-      password: '4444',
-    },
-  ];
+  constructor(
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
+  ) {}
 
-  async findOne(email: string): Promise<User | undefined> {
-    return this.users.find(user => (user.email === email));
+  async findByEmail(email: string) {
+    return this.usersRepository.findOne({ email });
+  }
+
+  async save(user: UserWithPassword) {
+    const { password: plainPassword, ...rest } = user;
+    const password = await this.encryptPassword(plainPassword);
+
+    return this.usersRepository.save({
+      password,
+      ...rest,
+    });
+  }
+
+  checkUserPassword(password: string, hash: string) {
+    return bcrypt.compare(password, hash);
+  }
+
+  private encryptPassword(password: string) {
+    return bcrypt.hash(password, SALT_ROUNDS);
   }
 }
