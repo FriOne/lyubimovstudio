@@ -19,6 +19,8 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.api
     volumes:
+      - yarn_cache:/yarn
+      - node_modules_cache:/home/node/app/node_modules
       - uploads:/home/node/app/uploads
     depends_on:
       - db
@@ -30,6 +32,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.server
+    volumes:
+      - yarn_cache:/yarn
+      - node_modules_cache:/home/node/app/node_modules
     depends_on:
       - api
     networks:
@@ -43,3 +48,5 @@ networks:
 volumes:
   dbdata:
   uploads:
+  yarn_cache:
+  node_modules_cache:

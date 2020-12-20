@@ -1,18 +1,23 @@
 FROM node:15.3.0-alpine as builder
 
+ENV YARN_CACHE_FOLDER /yarn
+RUN mkdir -p $YARN_CACHE_FOLDER
+RUN yarn config set cache-folder $YARN_CACHE_FOLDER
+
 WORKDIR /home/node/app/
 
-COPY angular.json babel.config.json decorate-angular-cli.js nx.json tsconfig.base.json ./
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock decorate-angular-cli.js nx.json ./
 RUN yarn install --frozen-lockfile
+
+COPY angular.json babel.config.json tsconfig.base.json ./
 
 COPY libs libs/
 
 COPY apps/admin ./apps/admin/
-RUN yarn nx build admin --prod
+RUN yarn nx build admin --prod --skip-nx-cache
 
 COPY apps/client ./apps/client/
-RUN yarn nx build client --prod
+RUN yarn nx build client --prod --skip-nx-cache
 
 FROM nginx:stable
 

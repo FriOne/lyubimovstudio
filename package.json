@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "postinstall": "test -n $NOYARNPOSTINSTALL || (node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points)",
     "nx": "nx",
     "start": "ng serve",
     "build": "ng build",
@@ -76,7 +76,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.5",
     "sharp": "^0.26.3",
-    "tslib": "^2.0.0",
+    "tslib": "^2.0.3",
     "typeorm": "^0.2.28",
     "uuid": "^8.3.1",
     "zone.js": "^0.10.2"
