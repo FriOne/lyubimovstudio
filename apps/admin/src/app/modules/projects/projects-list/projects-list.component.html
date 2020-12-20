@@ -7,9 +7,28 @@
   </a>
 
   <ls-spinner *ngIf="loading$ | async" class="loading">
-    <span class="sr-only">Загрузка...</span>
   </ls-spinner>
 </div>
+
+<form
+  class="filters"
+  [formGroup]="filtersForm"
+  (ngSubmit)="onFiltersSubmit()"
+>
+  <div class="form-group">
+    <label class="col-form-label-s">
+      Название
+    </label>
+    <input
+      class="form-control form-control-sm"
+      formControlName="name"
+    />
+  </div>
+
+  <button class="filters-submit btn btn-sm btn-primary">
+    Применить
+  </button>
+</form>
 
 <div *ngIf="noProjects$ | async" class="no-projects">
   Не было найдено ни одного проекта

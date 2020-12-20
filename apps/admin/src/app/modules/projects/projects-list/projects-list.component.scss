@@ -12,6 +12,14 @@
   align-items: center;
 }
 
+.filters {
+  margin-top: 20px;
+
+  .form-group {
+    max-width: 200px;
+  }
+}
+
 .loading {
   margin-left: 20px;
 }

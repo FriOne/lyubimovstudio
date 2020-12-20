@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Patch, Post, Query } from '@nestjs/common';
 
 import { ProjectsService } from './projects.service';
 import { Public } from '../auth/guards/is-public-route';
@@ -10,8 +10,12 @@ export class ProjectsController {
 
   @Public()
   @Get()
-  findAll(@IntQuery('page') page, @IntQuery('limit') limit) {
-    return this.projectsService.findAll(page, limit);
+  findAll(
+    @IntQuery('page') page,
+    @IntQuery('limit') limit,
+    @Query('name') name
+  ) {
+    return this.projectsService.findAll(page, limit, name);
   }
 
   @Public()

@@ -1,16 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
 
 import { Project } from '@lyubimovstudio/api-interfaces';
 
 import { ProjectsService } from '../projects.service';
 import { ToastsService } from '../../shared/services/toasts.service';
+import { FormBuilder, FormControl } from '@angular/forms';
 
-type PageData = {
+type Filters = {
   page: number;
   pageSize: number;
+  name: string;
 };
 
 @Component({
@@ -19,11 +21,11 @@ type PageData = {
   styleUrls: ['./projects-list.component.scss']
 })
 export class ProjectsListComponent implements OnInit, OnDestroy {
-  pageData$ = new BehaviorSubject<PageData>({ page: 0, pageSize: 10});
-  page$ = this.pageData$.pipe(map(pageData => pageData.page + 1));
-  pageSize$ = this.pageData$.pipe(map(pageData => pageData.pageSize));
+  filters$ = new BehaviorSubject<Filters>({ page: 0, pageSize: 10, name: '' });
+  page$ = this.filters$.pipe(map(pageData => pageData.page + 1));
+  pageSize$ = this.filters$.pipe(map(pageData => pageData.pageSize));
   total$ = new BehaviorSubject<number>(0);
-  hasMoreThanOnePage$ = combineLatest(this.total$, this.pageData$).pipe(
+  hasMoreThanOnePage$ = combineLatest(this.total$, this.filters$).pipe(
     map(([total, { pageSize }]) => (total > pageSize)),
   );
 
@@ -36,6 +38,10 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     map(([projects, loading]) => !loading && projects.length > 0),
   );
 
+  filtersForm = this.fb.group({
+    name: [''],
+  });
+
   pageSizeOptions = [10, 20, 50];
   deletedProjects = new Set<number>();
 
@@ -44,17 +50,24 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private fb: FormBuilder,
     private projectsService: ProjectsService,
     private toastsService: ToastsService,
   ) {}
 
   ngOnInit(): void {
-    this.pageDataSubscription = this.pageData$
+    this.pageDataSubscription = this.filters$
       .pipe(
-        switchMap(({ page, pageSize }) => {
+        tap(filters => {
+          this.filtersForm.setValue(
+            { name: filters.name },
+            { emitEvent: false },
+          );
+        }),
+        switchMap(({ page, pageSize, name }) => {
           this.loading$.next(true);
 
-          return this.projectsService.fetchProjects(page, pageSize);
+          return this.projectsService.fetchProjects(page, pageSize, name);
         }),
         catchError(() => of({ rows: [], total: 0 })),
       )
@@ -90,18 +103,27 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
       });
   }
 
+  onFiltersSubmit() {
+    const { name } = this.filtersForm.value;
+    const { pageSize } = this.filters$.getValue();
+
+    this.filters$.next({ page: 0, pageSize, name });
+  }
+
   onPageChange(newPage: number) {
-    const { page, pageSize } = this.pageData$.getValue();
+    const { page, pageSize, name } = this.filters$.getValue();
 
     if ((newPage - 1) === page) {
       return;
     }
 
-    this.pageData$.next({ page: (newPage - 1), pageSize });
+    this.filters$.next({ page: (newPage - 1), pageSize, name });
   }
 
   onPageSizeChange(pageSize: number) {
-    this.pageData$.next({ page: 0, pageSize });
+    const { name } = this.filters$.getValue();
+
+    this.filters$.next({ page: 0, pageSize, name });
   }
 
   onRowClick(project: Project) {

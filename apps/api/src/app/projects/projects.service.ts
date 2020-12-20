@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Raw, Repository } from 'typeorm';
 
 import { ProjectEntity } from '../entities/project.entity';
 import { ProjectPictureEntity } from '../entities/project-picture.entity';
@@ -19,8 +19,18 @@ export class ProjectsService {
     private picturesService: PicturesService,
   ) {}
 
-  async findAll(page = 0, limit) {
+  async findAll(page = 0, limit, name = '') {
+    let where;
+
+    if (name) {
+      where = [
+        { ruTitle: Raw(alias => `${alias} ILIKE '%${name}%'`) },
+        { enTitle: Raw(alias => `${alias} ILIKE '%${name}%'`) },
+      ];
+    }
+
     const [rows, total] = await this.projectsRepository.findAndCount({
+      where,
       take: limit,
       skip: page * limit,
       relations: ['pictures', 'pictures.image'],

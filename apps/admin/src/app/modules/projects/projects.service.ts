@@ -9,8 +9,8 @@ import { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
 export class ProjectsService {
   constructor(private http: HttpClient) {}
 
-  fetchProjects(page = 0, limit = 10) {
-    const params = { page: page.toString(), limit: limit.toString() };
+  fetchProjects(page = 0, limit = 10, name = '') {
+    const params = { page: page.toString(), limit: limit.toString(), name };
 
     return this.http.get<PagedResponse<Project>>('/api/projects', { params });
   }
