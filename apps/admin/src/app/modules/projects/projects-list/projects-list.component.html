@@ -19,15 +19,19 @@
     <label class="col-form-label-s">
       Название
     </label>
-    <input
-      class="form-control form-control-sm"
-      formControlName="name"
-    />
-  </div>
 
-  <button class="filters-submit btn btn-sm btn-primary">
-    Применить
-  </button>
+    <div class="input-group input-group-sm">
+      <input
+        class="form-control form-control-sm"
+        formControlName="name"
+      />
+      <div class="input-group-append">
+        <button class="filters-submit btn btn-sm btn-primary">
+          Применить
+        </button>
+      </div>
+    </div>
+  </div>
 </form>
 
 <div *ngIf="noProjects$ | async" class="no-projects">
@@ -66,7 +70,7 @@
             class="btn btn-danger btn-sm"
             (click)="onRemoveClick($event, project)"
           >
-            Удалить
+            <i-bs name="trash-fill"></i-bs>
           </button>
 
           <ls-spinner
