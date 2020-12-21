@@ -9,6 +9,20 @@
   width: 100%;
 }
 
+.logout-link {
+  display: flex;
+  align-items: center;
+}
+
+.logout-icon {
+  margin-left: 5px;
+  font-size: 22px;
+
+  &::before {
+    display: block;
+  }
+}
+
 @media (min-width: map-get($grid-breakpoints, 'lg')) {
   .general-links,
   .navbar-nav {
