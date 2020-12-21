@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
@@ -15,12 +16,11 @@ import { ToastsService } from '../../shared/services/toasts.service';
 })
 export class ProjectFormComponent implements OnInit {
   projectForm = this.fb.group({
-    id: '',
     ruTitle: ['', [Validators.required]],
-    enTitle: '',
-    ruDescription: '',
-    enDescription: '',
-    pictures: [],
+    enTitle: [''],
+    ruDescription: [''],
+    enDescription: [''],
+    pictures: [[]],
   });
 
   id$ = this.route.params.pipe(map(params => params.id));
@@ -50,7 +50,7 @@ export class ProjectFormComponent implements OnInit {
       switchMap(id => this.projectsService.fetchProject(id)),
     ).subscribe(
       (project) => {
-        const newValue = {};
+        const newValue = { pictures: [] };
 
         for (const valueKey of Object.keys(this.projectForm.value)) {
           newValue[valueKey] = project[valueKey];
@@ -59,9 +59,10 @@ export class ProjectFormComponent implements OnInit {
         this.projectForm.setValue(newValue);
         this.loading$.next(false);
       },
-      (error: Error) => {
-        this.error$.next(error.message);
+      (error: HttpErrorResponse) => {
+        this.error$.next(error.statusText);
         this.loading$.next(false);
+        this.toastsService.showError('Произошла ошибка при загрузке проекта');
       },
     );
   }
@@ -77,7 +78,7 @@ export class ProjectFormComponent implements OnInit {
 
     this.loading$.next(true);
     this.projectsService
-      .saveProject(this.projectForm.value)
+      .saveProject(project)
       .subscribe(
         () => {
           this.loading$.next(false);
@@ -87,9 +88,8 @@ export class ProjectFormComponent implements OnInit {
           this.router.navigate(['../'], { relativeTo: this.route });
         },
         (error) => {
-          this.error$.next(error.message);
           this.loading$.next(false);
-          this.toastsService.showError(`Произошла ошибка при сохранении проекта`);
+          this.toastsService.showError(error.message);
         }
       );
   }

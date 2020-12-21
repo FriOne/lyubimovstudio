@@ -21,6 +21,10 @@ export class GlobalExceptionFilter extends BaseExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    if (status === HttpStatus.BAD_REQUEST) {
+      return response.status(status).json(exception.response);
+    }
+
     this.logger.error(exception.toString());
 
     response.sendStatus(status);

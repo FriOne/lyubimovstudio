@@ -3,6 +3,8 @@ import { Body, Controller, Delete, Get, NotFoundException, Patch, Post, Query } 
 import { ProjectsService } from './projects.service';
 import { Public } from '../auth/guards/is-public-route';
 import { IntParam, IntQuery } from '../pipes';
+import { ProjectDto } from './project.dto';
+import { ProjectEntity } from '../entities/project.entity';
 
 @Controller('projects')
 export class ProjectsController {
@@ -31,10 +33,8 @@ export class ProjectsController {
   }
 
   @Post()
-  async create(@Body() body) {
-    const { id, ...project } = body;
-
-    return this.projectsService.save(project);
+  async create(@Body() project: ProjectDto) {
+    return this.projectsService.save(project as ProjectEntity);
   }
 
   @Delete(':id')
@@ -43,13 +43,13 @@ export class ProjectsController {
   }
 
   @Patch(':id')
-  async update(@IntParam('id') id, @Body() body) {
+  async update(@IntParam('id') id, @Body() project: ProjectDto) {
     const projectExists = await this.projectsService.exists(id);
 
     if (!projectExists) {
       throw new NotFoundException();
     }
 
-    return this.projectsService.save(body);
+    return this.projectsService.save(project as ProjectEntity);
   }
 }
