@@ -1,9 +1,8 @@
-import { IsString, isInt, IsNotEmpty, ValidateNested } from 'class-validator';
+import { IsString, IsNotEmpty, ValidateNested } from 'class-validator';
 
 import { PictureDto } from './picture.dto';
 
 export class ProjectPictureDto {
-  @isInt()
   id?: number;
 
   @IsString()
@@ -19,7 +18,6 @@ export class ProjectPictureDto {
   enDescription?: string;
 
   @IsNotEmpty()
-  @isInt()
   order: number;
 
   @ValidateNested()
