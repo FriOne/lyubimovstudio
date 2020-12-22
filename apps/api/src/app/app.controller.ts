@@ -1,8 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 
-@Controller('app')
+import { Public } from './auth/guards/is-public-route';
+
+@Controller()
 export class AppController {
   @Get('ping')
+  @Public()
   pingPong() {
     return 'pong';
   }
