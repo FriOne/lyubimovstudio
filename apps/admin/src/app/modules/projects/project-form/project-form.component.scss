@@ -49,3 +49,24 @@
 .submit {
   margin-top: 10px;
 }
+
+@media (max-width: 768px) {
+  .top {
+    display: block;
+  }
+
+  .title {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-fields {
+    display: block;
+  }
+
+  .right-fields {
+    margin-left: 0;
+  }
+}
