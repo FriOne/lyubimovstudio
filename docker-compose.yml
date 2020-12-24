@@ -21,7 +21,7 @@ services:
     volumes:
       - yarn_cache:/yarn
       - node_modules_cache:/home/node/app/node_modules
-      - uploads:/home/node/app/uploads
+      - uploads:/home/node/app/api/uploads
     depends_on:
       - db
     networks:
@@ -46,7 +46,8 @@ networks:
   server:
 
 volumes:
-  dbdata:
   uploads:
+    external: true
+  dbdata:
   yarn_cache:
   node_modules_cache:

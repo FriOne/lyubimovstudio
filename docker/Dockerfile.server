@@ -14,10 +14,10 @@ COPY angular.json babel.config.json tsconfig.base.json ./
 COPY libs libs/
 
 COPY apps/admin ./apps/admin/
-RUN yarn nx build admin --prod --skip-nx-cache
+RUN yarn nx build admin --prod
 
 COPY apps/client ./apps/client/
-RUN yarn nx build client --prod --skip-nx-cache
+RUN yarn nx build client --prod
 
 FROM nginx:stable
 
