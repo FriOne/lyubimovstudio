@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import './app.css';
 
@@ -7,10 +7,12 @@ import { bemClassName } from './utils/helpers';
 import { HomePage } from './pages/home-page/home-page';
 import { ProjectPage } from './pages/project-page/project-page';
 import { Link, Navigation } from './components/navigation/navigation';
+import { AboutPage } from './pages/about-page/about-page';
 
 const cls = bemClassName('app');
 const links: Link[] = [
-  { to: '/', children: 'Проекты' },
+  { to: '/projects', children: 'Проекты' },
+  { to: '/about', children: 'О компании' },
 ];
 
 export function App() {
@@ -22,11 +24,12 @@ export function App() {
       />
 
       <div className={cls('content')}>
-        <Routes>
-          <Route path="/" element={<HomePage />}/>
-          <Route path="projects" element={<HomePage />}/>
-          <Route path="projects/:id" element={<ProjectPage />}/>
-        </Routes>
+        <Switch>
+          <Redirect exact from="/" to="projects"/>
+          <Route exact path="/projects" component={HomePage}/>
+          <Route exact path="/projects/:id" component={ProjectPage}/>
+          <Route exact path="/about" component={AboutPage}/>
+        </Switch>
       </div>
     </div>
   );

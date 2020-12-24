@@ -1,0 +1,43 @@
+.about-page {
+  display: flex;
+  padding: 30px;
+
+  &__description {
+    flex: 1 1 auto;
+  }
+
+  &__photos {
+    flex: 0 0 auto;
+    margin-left: 40px;
+  }
+
+  &__photo {
+    max-width: 350px;
+  }
+
+  &__title {
+    &_about {
+      margin-top: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    &__photo {
+      max-width: 250px;
+    }
+
+    &__photos {
+      margin-left: 20px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .about-page {
+    &__photos {
+      display: none;
+    }
+  }
+}

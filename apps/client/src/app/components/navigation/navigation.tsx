@@ -28,23 +28,27 @@ export const Navigation: FunctionComponent<Props> = (props) => {
 
   return (
     <nav className={cls({ opened }, [className])}>
-      <HamburgerButton
-        className={cls('toggler')}
-        active={opened}
-        onClick={onTogglerClick}
-      />
+      <div className={cls('sidenav')}>
+        <div className={cls('menu')}>
+          {links.map(link => (
+            <NavLink
+              key={link.to}
+              className={cls('link')}
+              activeClassName={cls('link', { active: true })}
+              onClick={onLinkClick}
+              {...link}
+            />
+          ))}
+        </div>
 
-      <div className={cls('menu')}>
-        {links.map(link => (
-          <NavLink
-            key={link.to}
-            className={cls('link')}
-            activeClassName={cls('link', { active: true })}
-            onClick={onLinkClick}
-            {...link}
-          />
-        ))}
+        <HamburgerButton
+          className={cls('toggler')}
+          active={opened}
+          onClick={onTogglerClick}
+        />
       </div>
+
+      <div className={cls('fake')}/>
 
       <a
         className={cls('phone')}

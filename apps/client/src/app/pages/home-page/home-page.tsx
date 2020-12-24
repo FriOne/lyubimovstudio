@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback } from 'react';
-import { useNavigate } from 'react-router';
+import { useHistory } from 'react-router';
 
 import './home-page.css';
 
@@ -14,11 +14,11 @@ import { Alert } from '../../components/alert/alert';
 const cls = bemClassName('home-page');
 
 export const HomePage: FunctionComponent = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const { loading, error, projects } = useProjects();
 
   const onProjectClick = useCallback((project: Project) => {
-    navigate(`/projects/${project.id}`);
+    history.push(`/projects/${project.id}`);
   }, []);
 
   return (

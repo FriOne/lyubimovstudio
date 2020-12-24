@@ -12,7 +12,7 @@ import { ProjectView } from '../../components/project-view/project-view';
 const cls = bemClassName('project-page');
 
 export const ProjectPage: FunctionComponent = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { loading, error, project } = useProject(Number(id));
 
   return (
