@@ -45,11 +45,11 @@ export class ProjectsService {
   findOne(id: string): Promise<ProjectEntity> {
     return this.projectsRepository
       .createQueryBuilder('project')
-      .leftJoinAndSelect('project.pictures', 'pictures')
-      .leftJoinAndSelect('pictures.image', 'images')
+      .leftJoinAndSelect('project.pictures', 'projectPicture')
+      .leftJoinAndSelect('projectPicture.image', 'image')
       .whereInIds(id)
       .orderBy('createdAt', 'DESC')
-      .orderBy('pictures.order', 'ASC')
+      .orderBy('projectPicture.order', 'ASC')
       .getOne();
   }
 
@@ -110,6 +110,12 @@ export class ProjectsService {
       .whereInIds(id)
       .getOne();
 
-    return project.pictures.map(picture => picture.image.name);
+    if (!project) {
+      return [];
+    }
+
+    return project.pictures
+      .filter(picture => picture.image?.name)
+      .map(picture => picture.image.name);
   }
 }

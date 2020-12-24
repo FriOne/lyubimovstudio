@@ -50,6 +50,6 @@ export class ProjectsController {
       throw new NotFoundException();
     }
 
-    return this.projectsService.save(project as ProjectEntity);
+    return this.projectsService.save({ id, ...project } as ProjectEntity);
   }
 }

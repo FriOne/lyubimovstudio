@@ -13,8 +13,8 @@ import { PictureEntity } from '../entities/picture.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      ProjectPictureEntity,
       ProjectEntity,
+      ProjectPictureEntity,
       PictureEntity,
     ]),
     PicturesModule,

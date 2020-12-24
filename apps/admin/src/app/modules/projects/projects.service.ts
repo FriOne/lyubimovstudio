@@ -19,9 +19,9 @@ export class ProjectsService {
     return this.http.get<Project>(`/api/projects/${id}`);
   }
 
-  saveProject(project: Project) {
-    return project.id
-      ? this.http.patch<Project>(`/api/projects/${project.id}`, project)
+  saveProject(project: Project, id?: number) {
+    return id
+      ? this.http.patch<Project>(`/api/projects/${id}`, project)
       : this.http.post<Project>(`/api/projects`, project);
   }
 

@@ -40,7 +40,7 @@ export class ProjectPictureEntity implements ProjectPicture {
   @OneToOne(
     'PictureEntity',
     'projectPicture',
-    { onDelete: 'CASCADE', cascade: true }
+    { onDelete: 'CASCADE', eager: true, cascade: true }
   )
   @JoinColumn()
   image: Picture;

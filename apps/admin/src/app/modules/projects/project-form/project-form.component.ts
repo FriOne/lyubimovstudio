@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class ProjectFormComponent implements OnInit {
     pictures: [[]],
   });
 
+  id: number;
   id$ = this.route.params.pipe(map(params => params.id));
   isNew$ = this.id$.pipe(map(id => id === 'new'));
   title$ = this.isNew$.pipe(map(isNew => isNew ? 'Новый проект' : 'Редактирование проекта'));
@@ -46,7 +47,10 @@ export class ProjectFormComponent implements OnInit {
   ngOnInit() {
     this.id$.pipe(
       filter(id => id !== 'new'),
-      tap(() => this.loading$.next(true)),
+      tap((id) => {
+        this.id = id;
+        this.loading$.next(true);
+      }),
       switchMap(id => this.projectsService.fetchProject(id)),
     ).subscribe(
       (project) => {
@@ -78,7 +82,7 @@ export class ProjectFormComponent implements OnInit {
 
     this.loading$.next(true);
     this.projectsService
-      .saveProject(project)
+      .saveProject(project, this.id)
       .subscribe(
         () => {
           this.loading$.next(false);
