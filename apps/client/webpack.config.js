@@ -1,12 +1,40 @@
-const nrwlConfig = require('@nrwl/react/plugins/webpack.js');
+const path = require('path');
+const webpack = require('webpack');
 const postcssNested = require('postcss-nested');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
+const nrwlConfig = require('@nrwl/react/plugins/webpack.js');
 
 module.exports = (config) => {
+  const isDevelopment = (config.mode === 'development');
+
   nrwlConfig(config);
   addPostcssPlugins(config, [postcssNested()]);
 
+  if (isDevelopment) {
+    addHMR(config);
+  }
+
   return config;
 };
+
+function addHMR(config) {
+  config.entry = {
+    main: ['webpack/hot/dev-server', ...config.entry.main],
+  };
+
+  config.devServer = {
+    ...config.devServer,
+    hot: true,
+    inline: true,
+    historyApiFallback: true,
+  };
+
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
+  );
+}
 
 function addPostcssPlugins(config, plugins) {
   for (const rule of config.module.rules) {
