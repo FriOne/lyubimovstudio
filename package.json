@@ -103,6 +103,7 @@
     "@nrwl/react": "^11.0.16",
     "@nrwl/web": "11.0.16",
     "@nrwl/workspace": "11.0.16",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@testing-library/react": "11.2.2",
     "@types/bcrypt": "^3.0.0",
     "@types/inquirer": "^7.3.1",
@@ -115,6 +116,7 @@
     "@types/react-dom": "17.0.0",
     "@types/react-router-dom": "5.1.6",
     "@types/sharp": "^0.26.1",
+    "@types/webpack-env": "^1.16.0",
     "@types/yargs-interactive": "^2.1.1",
     "@typescript-eslint/eslint-plugin": "4.11.0",
     "@typescript-eslint/parser": "4.11.0",
@@ -129,9 +131,12 @@
     "jest-preset-angular": "8.3.2",
     "postcss-nested": "4.2.3",
     "prettier": "2.2.1",
+    "react-refresh": "^0.9.0",
+    "start-server-webpack-plugin": "^2.2.5",
     "ts-jest": "26.4.4",
     "ts-node": "~9.1.1",
     "tslint": "~6.0.0",
-    "typescript": "^4.0.5"
+    "typescript": "^4.0.5",
+    "webpack-node-externals": "^2.5.2"
   }
 }

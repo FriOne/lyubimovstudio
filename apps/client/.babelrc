@@ -1,4 +1,9 @@
 {
   "presets": ["@nrwl/react/babel"],
-  "plugins": []
+  "plugins": [],
+  "env": {
+    "dev": {
+      "plugins": ["react-refresh/babel"]
+    }
+  }
 }
