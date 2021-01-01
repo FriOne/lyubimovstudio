@@ -9,8 +9,8 @@ import { PagedResponse, Picture } from '@lyubimovstudio/api-interfaces';
 export class PicturesService {
   constructor(private http: HttpClient) {}
 
-  getPicturePath(pictureName: string) {
-    const isMobile = window.innerWidth < 1025;
+  getPicturePath(pictureName: string, forceMobile = true) {
+    const isMobile = forceMobile || window.innerWidth < 1025;
 
     return `/uploads/${isMobile ? 'sm-' : ''}${pictureName}`;
   }

@@ -35,6 +35,7 @@ services:
     volumes:
       - yarn_cache:/yarn
       - node_modules_cache:/home/node/app/node_modules
+      - uploads:/usr/share/nginx/html/uploads
     depends_on:
       - api
     networks:
