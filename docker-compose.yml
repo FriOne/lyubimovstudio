@@ -27,6 +27,26 @@ services:
     networks:
       - server
 
+  frontend:
+    image: lyubimovroman/lyubimovstudio-frontend:latest
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.frontend
+    volumes:
+      - yarn_cache:/yarn
+      - node_modules_cache:/home/node/app/node_modules
+
+  ssr:
+    image: lyubimovroman/lyubimovstudio-ssr:latest
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.ssr
+    volumes:
+      - yarn_cache:/yarn
+      - node_modules_cache:/home/node/app/node_modules
+    networks:
+      - server
+
   server:
     image: lyubimovroman/lyubimovstudio-server:latest
     build:
@@ -38,6 +58,7 @@ services:
       - uploads:/usr/share/nginx/html/uploads
     depends_on:
       - api
+      - ssr
     networks:
       - server
     ports:

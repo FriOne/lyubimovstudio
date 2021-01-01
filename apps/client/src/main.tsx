@@ -1,14 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate, render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './app/app';
+import { InitialDataContext } from './initial-data-context';
 
-ReactDOM.render(
+const root = document.getElementById('root');
+const method = root.hasChildNodes() ? hydrate : render;
+
+method(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <InitialDataContext.Provider value={null}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </InitialDataContext.Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  root,
 );

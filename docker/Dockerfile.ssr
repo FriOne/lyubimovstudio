@@ -1,4 +1,4 @@
-FROM node:15.3.0-alpine as builder
+FROM lyubimovroman/lyubimovstudio-frontend as frontend
 
 ENV YARN_CACHE_FOLDER /yarn
 RUN mkdir -p $YARN_CACHE_FOLDER
@@ -13,10 +13,12 @@ COPY angular.json babel.config.json tsconfig.base.json ./
 
 COPY libs libs/
 
-COPY apps/api ./apps/api/
-RUN yarn nx build api --prod
-RUN yarn nx build api-console --prod
+COPY apps/client ./apps/client/
 
+ENV API_URL=http://api:3333/api
+
+COPY apps/client-ssr ./apps/client-ssr/
+RUN yarn nx build client-ssr --prod
 
 FROM node:15.3.0-alpine
 
@@ -24,18 +26,16 @@ ENV YARN_CACHE_FOLDER /yarn
 RUN mkdir -p $YARN_CACHE_FOLDER
 RUN yarn config set cache-folder $YARN_CACHE_FOLDER
 
-WORKDIR /home/node/app/api
-
-RUN mkdir /home/node/app/api/uploads
+WORKDIR /home/node/app/client-ssr/
 
 COPY package.json yarn.lock ./
 RUN NOYARNPOSTINSTALL=1 yarn install --production --frozen-lockfile
 
-COPY .env.prod ./.env
+COPY --from=frontend /home/node/app/dist/apps/client/index.html /home/node/app/client-ssr/index.html
+COPY --from=frontend /home/node/app/dist/apps/client-ssr /home/node/app/client-ssr
 
-COPY --from=builder /home/node/app/dist/apps/api /home/node/app/api
-COPY --from=builder /home/node/app/dist/apps/api-console /home/node/app/api-console/
+ENV CLIENT_HTML_FILE=/home/node/app/client-ssr/index.html
 
 CMD node main.js
 
-EXPOSE 3333
+EXPOSE 4444

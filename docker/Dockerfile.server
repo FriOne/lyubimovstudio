@@ -1,27 +1,8 @@
-FROM node:15.3.0-alpine as builder
 
-ENV YARN_CACHE_FOLDER /yarn
-RUN mkdir -p $YARN_CACHE_FOLDER
-RUN yarn config set cache-folder $YARN_CACHE_FOLDER
-
-WORKDIR /home/node/app/
-
-COPY package.json yarn.lock decorate-angular-cli.js nx.json ./
-RUN yarn install --frozen-lockfile
-
-COPY angular.json babel.config.json tsconfig.base.json ./
-
-COPY libs libs/
-
-COPY apps/admin ./apps/admin/
-RUN yarn nx build admin --prod
-
-COPY apps/client ./apps/client/
-RUN yarn nx build client --prod
-
+FROM lyubimovroman/lyubimovstudio-frontend as frontend
 FROM nginx:stable
 
-COPY --from=builder /home/node/app/dist/apps /usr/share/nginx/html/
+COPY --from=frontend /home/node/app/dist/apps /usr/share/nginx/html/
 COPY docker/init/nginx.conf /etc/nginx/conf.d/default.conf
 
 CMD ["/etc/init.d/nginx", "restart;"]

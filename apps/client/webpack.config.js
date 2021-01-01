@@ -1,7 +1,7 @@
-const path = require('path');
 const webpack = require('webpack');
 const postcssNested = require('postcss-nested');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const nrwlConfig = require('@nrwl/react/plugins/webpack.js');
 
@@ -10,6 +10,10 @@ module.exports = (config) => {
 
   nrwlConfig(config);
   addPostcssPlugins(config, [postcssNested()]);
+
+  config.plugins.push(
+      new webpack.EnvironmentPlugin({ API_URL: '' }),
+  );
 
   if (isDevelopment) {
     addHMR(config);
@@ -47,30 +51,36 @@ function addPostcssPlugins(config, plugins) {
         continue;
       }
 
+      const styleLoaderRuleUseIndex = ruleOneOf.use.findIndex(use => (
+        use.loader && use.loader.includes('style-loader')
+      ));
+
+      if (styleLoaderRuleUseIndex !== -1 && config.mode === 'production') {
+        ruleOneOf.use.splice(styleLoaderRuleUseIndex, 1);
+
+        ruleOneOf.use.unshift(
+          '@nrwl/web/node_modules/mini-css-extract-plugin/dist/loader',
+          '@nrwl/web/src/utils/third-party/cli-files/plugins/raw-css-loader',
+        );
+      }
+
       const postCssRuleUseIndex = ruleOneOf.use.findIndex(use => (
         use.loader && use.loader.includes('postcss-loader')
       ));
 
-      if (postCssRuleUseIndex) {
-        ruleOneOf.use.push({
-          loader: 'postcss-loader',
-          options: { plugins },
-        });
+      if (postCssRuleUseIndex !== -1) {
+        const postCssRuleUse = ruleOneOf.use[postCssRuleUseIndex];
+        const postCssLoader = postCssRuleUse.options.plugins;
 
-        continue;
+        ruleOneOf.use[postCssRuleUseIndex].options.plugins = (loader) => {
+          const originalPlugins = postCssLoader(loader);
+
+          return [
+            ...originalPlugins,
+            ...plugins,
+          ];
+        };
       }
-
-      const postCssRuleUse = ruleOneOf.use[postCssRuleUseIndex];
-      const postCssLoader = postCssRuleUse.options.plugins;
-
-      ruleOneOf.use[postCssRuleUseIndex].options.plugins = (loader) => {
-        const originalPlugins = postCssLoader(loader);
-
-        return [
-          ...originalPlugins,
-          ...plugins,
-        ];
-      };
     }
   }
 }

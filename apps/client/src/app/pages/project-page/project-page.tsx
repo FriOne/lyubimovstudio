@@ -1,19 +1,53 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { useSSR } from 'use-ssr';
 
 import './project-page.css';
 
-import { useProject } from './project-page.hook';
+import { Project } from '@lyubimovstudio/api-interfaces';
+
+import { fetchProject } from '../../api';
 import { bemClassName } from '../../utils/helpers';
 import { Alert } from '../../components/alert/alert';
 import { Spinner } from '../../components/spinner/spinner';
 import { ProjectView } from '../../components/project-view/project-view';
+import { FC } from '../../utils/types';
+import { InitialDataContext } from '../../../initial-data-context';
+
+type PageParams = { id: string };
 
 const cls = bemClassName('project-page');
 
-export const ProjectPage: FunctionComponent = () => {
-  const { id } = useParams<{ id: string }>();
-  const { loading, error, project } = useProject(Number(id));
+export const ProjectPage: FC<Project> = () => {
+  const params = useParams<PageParams>();
+  const initialData = useContext(InitialDataContext);
+  const { isBrowser, isServer } = useSSR();
+  let initialState = null;
+
+  if (isBrowser && window.__initialData__) {
+    initialState = window.__initialData__;
+
+    delete window.__initialData__;
+  } else if (isServer && initialData) {
+    initialState = initialData;
+  }
+
+  const [project, setProject] = useState<Project>(initialState);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    if (initialState) {
+      return;
+    }
+
+    setLoading(true);
+
+    ProjectPage.fetchInitialData(params)
+      .then(setProject)
+      .catch(setError)
+      .then(() => setLoading(false));
+  }, []);
 
   return (
     <div className={cls()}>
@@ -27,7 +61,7 @@ export const ProjectPage: FunctionComponent = () => {
         <Spinner className={cls('spinner')}/>
       )}
 
-      {!loading && !error && (
+      {!loading && !error && project && (
         <ProjectView
           className={cls('project-view')}
           project={project}
@@ -35,4 +69,8 @@ export const ProjectPage: FunctionComponent = () => {
       )}
     </div>
   );
+};
+
+ProjectPage.fetchInitialData = (params: PageParams) => {
+  return fetchProject(Number(params.id));
 };

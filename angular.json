@@ -142,9 +142,7 @@
             "tsConfig": "apps/admin/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
-            "styles": [
-              "apps/admin/src/styles.scss"
-            ],
+            "styles": ["apps/admin/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -333,6 +331,52 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/client-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "client-ssr": {
+      "root": "apps/client-ssr",
+      "sourceRoot": "apps/client-ssr/src",
+      "projectType": "application",
+      "prefix": "client-ssr",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/client-ssr",
+            "main": "apps/client-ssr/src/main.tsx",
+            "tsConfig": "apps/client-ssr/tsconfig.app.json",
+            "assets": ["apps/client-ssr/src/assets"],
+            "webpackConfig": "apps/client-ssr/webpack.config.js"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/client-ssr/src/environments/environment.ts",
+                  "with": "apps/client-ssr/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/client/**/*.{ts,tsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/client-ssr"],
+          "options": {
+            "jestConfig": "apps/client-ssr/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

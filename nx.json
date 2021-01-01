@@ -45,6 +45,10 @@
     },
     "api-console": {
       "tags": []
+    },
+    "client-ssr": {
+      "tags": [],
+      "implicitDependencies": ["client"]
     }
   }
 }

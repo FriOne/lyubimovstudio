@@ -1,21 +1,51 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { useSSR } from 'use-ssr';
 
 import './home-page.css';
 
-import { Project } from '@lyubimovstudio/api-interfaces';
+import { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
 
-import { useProjects } from './home-page.hooks';
+import { fetchProjects } from '../../api';
 import { bemClassName } from '../../utils/helpers';
 import { ProjectsGallery } from '../../components/projects-gallery/projects-gallery';
 import { Spinner } from '../../components/spinner/spinner';
 import { Alert } from '../../components/alert/alert';
+import { FC } from '../../utils/types';
+import { InitialDataContext } from '../../../initial-data-context';
 
 const cls = bemClassName('home-page');
 
-export const HomePage: FunctionComponent = () => {
+export const HomePage: FC<PagedResponse<Project>> = () => {
   const history = useHistory();
-  const { loading, error, projects } = useProjects();
+  const initialData = useContext(InitialDataContext);
+  const { isBrowser , isServer} = useSSR();
+  let initialState = [];
+
+  if (isBrowser && window.__initialData__) {
+    initialState = window.__initialData__.rows;
+
+    delete window.__initialData__;
+  } else if (isServer && initialData) {
+    initialState = initialData.rows;
+  }
+
+  const [projects, setProjects] = useState<Project[]>(initialState);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    if (initialState.length > 0) {
+      return;
+    }
+
+    setLoading(true);
+
+    HomePage.fetchInitialData()
+      .then(({ rows }) => setProjects(rows))
+      .catch(setError)
+      .then(() => setLoading(false));
+  }, []);
 
   const onProjectClick = useCallback((project: Project) => {
     history.push(`/projects/${project.id}`);
@@ -42,4 +72,8 @@ export const HomePage: FunctionComponent = () => {
       )}
     </div>
   );
+};
+
+HomePage.fetchInitialData = () => {
+  return fetchProjects();
 };

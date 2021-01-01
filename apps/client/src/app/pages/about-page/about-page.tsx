@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 
-import photo from './photo.jpg';
 import './about-page.css';
 
 import { bemClassName } from '../../utils/helpers';
@@ -105,7 +104,7 @@ export const AboutPage: FunctionComponent = () => {
       <div className={cls('photos')}>
         <img
           className={cls('photo')}
-          src={photo}
+          src="/assets/photo.jpg"
         />
       </div>
     </div>
