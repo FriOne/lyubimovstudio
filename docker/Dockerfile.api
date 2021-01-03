@@ -1,40 +1,22 @@
-FROM node:15.3.0-alpine as builder
-
-ENV YARN_CACHE_FOLDER /yarn
-RUN mkdir -p $YARN_CACHE_FOLDER
-RUN yarn config set cache-folder $YARN_CACHE_FOLDER
-
-WORKDIR /home/node/app
-
-COPY package.json yarn.lock decorate-angular-cli.js nx.json ./
-RUN yarn install --frozen-lockfile
-
-COPY angular.json babel.config.json tsconfig.base.json ./
-
-COPY libs libs/
-
-COPY apps/api ./apps/api/
-RUN yarn nx build api --prod
-RUN yarn nx build api-console --prod
-
-
+FROM lyubimovstudio-build:latest as builder
 FROM node:15.3.0-alpine
-
-ENV YARN_CACHE_FOLDER /yarn
-RUN mkdir -p $YARN_CACHE_FOLDER
-RUN yarn config set cache-folder $YARN_CACHE_FOLDER
 
 WORKDIR /home/node/app/api
 
-RUN mkdir /home/node/app/api/uploads
-
-COPY package.json yarn.lock ./
-RUN NOYARNPOSTINSTALL=1 yarn install --production --frozen-lockfile
+RUN mkdir -p /home/node/app/api/uploads
 
 COPY .env.prod ./.env
 
-COPY --from=builder /home/node/app/dist/apps/api /home/node/app/api
+COPY --from=builder /home/node/app/dist/apps/api-console/package.json /home/node/app/api-console/package.json
+RUN cd /home/node/app/api-console && yarn install --no-lockfile && yarn add pg --no-lockfile
+
+COPY --from=builder /home/node/app/dist/apps/api/package.json /home/node/app/api/package.json
+RUN yarn install --no-lockfile
+RUN yarn add pg --no-lockfile
+RUN yarn add passport --no-lockfile && yarn cache clean
+
 COPY --from=builder /home/node/app/dist/apps/api-console /home/node/app/api-console/
+COPY --from=builder /home/node/app/dist/apps/api /home/node/app/api/
 
 CMD node main.js
 

@@ -14,7 +14,8 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": ["apps/api/src/assets"],
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {
@@ -63,7 +64,8 @@
           "options": {
             "outputPath": "dist/apps/api-console",
             "main": "apps/api/src/cli.ts",
-            "tsConfig": "apps/api/tsconfig.app.json"
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {
@@ -349,6 +351,7 @@
             "main": "apps/client-ssr/src/main.tsx",
             "tsConfig": "apps/client-ssr/tsconfig.app.json",
             "assets": ["apps/client-ssr/src/assets"],
+            "generatePackageJson": true,
             "webpackConfig": "apps/client-ssr/webpack.config.js"
           },
           "configurations": {

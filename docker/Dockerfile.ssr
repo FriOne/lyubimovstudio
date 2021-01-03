@@ -1,38 +1,14 @@
-FROM lyubimovroman/lyubimovstudio-frontend as frontend
-
-ENV YARN_CACHE_FOLDER /yarn
-RUN mkdir -p $YARN_CACHE_FOLDER
-RUN yarn config set cache-folder $YARN_CACHE_FOLDER
-
-WORKDIR /home/node/app
-
-COPY package.json yarn.lock decorate-angular-cli.js nx.json ./
-RUN yarn install --frozen-lockfile
-
-COPY angular.json babel.config.json tsconfig.base.json ./
-
-COPY libs libs/
-
-COPY apps/client ./apps/client/
-
-ENV API_URL=http://api:3333/api
-
-COPY apps/client-ssr ./apps/client-ssr/
-RUN yarn nx build client-ssr --prod
-
+FROM lyubimovstudio-build:latest as builder
 FROM node:15.3.0-alpine
-
-ENV YARN_CACHE_FOLDER /yarn
-RUN mkdir -p $YARN_CACHE_FOLDER
-RUN yarn config set cache-folder $YARN_CACHE_FOLDER
 
 WORKDIR /home/node/app/client-ssr/
 
-COPY package.json yarn.lock ./
-RUN NOYARNPOSTINSTALL=1 yarn install --production --frozen-lockfile
+COPY --from=builder /home/node/app/dist/apps/client-ssr/package.json /home/node/app/client-ssr/package.json
+RUN yarn install --no-lockfile
+RUN yarn add tslib --no-lockfile && yarn cache clean
 
-COPY --from=frontend /home/node/app/dist/apps/client/index.html /home/node/app/client-ssr/index.html
-COPY --from=frontend /home/node/app/dist/apps/client-ssr /home/node/app/client-ssr
+COPY --from=builder /home/node/app/dist/apps/client/index.html /home/node/app/client-ssr/index.html
+COPY --from=builder /home/node/app/dist/apps/client-ssr /home/node/app/client-ssr/
 
 ENV CLIENT_HTML_FILE=/home/node/app/client-ssr/index.html
 

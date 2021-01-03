@@ -10,7 +10,7 @@ import { routes } from './routes';
 
 const cls = bemClassName('app');
 const links: Link[] = [
-  { to: '/', children: 'Проекты' },
+  { to: '/projects', children: 'Проекты' },
   { to: '/about', children: 'О компании' },
 ];
 

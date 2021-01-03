@@ -19,31 +19,17 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.api
     volumes:
-      - yarn_cache:/yarn
-      - node_modules_cache:/home/node/app/node_modules
       - uploads:/home/node/app/api/uploads
     depends_on:
       - db
     networks:
       - server
 
-  frontend:
-    image: lyubimovroman/lyubimovstudio-frontend:latest
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile.frontend
-    volumes:
-      - yarn_cache:/yarn
-      - node_modules_cache:/home/node/app/node_modules
-
   ssr:
     image: lyubimovroman/lyubimovstudio-ssr:latest
     build:
       context: .
       dockerfile: ./docker/Dockerfile.ssr
-    volumes:
-      - yarn_cache:/yarn
-      - node_modules_cache:/home/node/app/node_modules
     networks:
       - server
 
@@ -53,8 +39,6 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.server
     volumes:
-      - yarn_cache:/yarn
-      - node_modules_cache:/home/node/app/node_modules
       - uploads:/usr/share/nginx/html/uploads
     depends_on:
       - api

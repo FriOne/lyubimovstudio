@@ -30,6 +30,10 @@ async function initServer() {
 
   const app = express();
 
+  app.get('/', (req, res) => {
+    res.redirect('/projects', 308);
+  });
+
   app.get('*', getSSRRoute(assets));
 
   const server = app.listen(port, () => {
