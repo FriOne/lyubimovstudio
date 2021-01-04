@@ -11,3 +11,14 @@ export function getPicturesUrl(pictureName: string) {
 
   return `/uploads/${isMobile ? 'sm-' : ''}${pictureName}`;
 }
+
+export function loadImage(url: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+
+    image.onload = () => resolve(url);
+    image.onerror = (error) => reject(error);
+
+    image.src = url;
+  });
+}
