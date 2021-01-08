@@ -8,6 +8,6 @@ module.exports = {
       { cwd: __dirname, configFile: './babel-jest.config.json' },
     ],
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   coverageDirectory: '../../coverage/apps/client',
 };

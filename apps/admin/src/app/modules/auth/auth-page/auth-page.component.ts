@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-
-import { AuthService } from '../auth.service';
 import { finalize, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'ls-auth-page',

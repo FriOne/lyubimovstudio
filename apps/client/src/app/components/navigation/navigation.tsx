@@ -11,7 +11,7 @@ import './navigation.css';
 export type Link = {
   to: NavLinkProps['to'];
   children: NavLinkProps['children'];
-  isActive: NavLinkProps['isActive'];
+  isActive?: NavLinkProps['isActive'];
 };
 
 type Props = {

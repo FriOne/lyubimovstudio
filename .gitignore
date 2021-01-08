@@ -42,3 +42,6 @@ Thumbs.db
 
 docker/init/site.req.pem
 docker/init/site.key.pem
+
+.yalc
+yalc.lock

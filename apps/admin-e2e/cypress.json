@@ -1,1 +1,28 @@
-{"fileServerFolder":".","fixturesFolder":"./src/fixtures","integrationFolder":"./src/integration","modifyObstructiveCode":false,"pluginsFile":"./src/plugins/index","supportFile":"./src/support/index.ts","video":true,"videosFolder":"../../dist/cypress/apps/admin-e2e/videos","screenshotsFolder":"../../dist/cypress/apps/admin-e2e/screenshots","chromeWebSecurity":false}
+{
+  "fileServerFolder": ".",
+  "fixturesFolder": "./src/fixtures",
+  "integrationFolder": "./src/integration",
+  "modifyObstructiveCode": false,
+  "pluginsFile": "./src/plugins/index",
+  "supportFile": "./src/support/index.ts",
+  "video": true,
+  "videosFolder": "../../dist/cypress/apps/admin-e2e/videos",
+  "screenshotsFolder": "../../dist/cypress/apps/admin-e2e/screenshots",
+  "chromeWebSecurity": false,
+  "env": {
+    "cypress-plugin-snapshots": {
+      "imageConfig": {
+        "threshold": 0
+      },
+      "serverEnabled": true,
+      "serverHost": "localhost",
+      "serverPort": 2121,
+      "updateSnapshots": false,
+      "backgroundBlend": "overlay"
+    }
+  },
+  "baseUrl": "http://localhost:4400",
+  "ignoreTestFiles": [
+    "**/__image_snapshots__/*"
+  ]
+}
