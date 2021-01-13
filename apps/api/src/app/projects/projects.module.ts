@@ -3,12 +3,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
 
 import { PicturesModule } from '../pictures/pictures.module';
-import { ProjectsController } from './projects.controller';
-import { ProjectsService } from './projects.service';
 import { ProjectEntity } from '../entities/project.entity';
 import { ProjectPictureEntity } from '../entities/project-picture.entity';
-import { TasksService } from './tasks.service';
+import { TasksService } from './services/tasks.service';
 import { PictureEntity } from '../entities/picture.entity';
+import { TagEntity } from '../entities/tag.entity';
+import { ProjectsController } from './controllers/projects.controller';
+import { ProjectsService } from './services/projects.service';
+import { ProjectsPicturesController } from './controllers/projects-pictures.controller';
+import { ProjectsPicturesService } from './services/projects-pictures.service';
+import { TagsController } from './controllers/tags.controller';
+import { TagsService } from './services/tags.service';
 
 @Module({
   imports: [
@@ -16,14 +21,21 @@ import { PictureEntity } from '../entities/picture.entity';
       ProjectEntity,
       ProjectPictureEntity,
       PictureEntity,
+      TagEntity,
     ]),
     PicturesModule,
     ScheduleModule.forRoot(),
   ],
-  controllers: [ProjectsController],
+  controllers: [
+    ProjectsController,
+    ProjectsPicturesController,
+    TagsController,
+  ],
   providers: [
     ProjectsService,
+    ProjectsPicturesService,
     TasksService,
+    TagsService,
   ],
 })
 export class ProjectsModule {}

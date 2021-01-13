@@ -1,0 +1,54 @@
+<div class="top">
+  <form class="tag-form" [formGroup]="newTagForm" (ngSubmit)="onTagFormSubmit()">
+    <div class="input-group input-group-sm">
+      <input
+        class="form-control form-control-sm"
+        placeholder="Введите название"
+        formControlName="name"
+      />
+      <div class="input-group-append">
+        <button class="new-tag-submit btn btn-sm btn-primary" [disabled]="!newTagForm.value.name || (addingNewTag$ | async)">
+          Добавить
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <ls-spinner *ngIf="loading$ | async" class="loading">
+  </ls-spinner>
+</div>
+
+<div *ngIf="noTags$ | async" class="no-tags">
+  Не было найдено ни одного тега
+</div>
+
+<ng-template [ngIf]="hasTags$ | async">
+  <table class="list table table-bordered table-hover table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col" class="cell">#</th>
+        <th scope="col" class="cell">Название</th>
+        <th scope="col" class="cell"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let tag of tags$ | async" class="list-row"
+        [ngClass]="{ 'list-row_deleted': deletedTags.has(tag.id) }">
+        <td class="cell">{{tag.id}}</td>
+        <td class="cell">{{tag.name}}</td>
+
+        <td class="cell_actions">
+          <button *ngIf="!deletedTags.has(tag.id)" class="btn btn-danger btn-sm"
+            (click)="onRemoveClick($event, tag)">
+            <i class="bi-trash-fill"></i>
+          </button>
+
+          <ls-spinner *ngIf="deletedTags.has(tag.id)" class="text-secondary"
+            [style]="{width: '1.5rem', height: '1.5rem'}">
+          </ls-spinner>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

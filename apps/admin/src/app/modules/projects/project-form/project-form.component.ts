@@ -80,6 +80,10 @@ export class ProjectFormComponent implements OnInit {
 
     const project = this.projectForm.value;
 
+    for (const picture of project.pictures) {
+      picture.tags = picture.tags || [];
+    }
+
     this.loading$.next(true);
     this.projectsService
       .saveProject(project, this.id)

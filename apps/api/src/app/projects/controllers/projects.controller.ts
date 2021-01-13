@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, NotFoundException, Patch, Post, Query } from '@nestjs/common';
 
-import { ProjectsService } from './projects.service';
-import { Public } from '../auth/guards/is-public-route';
-import { IntParam, IntQuery } from '../pipes';
-import { ProjectDto } from './project.dto';
-import { ProjectEntity } from '../entities/project.entity';
+import { Public } from '../../auth/guards/is-public-route';
+import { IntParam, IntQuery } from '../../pipes';
+import { ProjectDto } from '../dtos/project.dto';
+import { ProjectEntity } from '../../entities/project.entity';
+import { ProjectsService } from '../services/projects.service';
 
 @Controller('projects')
 export class ProjectsController {

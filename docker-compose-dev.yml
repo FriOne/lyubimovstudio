@@ -2,6 +2,7 @@ version: "3.3"
 
 services:
   db:
+    image: lyubimovstudio-db:latest
     env_file:
       - .env
     build:

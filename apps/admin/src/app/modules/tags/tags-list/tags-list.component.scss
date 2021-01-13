@@ -8,12 +8,8 @@
   align-items: center;
 }
 
-.filters {
-  margin-top: 20px;
-
-  .form-group {
-    max-width: 300px;
-  }
+.tag-form {
+  max-width: 400px;
 }
 
 .loading {
@@ -40,15 +36,6 @@
   text-align: center;
 }
 
-.no-projects {
+.no-tags {
   margin-top: 40px;
-}
-
-.bottom {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.page-size {
-  margin-left: 10px;
 }

@@ -6,10 +6,12 @@ import {
   JoinColumn,
   ManyToOne,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  ManyToMany,
+  JoinTable
 } from 'typeorm';
 
-import { Project, ProjectPicture, Picture } from '@lyubimovstudio/api-interfaces';
+import { Project, ProjectPicture, Picture, Tag } from '@lyubimovstudio/api-interfaces';
 
 @Entity({ name: 'project_picture' })
 export class ProjectPictureEntity implements ProjectPicture {
@@ -40,15 +42,15 @@ export class ProjectPictureEntity implements ProjectPicture {
   @OneToOne(
     'PictureEntity',
     'projectPicture',
-    { onDelete: 'CASCADE', eager: true, cascade: true }
+    { onDelete: 'CASCADE', eager: true }
   )
   @JoinColumn()
   image: Picture;
 
-  @ManyToOne(
-    'ProjectEntity',
-    'pictures',
-    { onDelete: 'CASCADE' }
-  )
+  @ManyToOne('ProjectEntity', 'pictures', { onDelete: 'CASCADE' })
   project: Project;
+
+  @ManyToMany('TagEntity', { eager: true })
+  @JoinTable()
+  tags: Tag[];
 }

@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TagInputModule } from 'ngx-chips';
 
 import { SharedModule } from '../shared/shared.module';
 import { ProjectsListComponent } from './projects-list/projects-list.component';
@@ -12,6 +13,7 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectsService } from './projects.service';
 import { ProjectPicturesComponent } from './project-pictures/project-pictures.component';
 import { PictureDropzonePreviewComponent } from './picture-dropzone-preview/picture-dropzone-preview.component';
+import { ProjectPictureModalFormComponent } from './project-picture-modal-form/project-picture-modal-form.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { PictureDropzonePreviewComponent } from './picture-dropzone-preview/pict
     ProjectFormComponent,
     ProjectPicturesComponent,
     PictureDropzonePreviewComponent,
+    ProjectPictureModalFormComponent,
   ],
   imports: [
     CommonModule,
@@ -27,8 +30,11 @@ import { PictureDropzonePreviewComponent } from './picture-dropzone-preview/pict
     NgxDropzoneModule,
     DragDropModule,
     ScrollingModule,
+    TagInputModule,
     SharedModule,
   ],
-  providers: [ProjectsService],
+  providers: [
+    ProjectsService,
+  ],
 })
 export class ProjectsModule {}

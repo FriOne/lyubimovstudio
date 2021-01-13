@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class LayoutComponent {
   links = [
     { title: 'Проекты', href: '/projects' },
+    { title: 'Теги', href: '/tags' },
     { title: 'Картинки', href: '/pictures' },
   ];
 }

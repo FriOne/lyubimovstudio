@@ -12,6 +12,7 @@ import { PicturesService } from '../../pictures/pictures.service';
 export class PictureDropzonePreviewComponent implements OnInit {
   @Input() projectPicture?: ProjectPicture;
   @Output() removed = new EventEmitter<ProjectPicture>();
+  @Output() edit = new EventEmitter<ProjectPicture>();
 
   imageSrc?: string;
 
@@ -25,5 +26,11 @@ export class PictureDropzonePreviewComponent implements OnInit {
     event.stopPropagation();
 
     this.removed.next(this.projectPicture);
+  }
+
+  onEditClick(event: MouseEvent) {
+    event.stopPropagation();
+
+    this.edit.next(this.projectPicture);
   }
 }

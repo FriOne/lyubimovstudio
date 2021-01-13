@@ -66,6 +66,7 @@
     "express": "4.17.1",
     "history": "^5.0.0",
     "inquirer": "^7.3.3",
+    "ngx-chips": "^2.2.2",
     "ngx-dropzone": "^2.3.0",
     "node-fetch": "^2.6.1",
     "normalize.css": "^8.0.1",

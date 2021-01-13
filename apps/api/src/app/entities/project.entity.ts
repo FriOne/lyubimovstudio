@@ -25,10 +25,6 @@ export class ProjectEntity implements Project {
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: string;
 
-  @OneToMany(
-    'ProjectPictureEntity',
-    'project',
-    { cascade: true },
-  )
+  @OneToMany('ProjectPictureEntity', 'project', { cascade: true })
   pictures: ProjectPicture[];
 }

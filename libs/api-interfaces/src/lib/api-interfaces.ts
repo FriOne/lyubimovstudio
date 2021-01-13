@@ -16,6 +16,13 @@ export interface Picture {
   updatedAt?: string;
 }
 
+export interface Tag {
+  id?: number;
+  name: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface ProjectPicture {
   id?: number;
   ruTitle?: string;
@@ -24,6 +31,7 @@ export interface ProjectPicture {
   enDescription?: string;
   image: Picture;
   order: number;
+  tags: Tag[];
   createdAt?: string;
   updatedAt?: string;
 }

@@ -1,7 +1,8 @@
-import { IsString, IsNotEmpty, ValidateNested, IsDefined, Allow, IsOptional } from 'class-validator';
+import { IsString, ValidateNested, IsDefined, IsOptional, IsArray, IsInt } from 'class-validator';
 import { Type } from 'class-transformer';
 
 import { PictureDto } from './picture.dto';
+import { TagDto } from './tag.dto';
 
 export class ProjectPictureDto {
   @IsOptional()
@@ -23,12 +24,17 @@ export class ProjectPictureDto {
   @IsOptional()
   enDescription?: string;
 
-  @Allow()
-  @IsNotEmpty()
+  @IsInt()
   order: number;
 
   @IsDefined()
   @ValidateNested()
   @Type(() => PictureDto)
   image: PictureDto;
+
+  @ValidateNested()
+  @IsArray()
+  @IsOptional()
+  @Type(() => TagDto)
+  tags: TagDto[];
 }

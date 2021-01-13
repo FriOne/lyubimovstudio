@@ -5,6 +5,7 @@ import { ProjectsModule } from './modules/projects/projects.module';
 import { PicturesModule } from './modules/pictures/pictures.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { LayoutComponent } from './components/layout/layout.component';
+import { TagsModule } from './modules/tags/tags.module';
 
 const routes: Routes = [
   {
@@ -15,18 +16,21 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'projects',
         loadChildren: () => ProjectsModule,
-        canActivate: [AuthGuard],
+      },
+      {
+        path: 'tags',
+        loadChildren: () => TagsModule,
       },
       {
         path: 'pictures',
         loadChildren: () => PicturesModule,
-        canActivate: [AuthGuard],
       },
-    ]
+    ],
   },
 ];
 

@@ -19,11 +19,12 @@
     (cdkDropListDropped)="drop($event)"
   >
     <ls-picture-dropzone-preview
-      *ngFor="let picture of pictures"
+      *ngFor="let picture of pictures; let i = index"
       class="picture-preview"
       cdkDrag
       [projectPicture]="picture"
       (removed)="onRemoveFile($event)"
+      (edit)="onEdit(picture, i)"
     >
       <div *cdkDragPlaceholder class="picture-placeholder"></div>
     </ls-picture-dropzone-preview>

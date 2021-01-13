@@ -2,10 +2,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { Raw, Repository } from 'typeorm';
 
-import { ProjectEntity } from '../entities/project.entity';
-import { ProjectPictureEntity } from '../entities/project-picture.entity';
-import { PictureEntity } from '../entities/picture.entity';
-import { PicturesService } from '../pictures/pictures.service';
+import { ProjectEntity } from '../../entities/project.entity';
+import { ProjectPictureEntity } from '../../entities/project-picture.entity';
+import { PictureEntity } from '../../entities/picture.entity';
+import { PicturesService } from '../../pictures/pictures.service';
 
 @Injectable()
 export class ProjectsService {
@@ -33,7 +33,7 @@ export class ProjectsService {
       where,
       take: limit,
       skip: page * limit,
-      relations: ['pictures', 'pictures.image'],
+      relations: ['pictures', 'pictures.image', 'pictures.tags'],
       order: {
         createdAt: 'DESC',
       },
@@ -47,13 +47,14 @@ export class ProjectsService {
       .createQueryBuilder('project')
       .leftJoinAndSelect('project.pictures', 'projectPicture')
       .leftJoinAndSelect('projectPicture.image', 'image')
+      .leftJoinAndSelect('projectPicture.tags', 'tags')
       .whereInIds(id)
       .orderBy('createdAt', 'DESC')
       .orderBy('projectPicture.order', 'ASC')
       .getOne();
   }
 
-  async exists(id: string): Promise<boolean> {
+  async exists(id: number): Promise<boolean> {
     const project = await this.projectsRepository.findOne(id);
 
     return Boolean(project);
