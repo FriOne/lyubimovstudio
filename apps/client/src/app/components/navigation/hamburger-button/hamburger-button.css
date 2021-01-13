@@ -3,8 +3,9 @@
   padding: 5px;
   cursor: pointer;
   transition-property: opacity, filter;
-  transition-duration: 0.15s;
+  transition-duration: .4s;
   transition-timing-function: linear;
+  outline: 0;
 
   font: inherit;
   color: inherit;

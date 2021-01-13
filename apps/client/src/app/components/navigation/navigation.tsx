@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, useCallback, useState } from 'react';
+import React, { FunctionComponent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { bemClassName } from '../../utils/helpers';
@@ -26,9 +26,27 @@ export const Navigation: FunctionComponent<Props> = (props) => {
   const onTogglerClick = useCallback(() => setOpened(!opened), [opened, setOpened]);
   const onLinkClick = useCallback(() => setOpened(false), [setOpened]);
 
+  const ref = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    const onDocumentClick = (event: MouseEvent) => {
+      if (ref.current.contains(event.target as any)) {
+        return;
+      }
+
+      setOpened(false);
+    };
+
+    document.addEventListener('click', onDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', onDocumentClick);
+    };
+  }, []);
+
   return (
     <nav className={cls({ opened }, [className])}>
-      <div className={cls('sidenav')}>
+      <div className={cls('sidenav')} ref={ref}>
         <div className={cls('menu')}>
           {links.map(link => (
             <NavLink

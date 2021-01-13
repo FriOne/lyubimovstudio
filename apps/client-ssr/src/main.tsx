@@ -99,6 +99,6 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
        initialData,
     });
 
-    res.send(responseHtml);
+    res.status(currentRouteMatch ? 200 : 404).send(responseHtml);
   };
 }
