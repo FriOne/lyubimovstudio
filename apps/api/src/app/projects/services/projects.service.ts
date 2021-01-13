@@ -29,15 +29,19 @@ export class ProjectsService {
       ];
     }
 
-    const [rows, total] = await this.projectsRepository.findAndCount({
-      where,
-      take: limit,
-      skip: page * limit,
-      relations: ['pictures', 'pictures.image', 'pictures.tags'],
-      order: {
-        createdAt: 'DESC',
-      },
-    });
+    const [rows, total] = await this.projectsRepository
+      .createQueryBuilder('project')
+      .leftJoinAndSelect('project.pictures', 'projectPicture')
+      .leftJoinAndSelect('projectPicture.image', 'image')
+      .leftJoinAndSelect('projectPicture.tags', 'tags')
+      .where(where)
+      .take(limit)
+      .skip(page * limit)
+      .orderBy({
+        'project.createdAt': 'DESC',
+        'projectPicture.order': 'ASC'
+      })
+      .getManyAndCount()
 
     return { rows, total };
   }
@@ -49,8 +53,10 @@ export class ProjectsService {
       .leftJoinAndSelect('projectPicture.image', 'image')
       .leftJoinAndSelect('projectPicture.tags', 'tags')
       .whereInIds(id)
-      .orderBy('createdAt', 'DESC')
-      .orderBy('projectPicture.order', 'ASC')
+      .orderBy({
+        'project.createdAt': 'DESC',
+        'projectPicture.order': 'ASC'
+      })
       .getOne();
   }
 

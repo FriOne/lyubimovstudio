@@ -33,7 +33,7 @@ export const ProjectGalleryView: FunctionComponent<Props> = (props) => {
 
   return (
     <div className={cls(null, [className])} onClick={onClick}>
-      {project.pictures?.[0] && (
+      {firstImageUrl && (
         <img
           className={cls('picture')}
           src={firstImageUrl}
