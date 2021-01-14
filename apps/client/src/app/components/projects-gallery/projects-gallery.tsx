@@ -7,6 +7,7 @@ import { Project } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName } from '../../utils/helpers';
 import { ProjectImageLink } from '../project-image-link/project-image-link';
+import useSSR from 'use-ssr';
 
 type Props = {
   className?: string;
@@ -17,6 +18,26 @@ const cls = bemClassName('projects-gallery');
 
 export const ProjectsGallery: FunctionComponent<Props> = (props) => {
   const { className = '', projects } = props;
+  const { isServer } = useSSR();
+  const projectsLinks = projects.map((project) => (
+    <ProjectImageLink
+      key={project.id}
+      className={cls('project')}
+      projectId={project.id}
+      imageName={project.pictures?.[0].image.name}
+    />
+  ));
+
+  // On the server side Masonry doesn't work so we emitate it.
+  if (isServer) {
+    return (
+      <div className={cls(null, [className])}>
+        <div style={{ width: '50%'}} className={cls('column')}>
+          {projectsLinks}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Masonry
@@ -24,14 +45,7 @@ export const ProjectsGallery: FunctionComponent<Props> = (props) => {
       className={cls(null, [className])}
       columnClassName={cls('column')}
     >
-      {projects.map((project) => (
-        <ProjectImageLink
-          key={project.id}
-          className={cls('project')}
-          projectId={project.id}
-          imageName={project.pictures?.[0].image.name}
-        />
-      ))}
+      {projectsLinks}
     </Masonry>
   );
 };
