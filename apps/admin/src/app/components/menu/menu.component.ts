@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../modules/auth/auth.service';
@@ -18,18 +18,31 @@ export class MenuComponent {
 
   opened = false;
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if(!this.eRef.nativeElement.contains(event.target)) {
+      this.opened = false;
+    }
+  }
+
   constructor(
-    private authService: AuthService,
+    private eRef: ElementRef,
     private router: Router,
+    private authService: AuthService,
   ) {}
 
   onTogglerClick() {
     this.opened = !this.opened;
   }
 
+  onLinkClick() {
+    this.opened = false;
+  }
+
   onLogOutClick(event: MouseEvent) {
     event.preventDefault();
 
+    this.opened = false;
     this.authService.logOut();
     this.router.navigate(['/login']);
   }

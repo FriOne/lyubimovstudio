@@ -18,6 +18,7 @@
            class="nav-item nav-link"
            [routerLink]=[link.href]
            routerLinkActive="active"
+           (click)="onLinkClick()"
         >
           {{link.title}}
         </a>

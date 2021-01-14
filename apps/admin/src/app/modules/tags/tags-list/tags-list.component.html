@@ -28,6 +28,8 @@
       <tr>
         <th scope="col" class="cell">#</th>
         <th scope="col" class="cell">Название</th>
+        <th scope="col" class="cell cell_desktop">Дата создания</th>
+        <th scope="col" class="cell cell_desktop">Дата обновления</th>
         <th scope="col" class="cell"></th>
       </tr>
     </thead>
@@ -37,6 +39,8 @@
         [ngClass]="{ 'list-row_deleted': deletedTags.has(tag.id) }">
         <td class="cell">{{tag.id}}</td>
         <td class="cell">{{tag.name}}</td>
+        <td class="cell cell_desktop">{{tag.createdAt | date: 'short'}}</td>
+        <td class="cell cell_desktop">{{tag.updatedAt | date: 'short'}}</td>
 
         <td class="cell_actions">
           <button *ngIf="!deletedTags.has(tag.id)" class="btn btn-danger btn-sm"

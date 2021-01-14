@@ -1,3 +1,6 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
 .list {
   width: 100%;
   margin-top: 20px;
@@ -28,6 +31,10 @@
 .cell {
   padding-left: 10px;
   vertical-align: middle;
+
+  &_desktop {
+    display: none;
+  }
 }
 
 .cell_actions {
@@ -38,4 +45,12 @@
 
 .no-tags {
   margin-top: 40px;
+}
+
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+  .cell {
+    &_desktop {
+      display: table-cell;
+    }
+  }
 }

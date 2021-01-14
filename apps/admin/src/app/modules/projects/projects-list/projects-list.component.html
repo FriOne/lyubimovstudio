@@ -41,9 +41,9 @@
       <tr>
         <th scope="col" class="cell">#</th>
         <th scope="col" class="cell">Название</th>
-        <th scope="col" class="cell">Кол-во картинок</th>
-        <th scope="col" class="cell">Дата создания</th>
-        <th scope="col" class="cell">Дата обновления</th>
+        <th scope="col" class="cell cell_desktop">Кол-во картинок</th>
+        <th scope="col" class="cell cell_desktop">Дата создания</th>
+        <th scope="col" class="cell cell_desktop">Дата обновления</th>
         <th scope="col" class="cell"></th>
       </tr>
     </thead>
@@ -57,9 +57,9 @@
       >
         <td class="cell">{{project.id}}</td>
         <td class="cell">{{project.ruTitle}}</td>
-        <td class="cell">{{project.pictures.length}}</td>
-        <td class="cell">{{project.createdAt| date: 'short'}}</td>
-        <td class="cell">{{project.updatedAt| date: 'short'}}</td>
+        <td class="cell cell_desktop">{{project.pictures.length}}</td>
+        <td class="cell cell_desktop">{{project.createdAt | date: 'short'}}</td>
+        <td class="cell cell_desktop">{{project.updatedAt | date: 'short'}}</td>
 
         <td class="cell_actions">
           <button
