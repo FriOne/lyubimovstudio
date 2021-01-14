@@ -21,14 +21,14 @@
       secondaryPlaceholder="Добавить тег"
       identifyBy="id"
       displayBy="name"
-      onlyFromAutocomplete
+      [onlyFromAutocomplete]="true"
       theme="bootstrap"
     >
       <tag-input-dropdown
         identifyBy="id"
         displayBy="name"
         limitItemsTo="5"
-        appendToBody
+        [appendToBody]="false"
         [matchingFn]="matchingFn"
         [autocompleteObservable]="fetchTagsByName"
       ></tag-input-dropdown>

@@ -1,12 +1,12 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { Raw, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { ProjectPictureEntity } from '../../entities/project-picture.entity';
 import { TagEntity } from '../../entities/tag.entity';
 
 export type Filters = {
-  tag?: string;
+  tagId?: number;
 };
 
 @Injectable()
@@ -18,23 +18,26 @@ export class ProjectsPicturesService {
     private tagsRepository: Repository<TagEntity>,
   ) {}
 
-  findAll(page: number, limit: number, filters?: Filters) {
-    const { tag } = filters;
-    const where = {};
+  async findAll(page: number, limit: number, filters?: Filters) {
+    const { tagId } = filters;
 
-    if (tag) {
-      where['tags.name'] = tag;
+    let query = this.projectPictureRepository
+      .createQueryBuilder('projectPicture')
+      .leftJoin('projectPicture.tags', 'tags')
+      .leftJoinAndSelect('projectPicture.image', 'image')
+      .leftJoin('projectPicture.project', 'project')
+      .addSelect('project.id')
+      .take(limit)
+      .skip(page * limit)
+      .orderBy('projectPicture.createdAt', 'DESC');
+
+    if (tagId) {
+      query = query.where('"projectPicture_tags"."tagId" = :tagId', { tagId });
     }
 
-    return this.projectPictureRepository.findAndCount({
-      where,
-      take: limit,
-      skip: page * limit,
-      relations: ['tags'],
-      order: {
-        createdAt: 'DESC',
-      },
-    });
+    const [rows, total] = await query.getManyAndCount();
+
+    return { rows, total };
   }
 
   findById(id: number) {

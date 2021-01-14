@@ -1,0 +1,15 @@
+.tags-list {
+  &__tag {
+    font-size: 16px;
+    text-decoration: none;
+    color: #666;
+
+    &:hover {
+      opacity: .6;
+    }
+  }
+
+  &__tag + &__tag {
+    margin-left: 20px;
+  }
+}

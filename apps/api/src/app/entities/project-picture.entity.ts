@@ -48,9 +48,9 @@ export class ProjectPictureEntity implements ProjectPicture {
   image: Picture;
 
   @ManyToOne('ProjectEntity', 'pictures', { onDelete: 'CASCADE' })
-  project: Project;
+  project?: Partial<Project>;
 
-  @ManyToMany('TagEntity', { eager: true })
+  @ManyToMany('TagEntity', 'tags', { eager: true })
   @JoinTable()
   tags: Tag[];
 }

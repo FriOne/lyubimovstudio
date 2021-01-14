@@ -51,7 +51,7 @@
 
     &__toggler {
       position: absolute;
-      top: 16px;
+      top: 20px;
       right: -40px;
       display: block;
       z-index: 2;

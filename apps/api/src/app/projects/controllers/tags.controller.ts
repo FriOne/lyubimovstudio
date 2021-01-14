@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, ConflictException, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, ConflictException, Post } from '@nestjs/common';
 
 import { Public } from '../../auth/guards/is-public-route';
 import { IntParam } from '../../pipes';
@@ -11,8 +11,8 @@ export class TagsController {
 
   @Public()
   @Get()
-  findAll(@Query('name') name) {
-    return this.tagsService.findAll({ name });
+  findAll() {
+    return this.tagsService.findAll();
   }
 
   @Post()

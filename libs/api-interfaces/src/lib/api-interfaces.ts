@@ -32,6 +32,7 @@ export interface ProjectPicture {
   image: Picture;
   order: number;
   tags: Tag[];
+  project?: Partial<Project>;
   createdAt?: string;
   updatedAt?: string;
 }

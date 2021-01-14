@@ -6,18 +6,17 @@ import './projects-gallery.css';
 import { Project } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName } from '../../utils/helpers';
-import { ProjectGalleryView } from '../project-gallery-view/project-gallery-view';
+import { ProjectImageLink } from '../project-image-link/project-image-link';
 
 type Props = {
   className?: string;
   projects: Project[];
-  onProjectClick(project: Project): void;
 };
 
 const cls = bemClassName('projects-gallery');
 
 export const ProjectsGallery: FunctionComponent<Props> = (props) => {
-  const { className = '', projects, onProjectClick } = props;
+  const { className = '', projects } = props;
 
   return (
     <Masonry
@@ -26,11 +25,11 @@ export const ProjectsGallery: FunctionComponent<Props> = (props) => {
       columnClassName={cls('column')}
     >
       {projects.map((project) => (
-        <ProjectGalleryView
+        <ProjectImageLink
           key={project.id}
           className={cls('project')}
-          project={project}
-          onProjectClick={onProjectClick}
+          projectId={project.id}
+          imageName={project.pictures?.[0].image.name}
         />
       ))}
     </Masonry>

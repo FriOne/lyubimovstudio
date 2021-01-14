@@ -11,6 +11,7 @@ import { routes } from './routes';
 const cls = bemClassName('app');
 const links: Link[] = [
   { to: '/projects', children: 'Проекты' },
+  { to: '/portfolio', children: 'Портфолио' },
   { to: '/about', children: 'О компании' },
 ];
 

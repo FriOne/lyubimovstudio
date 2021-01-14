@@ -4,9 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
 } from 'typeorm';
 
-import { Tag } from '@lyubimovstudio/api-interfaces';
+import { ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
 @Entity({ name: 'tag' })
 export class TagEntity implements Tag {
@@ -21,4 +22,7 @@ export class TagEntity implements Tag {
 
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: string;
+
+  @ManyToMany('ProjectPictureEntity', 'projectPictures')
+  projectPictures: ProjectPicture[];
 }

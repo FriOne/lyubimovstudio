@@ -18,11 +18,11 @@ export class ProjectsPicturesController {
   @Public()
   @Get()
   findAll(
-    @IntQuery('page') page,
-    @IntQuery('limit') limit,
-    @Query('tag') tag,
+    @IntQuery('page') page: number,
+    @IntQuery('limit') limit: number,
+    @IntQuery('tagId') tagId: number,
   ) {
-    return this.projectsPicturesService.findAll(page, limit, { tag });
+    return this.projectsPicturesService.findAll(page, limit, { tagId });
   }
 
   @Post()

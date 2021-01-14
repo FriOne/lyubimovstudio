@@ -27,8 +27,8 @@ import { TagsService } from './services/tags.service';
     ScheduleModule.forRoot(),
   ],
   controllers: [
-    ProjectsController,
     ProjectsPicturesController,
+    ProjectsController,
     TagsController,
   ],
   providers: [

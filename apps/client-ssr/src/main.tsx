@@ -72,7 +72,7 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
 
     if (fetchInitialData) {
       try {
-        initialData = await fetchInitialData(currentRouteMatch.params);
+        initialData = await fetchInitialData(currentRouteMatch.params, req.query);
       }
       catch (error) {
         console.error(error);

@@ -1,5 +1,4 @@
-import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSSR } from 'use-ssr';
 
 import './home-page.css';
@@ -17,7 +16,6 @@ import { InitialDataContext } from '../../../initial-data-context';
 const cls = bemClassName('home-page');
 
 export const HomePage: FC<PagedResponse<Project>> = () => {
-  const history = useHistory();
   const initialData = useContext(InitialDataContext);
   const { isBrowser , isServer} = useSSR();
   let initialState = [];
@@ -47,10 +45,6 @@ export const HomePage: FC<PagedResponse<Project>> = () => {
       .then(() => setLoading(false));
   }, []);
 
-  const onProjectClick = useCallback((project: Project) => {
-    history.push(`/projects/${project.id}`);
-  }, []);
-
   return (
     <div className={cls()}>
       {error && (
@@ -67,7 +61,6 @@ export const HomePage: FC<PagedResponse<Project>> = () => {
         <ProjectsGallery
           className={cls('gallery')}
           projects={projects}
-          onProjectClick={onProjectClick}
         />
       )}
     </div>
