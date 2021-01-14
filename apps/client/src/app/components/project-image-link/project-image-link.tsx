@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useSSR from 'use-ssr';
 
 import './project-image-link.css';
 
@@ -16,6 +17,7 @@ const cls = bemClassName('project-image-link');
 export const ProjectImageLink: FunctionComponent<Props> = (props) => {
   const { className = '', projectId, imageName } = props;
   const imageUrl = getPicturesUrl(imageName);
+  const { isBrowser } = useSSR();
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export const ProjectImageLink: FunctionComponent<Props> = (props) => {
       .catch(error => console.log('Image load error', error));
   }, []);
 
-  if (!imageLoaded) {
+  if (isBrowser && !imageLoaded) {
     return null;
   }
 

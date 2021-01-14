@@ -25,7 +25,7 @@ export class ProjectsPicturesService {
       .createQueryBuilder('projectPicture')
       .leftJoin('projectPicture.tags', 'tags')
       .leftJoinAndSelect('projectPicture.image', 'image')
-      .leftJoin('projectPicture.project', 'project')
+      .innerJoin('projectPicture.project', 'project')
       .addSelect('project.id')
       .take(limit)
       .skip(page * limit)

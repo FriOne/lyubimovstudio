@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import Masonry from 'react-masonry-css';
+import useSSR from 'use-ssr';
 
 import './projects-gallery.css';
 
@@ -7,7 +8,6 @@ import { Project } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName } from '../../utils/helpers';
 import { ProjectImageLink } from '../project-image-link/project-image-link';
-import useSSR from 'use-ssr';
 
 type Props = {
   className?: string;
@@ -19,6 +19,7 @@ const cls = bemClassName('projects-gallery');
 export const ProjectsGallery: FunctionComponent<Props> = (props) => {
   const { className = '', projects } = props;
   const { isServer } = useSSR();
+  const [mounted, setMounted] = useState(false)
   const projectsLinks = projects.map((project) => (
     <ProjectImageLink
       key={project.id}
@@ -28,15 +29,21 @@ export const ProjectsGallery: FunctionComponent<Props> = (props) => {
     />
   ));
 
-  // On the server side Masonry doesn't work so we emitate it.
+  useEffect(() => setMounted(true), []);
+
+  // On the server side Masonry doesn't work so we make plain links.
   if (isServer) {
     return (
       <div className={cls(null, [className])}>
-        <div style={{ width: '50%'}} className={cls('column')}>
+        <div className={cls('column')}>
           {projectsLinks}
         </div>
       </div>
     );
+  }
+
+  if (!mounted) {
+    return null;
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { useSSR } from 'use-ssr';
 
@@ -28,20 +28,22 @@ export const PortfolioPage: FC<InitialData> = () => {
   const searchParams = new URLSearchParams(location.search);
   const tagId = searchParams.get('tagId');
   const initialData = useContext(InitialDataContext);
-  const { isBrowser , isServer} = useSSR();
-  let initialState = [];
+  const { isBrowser, isServer } = useSSR();
+
+  let initialState: InitialData = [[], { rows: [], total: 0 }];
 
   if (isBrowser && window.__initialData__) {
-    initialState = window.__initialData__.rows;
+    initialState = window.__initialData__;
 
     delete window.__initialData__;
   } else if (isServer && initialData) {
-    initialState = initialData.rows;
+    initialState = initialData;
   }
 
+  const [initialTags, innitialProjects] = initialState;
   const [firstLoad, setFirstLoad] = useState<boolean>(true);
-  const [tags, setTags] = useState<Tag[]>(initialState);
-  const [pictures, setPictures] = useState<ProjectPicture[]>(initialState);
+  const [tags, setTags] = useState<Tag[]>(initialTags);
+  const [pictures, setPictures] = useState<ProjectPicture[]>(innitialProjects.rows);
   const [loadingTags, setLoadingTags] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -49,7 +51,7 @@ export const PortfolioPage: FC<InitialData> = () => {
   useEffect(() => {
     setFirstLoad(false);
 
-    if (initialState.length > 0) {
+    if (innitialProjects.rows.length > 0) {
       return;
     }
 

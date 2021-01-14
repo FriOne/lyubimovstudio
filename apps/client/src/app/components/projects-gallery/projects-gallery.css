@@ -11,8 +11,8 @@
   }
 
   &__project + &__project {
-      margin-top: 10px;
-    }
+    margin-top: 10px;
+  }
 
   &__column + &__column {
     margin-left: 10px;
