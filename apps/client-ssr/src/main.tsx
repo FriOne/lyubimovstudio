@@ -2,15 +2,14 @@ import express, { Request, Response } from 'express';
 import fs from 'fs';
 import { promisify } from 'util';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToStaticNodeStream } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router';
-import Helmet from 'react-helmet';
 import fetch from 'node-fetch';
 
 import { routes } from './../../client/src/app/routes';
 import { App } from './../../client/src/app/app';
 import { InitialDataContext } from './../../client/src/initial-data-context';
-import { getHtml } from './html';
+import { getHtmlPageStartAndEnd } from './html';
 
 global.fetch = fetch as any;
 
@@ -82,23 +81,28 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
     }
 
     const { scripts, stylesheets } = assets;
+    const [hrmlPageStart, htmlPageEnd] = getHtmlPageStartAndEnd({
+       title: currentRoute?.title || 'LyubimovStudio',
+       scripts,
+       stylesheets,
+       initialData,
+    });
 
-    const appHtml = renderToString(
+    res.status(currentRouteMatch ? 200 : 404);
+    res.write(hrmlPageStart);
+
+    const stream = renderToStaticNodeStream(
       <InitialDataContext.Provider value={initialData}>
         <StaticRouter location={req.url} context={{}}>
           <App />
         </StaticRouter>
       </InitialDataContext.Provider>
     );
-    const helmet = Helmet.renderStatic();
-    const responseHtml = getHtml({
-       children: appHtml,
-       helmet,
-       scripts,
-       stylesheets,
-       initialData,
-    });
 
-    res.status(currentRouteMatch ? 200 : 404).send(responseHtml);
+    stream.pipe(res, { end: false });
+    stream.on('end', () => {
+      res.write(htmlPageEnd);
+      res.end();
+    });
   };
 }

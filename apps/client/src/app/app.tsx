@@ -1,12 +1,12 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import Helmet from 'react-helmet';
+import { Switch } from 'react-router-dom';
 
 import './app.css';
 
 import { bemClassName } from './utils/helpers';
 import { Link, Navigation } from './components/navigation/navigation';
 import { routes } from './routes';
+import { HelmetRoute } from './components/helmet-route/helmet-route';
 
 const cls = bemClassName('app');
 const links: Link[] = [
@@ -18,10 +18,6 @@ const links: Link[] = [
 export function App() {
   return (
     <div className={cls()}>
-      <Helmet>
-        <title>LyubimovStudio</title>
-      </Helmet>
-
       <Navigation
         className={cls('navigation')}
         links={links}
@@ -29,7 +25,7 @@ export function App() {
 
       <div className={cls('content')}>
         <Switch>
-          {routes.map(route => <Route key={route.path} {...route}/>)}
+          {routes.map(route => <HelmetRoute key={route.path} {...route}/>)}
         </Switch>
       </div>
     </div>
