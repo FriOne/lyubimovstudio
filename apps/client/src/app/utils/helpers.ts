@@ -22,3 +22,13 @@ export function loadImage(url: string): Promise<string> {
     image.src = url;
   });
 }
+
+export function convertUrlSearchParamsToObject(searchParams: URLSearchParams) {
+  const params: Record<string, string> = {};
+
+  searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
+
+  return params;
+}

@@ -80,9 +80,14 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
       }
     }
 
+    const routeTitle = currentRoute?.title || 'LyubimovStudio';
+    const title = (typeof routeTitle === 'string')
+      ? routeTitle
+      : routeTitle(req.query)
+
     const { scripts, stylesheets } = assets;
     const [hrmlPageStart, htmlPageEnd] = getHtmlPageStartAndEnd({
-       title: currentRoute?.title || 'LyubimovStudio',
+       title: currentRoute?.title,
        scripts,
        stylesheets,
        initialData,

@@ -2,7 +2,7 @@ import { HomePage } from './pages/home-page/home-page';
 import { ProjectPage } from './pages/project-page/project-page';
 import { AboutPage } from './pages/about-page/about-page';
 import { PortfolioPage } from './pages/portfolio-page/portfolio-page';
-import { HelmetRouteProps } from './types/router';
+import { HelmetRouteProps } from './utils/types';
 
 export const routes: HelmetRouteProps[] = [
     {
@@ -21,7 +21,11 @@ export const routes: HelmetRouteProps[] = [
       exact: true,
       path: '/portfolio',
       component: PortfolioPage,
-      title: 'LyubimovStudio | Портфолио',
+      title(queryParams: Record<string, string>) {
+        const tagPart = queryParams.tagName ? ` - ${queryParams.tagName}` : '';
+
+        return `LyubimovStudio | Портфолио${tagPart}`
+      },
     },
     {
       exact: true,
