@@ -281,6 +281,13 @@
   dependencies:
     tslib "^2.0.0"
 
+"@angular/service-worker@^11.0.5":
+  version "11.0.9"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-11.0.9.tgz#63b243ae2237c37d3b046af96bc3b7addf46c640"
+  integrity sha512-GcEPvKi8DQEWerDZBk6DzuBoqdc0zx+xCYYtWavjKp3jPGxuHdSnIAjN8v/uQZ1NyJxV/OlwUPOFizoDCYLD9Q==
+  dependencies:
+    tslib "^2.0.0"
+
 "@auth0/angular-jwt@^5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@auth0/angular-jwt/-/angular-jwt-5.0.2.tgz#0a23f240e8c6ed37c5c7a354ad79a755a217936e"

@@ -11,6 +11,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 registerLocaleData(ruLocale, 'ru-RUS');
 
@@ -27,6 +29,7 @@ registerLocaleData(ruLocale, 'ru-RUS');
     AppRoutingModule,
     AuthModule.forRoot(),
     SharedModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     {

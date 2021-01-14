@@ -44,6 +44,7 @@
     "@angular/platform-browser": "^11.0.5",
     "@angular/platform-browser-dynamic": "^11.0.5",
     "@angular/router": "^11.0.5",
+    "@angular/service-worker": "^11.0.5",
     "@auth0/angular-jwt": "^5.0.2",
     "@bem-react/classname": "^1.5.8",
     "@nestjs/common": "^7.6.5",

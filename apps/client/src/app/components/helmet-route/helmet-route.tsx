@@ -6,7 +6,7 @@ import { convertUrlSearchParamsToObject } from '../../utils/helpers';
 import { HelmetRouteProps } from '../../utils/types';
 
 type Props = HelmetRouteProps;
-location
+
 export const HelmetRoute: FunctionComponent<Props> = (props) => {
   const { title, component: ComponentToRender, ...routeProps } = props;
   const routeRender = (props: RouteComponentProps<any>) => {
