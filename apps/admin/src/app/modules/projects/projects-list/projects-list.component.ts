@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
 
 import { Project } from '@lyubimovstudio/api-interfaces';
 
-import { ProjectsService } from '../projects.service';
 import { ToastsService } from '../../shared/services/toasts.service';
-import { FormBuilder } from '@angular/forms';
+import { ProjectsService } from '../../shared/services/projects.service';
 
 type Filters = {
   page: number;

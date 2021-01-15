@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Patch, Post } from '@nestjs/common';
 
 import { Public } from '../../auth/guards/is-public-route';
 import { BeforeAndAfterEntity } from '../../entities/before-and-after.entity';
@@ -19,6 +19,18 @@ export class BeforeAndAfterController {
     @IntQuery('limit') limit: number,
   ) {
     return this.beforeAndAfterService.findAll(page, limit);
+  }
+
+  @Public()
+  @Get(':id')
+  async findOne(@IntParam('id') id) {
+    const beforeAndAfter = await this.beforeAndAfterService.findOne(id);
+
+    if (!beforeAndAfter) {
+      throw new NotFoundException();
+    }
+
+    return beforeAndAfter;
   }
 
   @Post()

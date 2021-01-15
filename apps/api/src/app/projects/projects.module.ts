@@ -15,6 +15,8 @@ import { ProjectsPicturesService } from './services/projects-pictures.service';
 import { TagsController } from './controllers/tags.controller';
 import { TagsService } from './services/tags.service';
 import { BeforeAndAfterEntity } from '../entities/before-and-after.entity';
+import { BeforeAndAfterController } from './controllers/before-and-after.controller';
+import { BeforeAndAfterService } from './services/before-and-after.service';
 
 @Module({
   imports: [
@@ -31,11 +33,13 @@ import { BeforeAndAfterEntity } from '../entities/before-and-after.entity';
   controllers: [
     ProjectsPicturesController,
     ProjectsController,
+    BeforeAndAfterController,
     TagsController,
   ],
   providers: [
     ProjectsService,
     ProjectsPicturesService,
+    BeforeAndAfterService,
     TasksService,
     TagsService,
   ],

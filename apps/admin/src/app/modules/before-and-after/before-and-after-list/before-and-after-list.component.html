@@ -1,0 +1,66 @@
+<div class="top">
+  <a class="new-before-and-after-link btn btn-outline-secondary" routerLink="./new">
+    Добавить "До и После"
+  </a>
+
+  <ls-spinner *ngIf="loading$ | async" class="loading">
+  </ls-spinner>
+</div>
+
+<div *ngIf="noBeforeAndAfter$ | async" class="no-before-and-after">
+  Не было найдено ни одного "До и После"
+</div>
+
+<ng-template [ngIf]="hasBeforeAndAfter$ | async">
+  <table class="list table table-bordered table-hover table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col" class="cell">#</th>
+        <th scope="col" class="cell">Название</th>
+        <th scope="col" class="cell cell_desktop">Дата создания</th>
+        <th scope="col" class="cell cell_desktop">Дата обновления</th>
+        <th scope="col" class="cell"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let singleBeforeAndAfter of beforeAndAfter$ | async" class="list-row"
+        [ngClass]="{ 'list-row_deleted': deletedBeforeAndAfter.has(singleBeforeAndAfter.id) }" (click)="onRowClick(singleBeforeAndAfter)">
+        <td class="cell">{{singleBeforeAndAfter.id}}</td>
+        <td class="cell">{{singleBeforeAndAfter.ruTitle || singleBeforeAndAfter.project.ruTitle}}</td>
+        <td class="cell cell_desktop">{{singleBeforeAndAfter.createdAt | date: 'short'}}</td>
+        <td class="cell cell_desktop">{{singleBeforeAndAfter.updatedAt | date: 'short'}}</td>
+
+        <td class="cell_actions">
+          <button *ngIf="!deletedBeforeAndAfter.has(singleBeforeAndAfter.id)" class="btn btn-danger btn-sm"
+            (click)="onRemoveClick($event, singleBeforeAndAfter)">
+            <i class="bi-trash-fill"></i>
+          </button>
+
+          <ls-spinner *ngIf="deletedBeforeAndAfter.has(singleBeforeAndAfter.id)" class="text-secondary"
+            [style]="{width: '1.5rem', height: '1.5rem'}">
+          </ls-spinner>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="bottom">
+    <ngb-pagination
+      *ngIf="hasMoreThanOnePage$ | async"
+      size="sm"
+      [page]="page$ | async"
+      [pageSize]="pageSize$ | async"
+      [collectionSize]="total$ | async"
+      (pageChange)="onPageChange($event)"
+    ></ngb-pagination>
+
+    <ls-select
+      class="page-size"
+      size="sm"
+      [options]="pageSizeOptions"
+      [value]="pageSize$ | async"
+      (valueChange)="onPageSizeChange($event)"
+    ></ls-select>
+  </div>
+</ng-template>

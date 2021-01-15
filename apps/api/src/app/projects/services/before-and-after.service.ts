@@ -15,7 +15,7 @@ export class BeforeAndAfterService {
     const [rows, total] = await this.beforeAndAfterRepository.findAndCount({
       take: limit,
       skip: page * limit,
-      relations: ['beforeAndAfter.before', 'beforeAndAfter.after', 'beforeAndAfter.project'],
+      relations: ['before', 'after', 'project'],
       order: {
         createdAt: 'DESC',
       },
@@ -24,8 +24,19 @@ export class BeforeAndAfterService {
     return { rows, total };
   }
 
+  findOne(id: string): Promise<BeforeAndAfterEntity> {
+    return this.beforeAndAfterRepository
+      .createQueryBuilder('beforeAndAfter')
+      .leftJoinAndSelect('beforeAndAfter.before', 'before')
+      .leftJoinAndSelect('beforeAndAfter.after', 'after')
+      .leftJoinAndSelect('beforeAndAfter.project', 'project')
+      .whereInIds(id)
+      .orderBy('beforeAndAfter.createdAt', 'DESC')
+      .getOne();
+  }
+
   async remove(id: string) {
-    await this.beforeAndAfterRepository.delete(id);
+    return this.beforeAndAfterRepository.delete(id);
   }
 
   save(beforeAndAfter: Partial<BeforeAndAfterEntity>) {

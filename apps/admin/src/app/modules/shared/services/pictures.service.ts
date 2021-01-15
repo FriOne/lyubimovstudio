@@ -24,7 +24,7 @@ export class PicturesService {
 
     formData.append('file', picture);
 
-    return this.http.put(
+    return this.http.put<Picture>(
       '/api/pictures/upload',
       formData,
       {
@@ -32,9 +32,7 @@ export class PicturesService {
           clientFilename: picture.name,
           mimeType: picture.type
         },
-        reportProgress: true,
         responseType: 'json',
-        observe: 'events',
       },
     );
   }

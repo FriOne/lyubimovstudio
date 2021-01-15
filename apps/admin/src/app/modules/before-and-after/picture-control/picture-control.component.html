@@ -1,0 +1,17 @@
+<ngx-dropzone
+  class="drop-zone"
+  accept="image/*"
+  [multiple]="false"
+  (change)="onSelectFile($event)"
+>
+  <ngx-dropzone-label *ngIf="!picture" class="label">
+    Загрузить картинку
+  </ngx-dropzone-label>
+
+  <ls-picture-dropzone-preview
+    *ngIf="picture"
+    class="picture-preview"
+    [picture]="picture"
+    (removed)="onRemoveFile()"
+  >]</ls-picture-dropzone-preview>
+</ngx-dropzone>

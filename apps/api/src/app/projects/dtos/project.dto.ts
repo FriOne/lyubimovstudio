@@ -4,6 +4,9 @@ import { Type } from 'class-transformer';
 import { ProjectPictureDto } from './project-picture.dto';
 
 export class ProjectDto {
+  @IsOptional()
+  id: number;
+
   @IsNotEmpty()
   @IsString()
   ruTitle: string;

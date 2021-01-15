@@ -1,0 +1,48 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 200px;
+  height: 200px;
+  border: 1px solid map-get($grays, '400');
+  background-color: map-get($grays, '400');
+  opacity: .9;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.edit-button {
+  position: absolute;
+  top: 5px;
+  right: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 22px;
+  width: 22px;
+  border: 0;
+  outline: 0;
+  border-radius: 50%;
+  background-color: #bbb;
+
+  &:hover {
+    background-color: #aeaeae;
+  }
+}
+
+.edit-icon {
+  font-size: 10px;
+  color: #fff;
+}

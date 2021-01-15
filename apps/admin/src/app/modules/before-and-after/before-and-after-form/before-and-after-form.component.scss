@@ -1,0 +1,83 @@
+:host {
+  display: block;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin-left: 20px;
+  margin-bottom: 0;
+}
+
+.loading {
+  margin-left: 20px;
+}
+
+.form {
+  margin-top: 30px;
+}
+
+.form-fields,
+.pictures {
+  display: flex;
+}
+
+.after-group {
+  margin-left: 30px;
+}
+
+.left-fields,
+.right-fields {
+  flex: 1 1 50%;
+}
+
+.right-fields {
+  margin-left: 30px;
+}
+
+.error {
+  margin-top: 20px;
+}
+
+.input,
+.textarea {
+  display: block;
+}
+
+.submit {
+  margin-top: 10px;
+}
+
+.projects-spinner {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-fields {
+    display: block;
+  }
+
+  .right-fields {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 374px) {
+  .top {
+    display: block;
+  }
+
+  .title {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}

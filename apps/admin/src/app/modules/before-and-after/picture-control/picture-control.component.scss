@@ -1,0 +1,21 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+:host {
+  display: block;
+}
+
+.drop-zone {
+  align-items: start;
+  width: 204px;
+  height: 204px;
+}
+
+.label {
+  display: block;
+  flex: 1 0 auto;
+  width: 100%;
+  margin: 0;
+  line-height: 190px;
+  text-align: center;
+}

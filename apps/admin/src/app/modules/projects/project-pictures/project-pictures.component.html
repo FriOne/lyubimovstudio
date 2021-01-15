@@ -18,7 +18,7 @@
     cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="drop($event)"
   >
-    <ls-picture-dropzone-preview
+    <ls-project-picture-dropzone-preview
       *ngFor="let picture of pictures; let i = index"
       class="picture-preview"
       cdkDrag
@@ -27,6 +27,6 @@
       (edit)="onEdit(picture, i)"
     >
       <div *cdkDragPlaceholder class="picture-placeholder"></div>
-    </ls-picture-dropzone-preview>
+    </ls-project-picture-dropzone-preview>
   </div>
 </ngx-dropzone>

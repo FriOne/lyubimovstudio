@@ -4,7 +4,7 @@ import { BehaviorSubject, combineLatest, of } from 'rxjs';
 
 import { Picture } from '@lyubimovstudio/api-interfaces';
 
-import { PicturesService } from '../pictures.service';
+import { PicturesService } from '../../shared/services/pictures.service';
 
 @Component({
   selector: 'ls-pictures-list',

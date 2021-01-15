@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
-import { ProjectsService } from '../projects.service';
-import { PicturesService } from '../../pictures/pictures.service';
 import { ToastsService } from '../../shared/services/toasts.service';
+import { ProjectsService } from '../../shared/services/projects.service';
 
 @Component({
   selector: 'ls-project-form',
@@ -40,7 +39,6 @@ export class ProjectFormComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private projectsService: ProjectsService,
-    private picturesService: PicturesService,
     private toastsService: ToastsService,
   ) {}
 

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { PicturesService } from './pictures.service';
+import { PicturesService } from './services/pictures.service';
 
 @Pipe({
   name: 'picturePath'

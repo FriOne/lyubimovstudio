@@ -6,6 +6,7 @@ import { PicturesModule } from './modules/pictures/pictures.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { LayoutComponent } from './components/layout/layout.component';
 import { TagsModule } from './modules/tags/tags.module';
+import { BeforeAndAfterModule } from './modules/before-and-after/before-and-after.module';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'projects',
         loadChildren: () => ProjectsModule,
+      },
+      {
+        path: 'before-and-after',
+        loadChildren: () => BeforeAndAfterModule,
       },
       {
         path: 'tags',

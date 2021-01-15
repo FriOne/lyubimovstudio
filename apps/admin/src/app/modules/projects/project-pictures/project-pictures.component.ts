@@ -1,15 +1,13 @@
 import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { forkJoin, noop } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Picture, ProjectPicture } from '@lyubimovstudio/api-interfaces';
+import { ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
-import { PicturesService } from '../../pictures/pictures.service';
 import { ProjectPictureModalFormComponent } from '../project-picture-modal-form/project-picture-modal-form.component';
 import { ProjectPictureService } from '../project-picture.service';
 

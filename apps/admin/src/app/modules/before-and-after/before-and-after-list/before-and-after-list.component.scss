@@ -1,0 +1,61 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+.list {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.loading {
+  margin-left: 20px;
+}
+
+.list-row {
+  cursor: pointer;
+
+  &_deleted {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.cell {
+  padding-left: 10px;
+  vertical-align: middle;
+
+  &_desktop {
+    display: none;
+  }
+}
+
+.cell_actions {
+  width: 54px;
+  padding-left: 0.3rem;
+  text-align: center;
+}
+
+.no-before-and-after {
+  margin-top: 40px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.page-size {
+  margin-left: 10px;
+}
+
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+  .cell {
+    &_desktop {
+      display: table-cell;
+    }
+  }
+}

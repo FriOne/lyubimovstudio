@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
-import { PicturesService } from '../../pictures/pictures.service';
+import { PicturesService } from '../../shared/services/pictures.service';
 
 @Component({
-  selector: 'ls-picture-dropzone-preview',
-  templateUrl: './picture-dropzone-preview.component.html',
-  styleUrls: ['./picture-dropzone-preview.component.scss']
+  selector: 'ls-project-picture-dropzone-preview',
+  templateUrl: './project-picture-dropzone-preview.component.html',
+  styleUrls: ['./project-picture-dropzone-preview.component.scss']
 })
-export class PictureDropzonePreviewComponent implements OnInit {
+export class ProjectPictureDropzonePreviewComponent implements OnInit {
   @Input() projectPicture?: ProjectPicture;
   @Output() removed = new EventEmitter<ProjectPicture>();
   @Output() edit = new EventEmitter<ProjectPicture>();
