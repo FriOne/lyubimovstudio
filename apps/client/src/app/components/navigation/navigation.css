@@ -52,9 +52,11 @@
     &__toggler {
       position: absolute;
       top: 20px;
-      right: -40px;
+      right: -50px;
       display: block;
       z-index: 2;
+      border-radius: 50%;
+      background-color: rgba(44, 44, 44, .6)
     }
 
     &__menu {

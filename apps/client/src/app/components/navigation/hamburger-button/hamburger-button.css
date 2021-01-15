@@ -1,6 +1,6 @@
 .hamburger-button {
   display: inline-block;
-  padding: 5px;
+  padding: 7px 9px;
   cursor: pointer;
   transition-property: opacity, filter;
   transition-duration: .4s;

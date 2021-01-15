@@ -19,6 +19,7 @@ export function getHtmlPageStartAndEnd(props: Props) {
                 <base href="/">
                 <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1" />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+                <link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
                 <link rel="manifest" href="/manifest.webmanifest">
                 <meta name="theme-color" content="#2c2c2c">
                 <title>${title}</title>
