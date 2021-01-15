@@ -33,11 +33,11 @@ export class BeforeAndAfterEntity implements BeforeAndAfter {
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: string;
 
-  @OneToOne('PictureEntity', 'before')
+  @OneToOne('PictureEntity', 'before', { onDelete: 'CASCADE', eager: true })
   @JoinColumn()
   before: Picture;
 
-  @OneToOne('PictureEntity', 'after')
+  @OneToOne('PictureEntity', 'after', { onDelete: 'CASCADE', eager: true })
   @JoinColumn()
   after: Picture;
 
