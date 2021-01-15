@@ -9,7 +9,9 @@
 </div>
 
 <div class="pictures">
-  <div *ngFor="let picture of pictures$ | async" class="picture">
-    <img [src]="picture.name | picturePath"/>
-  </div>
+  <ls-picture-image-link
+    *ngFor="let picture of pictures$ | async"
+    class="picture"
+    [url]="picture.name | picturePath">
+  </ls-picture-image-link>
 </div>

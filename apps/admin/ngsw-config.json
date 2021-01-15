@@ -1,17 +1,17 @@
 {
   "$schema": "../../node_modules/@angular/service-worker/config/schema.json",
-  "index": "/index.html",
+  "index": "/admin/index.html",
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "/favicon.ico",
-          "/index.html",
-          "/manifest.webmanifest",
-          "/*.css",
-          "/*.js"
+          "/admin/favicon.ico",
+          "/admin/index.html",
+          "/admin/manifest.webmanifest",
+          "/admin/*.css",
+          "/admin/*.js"
         ]
       }
     },
@@ -21,8 +21,8 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/assets/**",
-          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+          "/admin/assets/**",
+          "/admin/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
       }
     }

@@ -6,11 +6,13 @@ import { PicturesListComponent } from './pictures-list/pictures-list.component';
 import { PicturesService } from './pictures.service';
 import { PicturePathPipe } from './picture-path.pipe';
 import { SharedModule } from '../shared/shared.module';
+import { PictureImageLinkComponent } from './pictures-list/picture-image-link/picture-image-link.component';
 
 @NgModule({
   declarations: [
     PicturesListComponent,
     PicturePathPipe,
+    PictureImageLinkComponent,
   ],
   imports: [
     CommonModule,

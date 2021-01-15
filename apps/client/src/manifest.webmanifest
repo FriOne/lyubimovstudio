@@ -1,11 +1,11 @@
 {
   "name": "LyubimovStudio",
   "short_name": "LS",
-  "theme_color": "#1976d2",
+  "theme_color": "#2c2c2c",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
