@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { GlobalExceptionFilter } from './global-exception.filter';
 import { TagEntity } from './entities/tag.entity';
+import { BeforeAndAfterEntity } from './entities/before-and-after.entity';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { TagEntity } from './entities/tag.entity';
           PictureEntity,
           ProjectPictureEntity,
           ProjectEntity,
+          BeforeAndAfterEntity,
           TagEntity,
           UserEntity,
         ],

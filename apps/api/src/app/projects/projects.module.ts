@@ -14,6 +14,7 @@ import { ProjectsPicturesController } from './controllers/projects-pictures.cont
 import { ProjectsPicturesService } from './services/projects-pictures.service';
 import { TagsController } from './controllers/tags.controller';
 import { TagsService } from './services/tags.service';
+import { BeforeAndAfterEntity } from '../entities/before-and-after.entity';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { TagsService } from './services/tags.service';
       ProjectEntity,
       ProjectPictureEntity,
       PictureEntity,
+      BeforeAndAfterEntity,
       TagEntity,
     ]),
     PicturesModule,

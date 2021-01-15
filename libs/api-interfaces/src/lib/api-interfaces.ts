@@ -37,6 +37,19 @@ export interface ProjectPicture {
   updatedAt?: string;
 }
 
+export interface BeforeAndAfter {
+  id?: number;
+  ruTitle?: string;
+  enTitle?: string;
+  ruDescription?: string;
+  enDescription?: string;
+  before: Picture;
+  after: Picture;
+  project: Project;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type PagedResponse<T> = {
   rows: T[];
   total: number;

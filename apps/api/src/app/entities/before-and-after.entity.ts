@@ -1,0 +1,47 @@
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+
+import { BeforeAndAfter, Picture, Project } from '@lyubimovstudio/api-interfaces';
+
+@Entity({ name: 'before_and_after' })
+export class BeforeAndAfterEntity implements BeforeAndAfter {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ default: '' })
+  ruTitle?: string;
+
+  @Column({ default: '' })
+  enTitle?: string;
+
+  @Column({ default: '' })
+  ruDescription?: string;
+
+  @Column({ default: '' })
+  enDescription?: string;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: string;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: string;
+
+  @OneToOne('PictureEntity', 'before')
+  @JoinColumn()
+  before: Picture;
+
+  @OneToOne('PictureEntity', 'after')
+  @JoinColumn()
+  after: Picture;
+
+  @OneToOne('ProjectEntity', 'project')
+  @JoinColumn()
+  project: Project;
+}
