@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Switch } from 'react-router-dom';
 
 import './app.css';
@@ -16,6 +16,15 @@ const links: Link[] = [
 ];
 
 export function App() {
+  const links: Link[] = useMemo(() => {
+    return routes
+      .filter(route => route.navTitle)
+      .map(route => ({
+        to: route.path,
+        children: route.navTitle,
+      }));
+  }, []);
+
   return (
     <div className={cls()}>
       <Navigation

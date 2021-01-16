@@ -3,13 +3,15 @@ import { ProjectPage } from './pages/project-page/project-page';
 import { AboutPage } from './pages/about-page/about-page';
 import { PortfolioPage } from './pages/portfolio-page/portfolio-page';
 import { HelmetRouteProps } from './utils/types';
+import { BeforeAndAfterPage } from './pages/before-and-after-page/before-and-after-page';
 
 export const routes: HelmetRouteProps[] = [
     {
       exact: true,
       path: '/projects',
       component: HomePage,
-      title: 'LyubimovStudio',
+      title: 'LyubimovStudio | Проекты',
+      navTitle: 'Проекты',
     },
     {
       exact: true,
@@ -26,11 +28,20 @@ export const routes: HelmetRouteProps[] = [
 
         return `LyubimovStudio | Портфолио${tagPart}`
       },
+      navTitle: 'Портфолио',
+    },
+    {
+      exact: true,
+      path: '/before-and-after',
+      component: BeforeAndAfterPage,
+      title: 'LyubimovStudio | До и После',
+      navTitle: 'До и После',
     },
     {
       exact: true,
       path: '/about',
       component: AboutPage,
-      title: 'LyubimovStudio | Контакты',
+      title: 'LyubimovStudio | О компании',
+      navTitle: 'О компании',
     },
 ];

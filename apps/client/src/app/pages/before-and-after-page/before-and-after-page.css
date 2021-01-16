@@ -1,0 +1,11 @@
+.before-and-after-page {
+  padding: 30px ;
+
+  &__title {
+    margin-top: 0;
+  }
+
+  &__before-and-after-view {
+    margin-top: 30px;
+  }
+}

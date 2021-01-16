@@ -1,4 +1,4 @@
-import { PagedResponse, Project, ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
+import { BeforeAndAfter, PagedResponse, Project, ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
 type Params = Record<string, string | number>;
 type FetchInit = {
@@ -44,6 +44,10 @@ export function fetchPicturesByTag(tagId?: number) {
   const params = { tagId };
 
   return fetchRequest<PagedResponse<ProjectPicture>>(`${API_URL}/projects/pictures`, { params });
+}
+
+export function fetchBeforeAndAfter() {
+  return fetchRequest<PagedResponse<BeforeAndAfter>>(`${API_URL}/before-and-after`);
 }
 
 export function fetchTags() {

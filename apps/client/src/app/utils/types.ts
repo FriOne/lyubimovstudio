@@ -9,5 +9,6 @@ type titleFn = (queryParams: Record<string, string>) => string;
 
 export type HelmetRouteProps = RouteProps & {
   title: string | titleFn;
+  navTitle?: string;
   path: string;
 };
