@@ -92,7 +92,7 @@ export class BeforeAndAfterFormComponent implements OnInit {
   }
 
   displayProject(project: Project) {
-     return project?.ruTitle || '';
+     return project?.ruTitle;
   }
 
   onSubmit() {

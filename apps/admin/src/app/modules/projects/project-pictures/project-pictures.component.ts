@@ -4,7 +4,7 @@ import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { forkJoin, noop } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
@@ -34,7 +34,7 @@ export class ProjectPicturesComponent implements ControlValueAccessor {
 
   constructor(
     private projectPictureService: ProjectPictureService,
-    private modalService: NgbModal,
+    private dialog: MatDialog,
   ) {}
 
   drop(event: CdkDragDrop<string[]>) {
@@ -103,11 +103,11 @@ export class ProjectPicturesComponent implements ControlValueAccessor {
   }
 
   onEdit(projectPicture: ProjectPicture, index: number) {
-    const modalRef = this.modalService.open(ProjectPictureModalFormComponent);
+    const modalRef = this.dialog.open(ProjectPictureModalFormComponent, {
+      data: { projectPicture },
+    });
 
-    modalRef.componentInstance.projectPicture = projectPicture;
-
-    modalRef.closed.subscribe((projectPicture: ProjectPicture) => {
+    modalRef.afterClosed().subscribe((projectPicture: ProjectPicture) => {
       this.onModalClose(projectPicture, index);
     });
   }
@@ -115,7 +115,7 @@ export class ProjectPicturesComponent implements ControlValueAccessor {
   onModalClose(projectPicture: ProjectPicture, index: number) {
     const prevProjectPicture = this.pictures[index];
 
-    for (const tag of projectPicture.tags) {
+    for (const tag of projectPicture.tags || []) {
       if (typeof tag.id === 'string') {
         delete tag.id;
       }

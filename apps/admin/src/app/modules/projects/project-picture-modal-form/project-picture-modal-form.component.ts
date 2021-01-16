@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
-import { TagsService } from '../../tags/tags.service';
+type DialogData = {
+  projectPicture: ProjectPicture;
+};
 
 @Component({
   selector: 'ls-project-picture-modal-form',
@@ -12,8 +14,6 @@ import { TagsService } from '../../tags/tags.service';
   styleUrls: ['./project-picture-modal-form.component.scss']
 })
 export class ProjectPictureModalFormComponent implements OnInit {
-  @Input() projectPicture: ProjectPicture;
-
   projectPictureForm = this.fb.group({
     ruTitle: [''],
     enTitle: [''],
@@ -23,14 +23,14 @@ export class ProjectPictureModalFormComponent implements OnInit {
   });
 
   constructor(
-    public activeModal: NgbActiveModal,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private dialogRef: MatDialogRef<ProjectPictureModalFormComponent>,
     private fb: FormBuilder,
-    private tagsService: TagsService,
   ) {}
 
   ngOnInit() {
     const newValue = Object.keys(this.projectPictureForm.value).reduce((acc, key) => {
-      acc[key] = this.projectPicture[key];
+      acc[key] = this.data.projectPicture[key];
 
       return acc;
     }, {} as Partial<ProjectPicture>);
@@ -40,16 +40,6 @@ export class ProjectPictureModalFormComponent implements OnInit {
     this.projectPictureForm.patchValue(newValue);
   }
 
-  fetchTagsByName = (name: string) => {
-    return this.tagsService.fetchTags(name);
-  }
-
-  matchingFn = (value: string, autocompleteTag: Tag) => {
-    const tagAlreadyAdded = this.projectPictureForm.value.tags.some(tag => (tag.name === autocompleteTag.name));
-
-    return !tagAlreadyAdded;
-  }
-
   onSubmit() {
     this.projectPictureForm.markAllAsTouched();
 
@@ -57,6 +47,6 @@ export class ProjectPictureModalFormComponent implements OnInit {
       return;
     }
 
-    this.activeModal.close(this.projectPictureForm.value);
+    this.dialogRef.close(this.projectPictureForm.value);
   }
 }

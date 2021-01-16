@@ -2,6 +2,9 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -21,6 +24,9 @@ import { ProjectsService } from './services/projects.service';
   exports: [
     NgbModule,
     MatAutocompleteModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatFormFieldModule,
     SpinnerComponent,
     SelectComponent,
     AppToastsComponent,

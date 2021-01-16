@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { TagInputModule } from 'ngx-chips';
 
 import { SharedModule } from '../shared/shared.module';
 import { ProjectsListComponent } from './projects-list/projects-list.component';
@@ -13,6 +12,7 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectPicturesComponent } from './project-pictures/project-pictures.component';
 import { ProjectPictureModalFormComponent } from './project-picture-modal-form/project-picture-modal-form.component';
 import { ProjectPictureDropzonePreviewComponent } from './project-picture-dropzone-preview/project-picture-dropzone-preview.component';
+import { TagsControlComponent } from './tags-control/tags-control.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { ProjectPictureDropzonePreviewComponent } from './project-picture-dropzo
     ProjectPicturesComponent,
     ProjectPictureModalFormComponent,
     ProjectPictureDropzonePreviewComponent,
+    TagsControlComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +30,6 @@ import { ProjectPictureDropzonePreviewComponent } from './project-picture-dropzo
     NgxDropzoneModule,
     DragDropModule,
     ScrollingModule,
-    TagInputModule,
     SharedModule,
   ],
 })

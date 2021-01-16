@@ -1,0 +1,37 @@
+<mat-form-field class="form-field">
+  <mat-label></mat-label>
+  <mat-chip-list #chipList>
+    <mat-basic-chip
+      *ngFor="let tag of tags"
+      class="tag-badge badge bg-secondary"
+      [removable]="true"
+      (removed)="onTagRemove(tag)"
+    >
+      <span class="tag-badge-text">
+        {{tag.name}}
+      </span>
+      <i class="tag-badge-icon bi-x-circle-fill" matChipRemove></i>
+    </mat-basic-chip>
+
+    <input
+      placeholder="Добавить тег"
+      #tagsInput
+      [formControl]="tagInputControl"
+      [matAutocomplete]="tagsAutocomplete"
+      [matChipInputFor]="chipList"
+    >
+  </mat-chip-list>
+
+  <mat-autocomplete
+    #tagsAutocomplete="matAutocomplete"
+    [displayWith]="displayTag"
+    (optionSelected)="onTagSelect($event)"
+  >
+    <mat-option *ngIf="tagsAreloading$ | async">
+      <ls-spinner class="tags-spinner"></ls-spinner>
+    </mat-option>
+    <mat-option *ngFor="let tag of filteredTags$ | async" [value]="tag">
+      {{ tag.name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

@@ -1,12 +1,12 @@
 <div class="modal-header">
   <h4 class="modal-title">
-    Редактирование {{projectPicture.ruTitle || 'картинки'}}
+    Редактирование {{data.projectPicture.ruTitle || 'картинки'}}
   </h4>
   <button
     type="button"
     class="close"
     aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"
+    mat-dialog-close
   >
     <span aria-hidden="true">&times;</span>
   </button>
@@ -14,25 +14,11 @@
 
 <form [formGroup]="projectPictureForm" (ngSubmit)="onSubmit()">
   <div class="modal-body">
-
-    <tag-input
-      formControlName="tags"
-      placeholder=""
-      secondaryPlaceholder="Добавить тег"
-      identifyBy="id"
-      displayBy="name"
-      [onlyFromAutocomplete]="true"
-      theme="bootstrap"
-    >
-      <tag-input-dropdown
-        identifyBy="id"
-        displayBy="name"
-        limitItemsTo="5"
-        [appendToBody]="false"
-        [matchingFn]="matchingFn"
-        [autocompleteObservable]="fetchTagsByName"
-      ></tag-input-dropdown>
-    </tag-input>
+    <div class="form-group">
+      <label>Теги</label>
+      <ls-tags-control formControlName="tags">
+      </ls-tags-control>
+    </div>
 
     <div class="form-fields">
       <div class="left-fields">

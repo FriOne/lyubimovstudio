@@ -65,10 +65,9 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
             { name: filters.name },
             { emitEvent: false },
           );
+          this.loading$.next(true);
         }),
         switchMap(({ page, pageSize, name }) => {
-          this.loading$.next(true);
-
           return this.projectsService.fetchProjects(page - 1, pageSize, name);
         }),
         catchError(() => of({ rows: [], total: 0 })),

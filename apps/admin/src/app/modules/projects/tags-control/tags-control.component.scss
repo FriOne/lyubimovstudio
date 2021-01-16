@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: -1.25em;
+}
+
+.tags-spinner {
+  margin-top: 10px;
+}
+
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+  padding: 0 10px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #fff;
+}
+
+.tag-badge-text {
+  line-height: 30px;
+}
+
+.tag-badge-icon {
+  height: 19px;
+  margin-left: 5px;
+  cursor: pointer;
+}
