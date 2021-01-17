@@ -6,11 +6,7 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "nx": "nx",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
-    "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
@@ -30,7 +26,8 @@
     "docker-dev": "docker-compose -f docker-compose-dev.yml up -d",
     "nx-dev": "nx run-many --target=serve --projects=client,admin,api --parallel --maxParallel=100",
     "dev": "npm run docker-dev && npm run nx-dev",
-    "prod": "docker build -f ./docker/Dockerfile.build -t lyubimovstudio-build:latest . && docker-compose build"
+    "build": "docker build -f ./docker/Dockerfile.build -t lyubimovstudio-build:latest .",
+    "prod": "npm run build && docker-compose build"
   },
   "private": true,
   "dependencies": {
@@ -68,6 +65,7 @@
     "express": "4.17.1",
     "history": "^5.0.0",
     "inquirer": "^7.3.3",
+    "ng-yandex-metrika": "^4.0.0",
     "ngx-dropzone": "^2.3.0",
     "node-fetch": "^2.6.1",
     "normalize.css": "^8.0.1",
@@ -82,6 +80,7 @@
     "react-helmet": "^6.1.0",
     "react-masonry-css": "^1.0.14",
     "react-router-dom": "5.2.0",
+    "react-yandex-metrika": "^2.6.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.3",
     "sharp": "^0.27.0",

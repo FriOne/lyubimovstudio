@@ -30,10 +30,6 @@
       color: #8d8d8d;
     }
   }
-
-  &__phone-image {
-    display: none;
-  }
 }
 
 @media (max-width: 768px) {
@@ -69,14 +65,6 @@
 
     &__link {
       padding: 10px 10px 10px 40px;
-    }
-
-    &__phone-image {
-      display: block;
-    }
-
-    &__phone-number {
-      display: none;
     }
 
     &_opened &__sidenav {

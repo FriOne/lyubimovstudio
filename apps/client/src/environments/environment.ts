@@ -3,4 +3,6 @@
 
 export const environment = {
   production: false,
+  phoneNumber: '+7 (913) 900-60-19',
+  yandexMetrikaId: 0,
 };

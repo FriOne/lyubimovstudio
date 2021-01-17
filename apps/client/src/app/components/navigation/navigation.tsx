@@ -1,9 +1,10 @@
 import React, { FunctionComponent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { environment } from '../../../environments/environment';
 import { bemClassName } from '../../utils/helpers';
 import { HamburgerButton } from './hamburger-button/hamburger-button';
-import { ReactComponent as PhoneSvg } from './phone.svg';
+import { PhoneNumber } from './phone-number/phone-number';
 
 import './navigation.css';
 
@@ -68,15 +69,10 @@ export const Navigation: FunctionComponent<Props> = (props) => {
 
       <div className={cls('fake')}/>
 
-      <a
+      <PhoneNumber
         className={cls('phone')}
-        href="tel:+79139006019"
-      >
-        <PhoneSvg className={cls('phone-image')}/>
-        <span className={cls('phone-number')}>
-          8-913-900-6019
-        </span>
-      </a>
+        phoneNumber={environment.phoneNumber}
+      />
     </nav>
   );
 };

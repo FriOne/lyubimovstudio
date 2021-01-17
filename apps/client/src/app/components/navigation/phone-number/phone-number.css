@@ -1,0 +1,17 @@
+.phone-number {
+  &__image {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .phone-number {
+    &__image {
+      display: block;
+    }
+
+    &__number {
+      display: none;
+    }
+  }
+}

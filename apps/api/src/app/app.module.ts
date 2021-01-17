@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConnectionOptions } from 'typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { PictureEntity } from './entities/picture.entity';
@@ -25,23 +26,7 @@ import { BeforeAndAfterEntity } from './entities/before-and-after.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DATABASE_HOST', 'localhost'),
-        port: configService.get('DATABASE_PORT', 5432),
-        username: configService.get('DATABASE_USER', 'lyubimov'),
-        password: configService.get('DATABASE_PASSWORD', 'lyubiroman'),
-        database: configService.get('DATABASE_NAME', 'lyubimovstudio'),
-        entities: [
-          PictureEntity,
-          ProjectPictureEntity,
-          ProjectEntity,
-          BeforeAndAfterEntity,
-          TagEntity,
-          UserEntity,
-        ],
-        synchronize: true,
-      }),
+      useFactory: TypeOrmFactory,
     }),
     ProjectsModule,
     PicturesModule,
@@ -61,3 +46,23 @@ import { BeforeAndAfterEntity } from './entities/before-and-after.entity';
   ]
 })
 export class AppModule {}
+
+function TypeOrmFactory(configService: ConfigService): ConnectionOptions {
+  return {
+    type: 'postgres',
+    host: configService.get('DATABASE_HOST', 'localhost'),
+    port: configService.get('DATABASE_PORT', 5432),
+    username: configService.get('DATABASE_USER', 'lyubimov'),
+    password: configService.get('DATABASE_PASSWORD', 'lyubiroman'),
+    database: configService.get('DATABASE_NAME', 'lyubimovstudio'),
+    entities: [
+      PictureEntity,
+      ProjectPictureEntity,
+      ProjectEntity,
+      BeforeAndAfterEntity,
+      TagEntity,
+      UserEntity,
+    ],
+    synchronize: true,
+  }
+}

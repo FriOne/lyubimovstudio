@@ -11,7 +11,9 @@ module.exports = (config) => {
   fixStyleLoader(config);
 
   config.plugins.push(
-      new webpack.EnvironmentPlugin({ API_URL: '' }),
+      new webpack.EnvironmentPlugin({
+        API_URL: '',
+      }),
   );
 
   if (isDevelopment) {

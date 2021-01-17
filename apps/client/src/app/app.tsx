@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 import { Switch } from 'react-router-dom';
+import { YMInitializer } from 'react-yandex-metrika';
 
 import './app.css';
 
+import { environment } from '../environments/environment';
 import { bemClassName } from './utils/helpers';
 import { Link, Navigation } from './components/navigation/navigation';
 import { routes } from './routes';
@@ -37,6 +39,14 @@ export function App() {
           {routes.map(route => <HelmetRoute key={route.path} {...route}/>)}
         </Switch>
       </div>
+
+      {Boolean(environment.yandexMetrikaId) && (
+        <YMInitializer
+          version="2"
+          accounts={[environment.yandexMetrikaId]}
+          options={{ webvisor: true }}
+        />
+      )}
     </div>
   );
 }

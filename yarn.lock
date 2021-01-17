@@ -11182,6 +11182,13 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+ng-yandex-metrika@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/ng-yandex-metrika/-/ng-yandex-metrika-4.0.0.tgz#d4d1348080b520756d35b59898971edc202d7a4b"
+  integrity sha512-HCn/OkzQQuquuceCL7njdy6KM9ocsKhq2DwQHaU4J3s/I9caPCs8rlLHvtI7k4TTIyit6vHaY6/o3L1+o8GEdg==
+  dependencies:
+    tslib "^2.0.0"
+
 ngx-dropzone@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/ngx-dropzone/-/ngx-dropzone-2.3.0.tgz#fb34bceb0d8ad3c00c314b957d095018d15c5fe9"
@@ -13297,6 +13304,11 @@ react-side-effect@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.1.tgz#66c5701c3e7560ab4822a4ee2742dee215d72eb3"
   integrity sha512-2FoTQzRNTncBVtnzxFOk2mCpcfxQpenBMbk5kSVBg5UcPqV9fRbgY2zhb7GTWWOlpFmAxhClBDlIq8Rsubz1yQ==
+
+react-yandex-metrika@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-yandex-metrika/-/react-yandex-metrika-2.6.0.tgz#9c935c8c7ea5505e34391b9b3e86deb6d50053c9"
+  integrity sha512-8K4wExsNZtY3DTxh1G8a+zWH9Pg8fw23MJcoJ4I/562qrHRnh7L5nteq3lnNL58dnNQbuuHIRoGgMjIo+r1GjA==
 
 react@17.0.1:
   version "17.0.1"

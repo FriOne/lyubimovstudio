@@ -5,7 +5,7 @@ WORKDIR /home/node/app/api
 
 RUN mkdir -p /home/node/app/api/uploads
 
-COPY .env.prod ./.env
+COPY .prod.env ./.env
 
 COPY --from=builder /home/node/app/dist/apps/api-console/package.json /home/node/app/api-console/package.json
 RUN cd /home/node/app/api-console && yarn install --no-lockfile && yarn add pg --no-lockfile

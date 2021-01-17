@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import ruLocale from '@angular/common/locales/ru';
+import { MetrikaModule } from 'ng-yandex-metrika';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,17 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 registerLocaleData(ruLocale, 'ru-RUS');
+
+const additionalModules = [];
+
+if (environment.yandexMetrikaId) {
+  additionalModules.push(
+    MetrikaModule.forRoot({
+      id: environment.yandexMetrikaId,
+      webvisor: true,
+    }),
+  );
+}
 
 @NgModule({
   declarations: [
@@ -30,6 +42,7 @@ registerLocaleData(ruLocale, 'ru-RUS');
     AuthModule.forRoot(),
     SharedModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ...additionalModules,
   ],
   providers: [
     {
