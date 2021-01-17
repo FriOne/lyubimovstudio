@@ -2,12 +2,14 @@ const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const nrwlReactConfig = require('@nrwl/react/plugins/webpack.js');
+const { config } = require('process');
 
 module.exports = (config) => {
   const isDevelopment = (config.mode === 'development');
 
   nrwlReactConfig(config);
   postcssConfigInFile(config);
+  addTextFileLoader(config);
   fixStyleLoader(config);
 
   config.plugins.push(
@@ -42,7 +44,14 @@ function addHMR(config) {
   );
 }
 
-function postcssConfigInFile(config, plugins) {
+function addTextFileLoader(config) {
+  config.module.rules.push({
+    test: /\.txt$/i,
+    use: 'raw-loader',
+  });
+}
+
+function postcssConfigInFile(config) {
   for (const rule of config.module.rules) {
     if (!rule.test.test('test.css')) {
       continue;

@@ -5,6 +5,12 @@ type FetchInit = {
    params?: Params;
 } & RequestInit;
 
+type RequestBody = {
+  name: string;
+  phoneNumber: string;
+  message?: string;
+};
+
 const API_URL = process.env.API_URL || '/api';
 
 function appendParamsToUrl(url: string, params: Params) {
@@ -29,11 +35,23 @@ async function fetchRequest<Response>(url: string, init?: FetchInit): Promise<Re
   const { params, ...requestIntit } = init || {};
   const response = await fetch(appendParamsToUrl(url, params), requestIntit);
 
-  if (!response.ok || response.status !== 200) {
+  if (!response.ok || response.status > 299) {
     throw new Error(response.statusText || 'Api error');
   }
 
   return response.json();
+}
+
+export function sendRequest(requestBody: RequestBody) {
+  const config: RequestInit = {
+    method: 'POST',
+    body: JSON.stringify(requestBody),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  };
+
+  return fetchRequest(`${API_URL}/mail/request`, config);
 }
 
 export function fetchProjects() {

@@ -1,0 +1,30 @@
+.checkbox {
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5em;
+  cursor: pointer;
+
+  &__input {
+    float: left;
+    width: 1em;
+    height: 1em;
+    margin-top: .25em;
+    margin-left: -1.5em;
+    vertical-align: top;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+    border: 1px solid rgba(0, 0, 0, .25);
+    appearance: none;
+    color-adjust: exact;
+    transition: background-color .15s ease-in-out,background-position .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: .25em;
+  }
+
+  &_checked &__input {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+}

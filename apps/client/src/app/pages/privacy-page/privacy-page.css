@@ -1,0 +1,9 @@
+.privacy-page {
+  padding: 30px 30px 80px;
+
+  white-space: pre-wrap;
+
+  &__title {
+    margin-top: 0;
+  }
+}

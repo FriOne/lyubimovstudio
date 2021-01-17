@@ -1,9 +1,11 @@
+@import 'react-toastify/dist/ReactToastify.css';
+
 .app {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
   line-height: 1.5;
   color: #212529;
 
@@ -13,5 +15,28 @@
 
   &__content {
     flex: 1 1 auto;
+  }
+
+  &__request-button {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    padding: 10px 20px;
+    border: 0;
+    outline: 0;
+    border-radius: 30px;
+    font-size: 21px;
+    font-weight: 300;
+    color: #fff;
+    background-color: #3399ff;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    &__request-button {
+      font-size: 15px;
+    }
   }
 }

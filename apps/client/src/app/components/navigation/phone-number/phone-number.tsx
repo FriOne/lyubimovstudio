@@ -1,5 +1,7 @@
 import React, { FunctionComponent, useMemo } from 'react';
 
+import './phone-number.css';
+
 import { bemClassName } from '../../../utils/helpers';
 import { ReactComponent as PhoneSvg } from './phone.svg';
 

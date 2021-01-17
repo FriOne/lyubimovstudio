@@ -8,17 +8,18 @@ import { PictureEntity } from './entities/picture.entity';
 import { ProjectPictureEntity } from './entities/project-picture.entity';
 import { ProjectEntity } from './entities/project.entity';
 import { UserEntity } from './entities/user.entity';
+import { TagEntity } from './entities/tag.entity';
+import { BeforeAndAfterEntity } from './entities/before-and-after.entity';
+
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { GlobalExceptionFilter } from './global-exception.filter';
 
 import { AppController } from './app.controller';
 import { ProjectsModule } from './projects/projects.module';
 import { PicturesModule } from './pictures/pictures.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { GlobalExceptionFilter } from './global-exception.filter';
-import { TagEntity } from './entities/tag.entity';
-import { BeforeAndAfterEntity } from './entities/before-and-after.entity';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { BeforeAndAfterEntity } from './entities/before-and-after.entity';
     PicturesModule,
     AuthModule,
     UsersModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [

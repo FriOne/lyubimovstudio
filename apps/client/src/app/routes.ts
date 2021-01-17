@@ -4,6 +4,7 @@ import { AboutPage } from './pages/about-page/about-page';
 import { PortfolioPage } from './pages/portfolio-page/portfolio-page';
 import { HelmetRouteProps } from './utils/types';
 import { BeforeAndAfterPage } from './pages/before-and-after-page/before-and-after-page';
+import { PrivacyPage } from './pages/privacy-page/privacy-page';
 
 export const routes: HelmetRouteProps[] = [
     {
@@ -43,5 +44,11 @@ export const routes: HelmetRouteProps[] = [
       component: AboutPage,
       title: 'LyubimovStudio | О компании',
       navTitle: 'О компании',
+    },
+    {
+      exact: true,
+      path: '/privacy',
+      component: PrivacyPage,
+      title: 'LyubimovStudio | Политика кофиденциальности',
     },
 ];

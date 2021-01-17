@@ -1,10 +1,25 @@
 @import 'normalize.css';
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 html,
 body,
 #root {
   display: block;
   height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: #212529;
+}
+
+a {
+  color: #6c757d;
+
+  &:hover,
+  &_active {
+    color: #565e64;
+  }
 }

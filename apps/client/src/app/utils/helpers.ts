@@ -23,6 +23,10 @@ export function loadImage(url: string): Promise<string> {
   });
 }
 
+export function validatePhoneNumber(phoneNumber: string) {
+  return /\+7 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}/.test(phoneNumber);
+}
+
 export function convertUrlSearchParamsToObject(searchParams: URLSearchParams) {
   const params: Record<string, string> = {};
 
