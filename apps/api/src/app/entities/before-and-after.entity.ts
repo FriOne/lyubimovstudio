@@ -41,7 +41,7 @@ export class BeforeAndAfterEntity implements BeforeAndAfter {
   @JoinColumn()
   after: Picture;
 
-  @OneToOne('ProjectEntity', 'project')
+  @OneToOne('ProjectEntity', 'project', { onDelete: 'CASCADE' })
   @JoinColumn()
   project: Project;
 }

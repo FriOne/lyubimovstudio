@@ -7,7 +7,7 @@ import {
   OneToOne,
 } from 'typeorm';
 
-import { Picture, ProjectPicture } from '@lyubimovstudio/api-interfaces';
+import { BeforeAndAfter, Picture, ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
 @Entity({ name: 'picture' })
 export class PictureEntity implements Picture {
@@ -25,4 +25,10 @@ export class PictureEntity implements Picture {
 
   @OneToOne('ProjectPictureEntity', 'image')
   projectPicture: ProjectPicture;
+
+  @OneToOne('BeforeAndAfterEntity', 'before')
+  before: BeforeAndAfter;
+
+  @OneToOne('BeforeAndAfterEntity', 'after')
+  after: BeforeAndAfter;
 }

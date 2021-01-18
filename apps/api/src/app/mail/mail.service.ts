@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { promisify } from 'util';
 import sendmailFactory from 'sendmail';
@@ -7,6 +7,8 @@ const sendMail = promisify(sendmailFactory({}));
 
 @Injectable()
 export class MailService {
+  private readonly logger = new Logger(MailService.name);
+
   constructor(private configService: ConfigService) {}
 
   sendRequestEmail(name: string, phoneNumber: string, message?: string) {
@@ -16,7 +18,7 @@ export class MailService {
       return false;
     }
 
-    console.log(`Trying to send request email to ${ownerEmail}.`);
+    this.logger.log(`Trying to send request email to ${ownerEmail}.`);
 
     const messageHtml = message ? `<br/> Сообщение: <br/> ${message}` : '';
 
