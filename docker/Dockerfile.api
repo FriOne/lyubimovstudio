@@ -5,8 +5,6 @@ WORKDIR /home/node/app/api
 
 RUN mkdir -p /home/node/app/api/uploads
 
-COPY .prod.env ./.env
-
 COPY --from=builder /home/node/app/dist/apps/api-console/package.json /home/node/app/api-console/package.json
 RUN cd /home/node/app/api-console && yarn install --no-lockfile && yarn add pg --no-lockfile
 
@@ -17,6 +15,8 @@ RUN yarn add passport --no-lockfile && yarn cache clean
 
 COPY --from=builder /home/node/app/dist/apps/api-console /home/node/app/api-console/
 COPY --from=builder /home/node/app/dist/apps/api /home/node/app/api/
+
+COPY .prod.env ./.env
 
 CMD node main.js
 
