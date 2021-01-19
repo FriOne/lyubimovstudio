@@ -55,5 +55,3 @@ volumes:
   uploads:
     external: true
   dbdata:
-  yarn_cache:
-  node_modules_cache:

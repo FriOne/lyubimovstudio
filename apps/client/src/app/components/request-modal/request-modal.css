@@ -1,6 +1,7 @@
 .request-modal {
   max-width: 400px;
   padding: 20px;
+  color: #212529;
 
   &__title {
     margin-top: 0;

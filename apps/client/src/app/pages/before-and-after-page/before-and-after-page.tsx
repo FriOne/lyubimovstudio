@@ -1,5 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
+import { toast } from 'react-toastify';
 import { useSSR } from 'use-ssr';
 
 import './before-and-after-page.css';
@@ -9,10 +10,10 @@ import { PagedResponse, BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
 import { fetchBeforeAndAfter } from '../../api';
 import { bemClassName } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
-import { Alert } from '../../components/alert/alert';
 import { FC } from '../../utils/types';
 import { InitialDataContext } from '../../../initial-data-context';
 import { BeforeAndAfterView } from '../../components/before-and-after-view/before-and-after-view';
+import { LoadMoreButton } from '../../components/load-more-button/load-more-button';
 
 const cls = bemClassName('before-and-after-page');
 
@@ -31,9 +32,21 @@ export const BeforeAndAfterPage: FC<PagedResponse<BeforeAndAfter>> = () => {
     initialState = initialData;
   }
 
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(initialState.total);
   const [beforeAndAfter, setBeforeAndAfter] = useState<BeforeAndAfter[]>(initialState.rows);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+
+  const onLoadMoreClick = useCallback(async () => {
+    setLoading(true);
+
+    const { rows, total } = await fetchBeforeAndAfter(page);
+
+    setPage(page + 1);
+    setBeforeAndAfter([...beforeAndAfter, ...rows]);
+    setTotal(total);
+    setLoading(false);
+  }, [page, beforeAndAfter]);
 
   useEffect(() => {
     if (initialState.rows.length > 0) {
@@ -43,8 +56,11 @@ export const BeforeAndAfterPage: FC<PagedResponse<BeforeAndAfter>> = () => {
     setLoading(true);
 
     BeforeAndAfterPage.fetchInitialData()
-      .then(({ rows }) => setBeforeAndAfter(rows))
-      .catch(setError)
+      .then(({ rows, total }) => {
+        setTotal(total);
+        setBeforeAndAfter(rows);
+      })
+      .catch(() => toast.error('Произошла ошибка при загрузке "До И После"'))
       .then(() => setLoading(false));
   }, []);
 
@@ -54,22 +70,24 @@ export const BeforeAndAfterPage: FC<PagedResponse<BeforeAndAfter>> = () => {
         До и После
       </h1>
 
-      {error && (
-        <Alert className={cls('error')}>
-          {error.message}
-        </Alert>
-      )}
-
-      {loading && (
-        <Spinner className={cls('spinner')}/>
-      )}
-
-      {!loading && !error && beforeAndAfter.map(singleBeforeAndAfter => (
+      {!loading && beforeAndAfter.map(singleBeforeAndAfter => (
         <BeforeAndAfterView
           className={cls('before-and-after-view')}
           beforeAndAfter={singleBeforeAndAfter}
         />
       ))}
+
+      {loading && (
+        <Spinner className={cls('spinner')}/>
+      )}
+
+      {!loading && total > beforeAndAfter.length && (
+        <LoadMoreButton
+          className={cls('load-more-button')}
+          disabled={loading}
+          onClick={onLoadMoreClick}
+        />
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { Raw, Repository } from 'typeorm';
+import { JoinOptions, Raw, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { ProjectEntity } from '../../entities/project.entity';
 import { PicturesService } from '../../pictures/pictures.service';
@@ -13,7 +13,7 @@ export class ProjectsService {
     private picturesService: PicturesService,
   ) {}
 
-  async findAll(page = 0, limit, name = '') {
+  async findAll(page = 0, limit = 10, name = '', onlyWithPictures = false) {
     let where;
 
     if (name) {
@@ -23,24 +23,38 @@ export class ProjectsService {
       ];
     }
 
-    const [rows, total] = await this.projectsRepository
+    let query = this.projectsRepository
       .createQueryBuilder('project')
-      .leftJoinAndSelect('project.pictures', 'projectPicture')
-      .leftJoinAndSelect('projectPicture.image', 'image')
-      .leftJoinAndSelect('projectPicture.tags', 'tags')
-      .where(where)
       .take(limit)
       .skip(page * limit)
+      .leftJoinAndSelect('project.pictures', 'projectPicture')
+      .leftJoinAndSelect('projectPicture.image', 'image')
+      .where(where)
       .orderBy({
         'project.createdAt': 'DESC',
         'projectPicture.order': 'ASC'
-      })
-      .getManyAndCount()
+      });
+
+    if (onlyWithPictures) {
+      query = query
+        .leftJoin(
+          (qb: SelectQueryBuilder<any>) => qb
+            .select('COUNT("projectPicture"."id")', 'count')
+            .addSelect('projectPicture.projectId', 'projectId')
+            .from('project_picture', 'projectPicture')
+            .groupBy('projectPicture.projectId'),
+          'picturesCount',
+          'project.id = "picturesCount"."projectId"',
+        )
+        .andWhere('"picturesCount"."count" > 0');
+    }
+
+    const [rows, total] = await query.getManyAndCount();
 
     return { rows, total };
   }
 
-  findOne(id: string): Promise<ProjectEntity> {
+  findOne(id: number): Promise<ProjectEntity> {
     return this.projectsRepository
       .createQueryBuilder('project')
       .leftJoinAndSelect('project.pictures', 'projectPicture')
@@ -64,7 +78,7 @@ export class ProjectsService {
     return this.projectsRepository.save(project);
   }
 
-  async remove(id: string) {
+  async remove(id: number) {
     const picturesNames = await this.getAllProjectPictureFileNames(id);
 
     await this.projectsRepository.delete(id);
@@ -75,7 +89,7 @@ export class ProjectsService {
     }
   }
 
-  private async getAllProjectPictureFileNames(id: string) {
+  private async getAllProjectPictureFileNames(id: number) {
     const project = await this.projectsRepository
       .createQueryBuilder('project')
       .leftJoinAndSelect('project.pictures', 'pictures')

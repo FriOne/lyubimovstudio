@@ -1,0 +1,23 @@
+.load-more-button {
+    font-weight: 400;
+    line-height: 1.5;
+    vertical-align: middle;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-color: #6c757d;
+    border-radius: .25rem;
+    color: #6c757d;
+    background-color: transparent;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      border-color: #6c757d;
+      color: #fff;
+      background-color: #6c757d;
+    }
+}

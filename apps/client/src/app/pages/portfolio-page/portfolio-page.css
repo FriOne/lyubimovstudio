@@ -12,4 +12,13 @@
     display: block;
     margin-top: 20px;
   }
+
+  &__spinner {
+    margin: 30px auto 0;
+  }
+
+  &__load-more-button {
+    display: block;
+    margin: 30px auto 0;
+  }
 }

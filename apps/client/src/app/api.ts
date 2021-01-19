@@ -1,6 +1,6 @@
 import { BeforeAndAfter, PagedResponse, Project, ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
-type Params = Record<string, string | number>;
+type Params = Record<string, string | number | boolean>;
 type FetchInit = {
    params?: Params;
 } & RequestInit;
@@ -12,23 +12,24 @@ type RequestBody = {
 };
 
 const API_URL = process.env.API_URL || '/api';
+const FETCH_LIMIT = 10;
 
 function appendParamsToUrl(url: string, params: Params) {
   if (!params) {
     return url;
   }
 
-  return Object
-    .entries(params)
-    .reduce((newUrl, [name, value], index) => {
-      if (!value) {
-        return newUrl;
-      }
+  const searchParams = new URLSearchParams();
 
-      const sign = (index === 0) ? '?' : '&';
+  for (const [key, value] of Object.entries(params)) {
+    if (!value) {
+      continue;
+    }
 
-      return `${newUrl}${sign}${name}=${value}`;
-    }, url);
+    searchParams.append(key, value.toString());
+  }
+
+  return `${url}?${searchParams}`;
 }
 
 async function fetchRequest<Response>(url: string, init?: FetchInit): Promise<Response> {
@@ -54,18 +55,33 @@ export function sendRequest(requestBody: RequestBody) {
   return fetchRequest(`${API_URL}/mail/request`, config);
 }
 
-export function fetchProjects() {
-  return fetchRequest<PagedResponse<Project>>(`${API_URL}/projects`);
+export function fetchProjects(page = 0) {
+  const params = {
+    page,
+    limit: FETCH_LIMIT,
+    onlyWithPictures: true,
+  };
+
+  return fetchRequest<PagedResponse<Project>>(`${API_URL}/projects`, { params });
 }
 
-export function fetchPicturesByTag(tagId?: number) {
-  const params = { tagId };
+export function fetchPicturesByTag(page = 0, tagId?: number) {
+  const params = {
+    page,
+    limit: FETCH_LIMIT,
+    tagId,
+  };
 
   return fetchRequest<PagedResponse<ProjectPicture>>(`${API_URL}/projects/pictures`, { params });
 }
 
-export function fetchBeforeAndAfter() {
-  return fetchRequest<PagedResponse<BeforeAndAfter>>(`${API_URL}/before-and-after`);
+export function fetchBeforeAndAfter(page = 0) {
+  const params = {
+    page,
+    limit: FETCH_LIMIT,
+  };
+
+  return fetchRequest<PagedResponse<BeforeAndAfter>>(`${API_URL}/before-and-after`, { params });
 }
 
 export function fetchTags() {

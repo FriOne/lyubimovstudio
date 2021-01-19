@@ -87,7 +87,7 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
 
     const { scripts, stylesheets } = assets;
     const [hrmlPageStart, htmlPageEnd] = getHtmlPageStartAndEnd({
-       title: currentRoute?.title,
+       title,
        scripts,
        stylesheets,
        initialData,

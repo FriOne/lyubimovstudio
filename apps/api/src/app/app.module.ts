@@ -65,6 +65,7 @@ function TypeOrmFactory(configService: ConfigService): ConnectionOptions {
       TagEntity,
       UserEntity,
     ],
-    synchronize: true,
+    synchronize: configService.get('DB_SYNCHRONIZE', 'false') === 'true',
+    logging: configService.get('DB_LOGGING', 'false') === 'true',
   }
 }

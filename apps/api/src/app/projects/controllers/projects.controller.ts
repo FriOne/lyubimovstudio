@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, NotFoundException, Patch, Post, Query } from '@nestjs/common';
 
 import { Public } from '../../auth/guards/is-public-route';
-import { IntParam, IntQuery } from '../../pipes';
+import { BooleanQuery, IntParam, IntQuery } from '../../pipes';
 import { ProjectDto } from '../dtos/project.dto';
 import { ProjectEntity } from '../../entities/project.entity';
 import { ProjectsService } from '../services/projects.service';
@@ -13,16 +13,17 @@ export class ProjectsController {
   @Public()
   @Get()
   findAll(
-    @IntQuery('page') page,
-    @IntQuery('limit') limit,
-    @Query('name') name
+    @IntQuery('page') page: number,
+    @IntQuery('limit') limit: number,
+    @Query('name') name: string,
+    @BooleanQuery('onlyWithPictures') onlyWithPictures: boolean,
   ) {
-    return this.projectsService.findAll(page, limit, name);
+    return this.projectsService.findAll(page, limit, name, onlyWithPictures);
   }
 
   @Public()
   @Get(':id')
-  async findOne(@IntParam('id') id) {
+  async findOne(@IntParam('id') id: number) {
     const project = await this.projectsService.findOne(id);
 
     if (!project) {
@@ -38,7 +39,7 @@ export class ProjectsController {
   }
 
   @Delete(':id')
-  async remove(@IntParam('id') id) {
+  async remove(@IntParam('id') id: number) {
     return this.projectsService.remove(id);
   }
 
