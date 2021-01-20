@@ -22,8 +22,8 @@ export class PicturesController {
   @Put('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
-    const newFileName = await this.picturesService.saveFile(file);
+    const { name, width, height } = await this.picturesService.saveFile(file);
 
-    return this.picturesService.save({ name: newFileName });
+    return this.picturesService.save({ name, width, height });
   }
 }

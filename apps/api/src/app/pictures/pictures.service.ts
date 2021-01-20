@@ -61,7 +61,7 @@ export class PicturesService {
 
     await mkdir(UPLOAD_FOLDER, { recursive: true } as any);
 
-    await sharp(file.buffer)
+    const { width, height } = await sharp(file.buffer)
       .resize(2048, null, { withoutEnlargement: true })
       .toFormat('jpg')
       .toFile(filePath);
@@ -71,7 +71,7 @@ export class PicturesService {
       .toFormat('jpg')
       .toFile(mobileFilePath);
 
-    return newFileName;
+    return { name: newFileName, width, height };
   }
 
   async removeFile(name: string, silent = true) {

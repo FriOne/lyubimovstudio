@@ -17,6 +17,12 @@ export class PictureEntity implements Picture {
   @Column()
   name: string;
 
+  @Column()
+  width: number;
+
+  @Column()
+  height: number;
+
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: string;
 

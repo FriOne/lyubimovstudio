@@ -28,8 +28,8 @@ export class ProjectsPicturesController {
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   async create(@UploadedFile() file) {
-    const newFileName = await this.picturesService.saveFile(file);
-    const image = await this.picturesService.save({ name: newFileName });
+    const { name, width, height } = await this.picturesService.saveFile(file);
+    const image = await this.picturesService.save({ name, width, height });
 
     return this.projectsPicturesService.save({ image } as any);
   }
