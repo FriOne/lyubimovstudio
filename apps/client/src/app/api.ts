@@ -59,7 +59,6 @@ export function fetchProjects(page = 0) {
   const params = {
     page,
     limit: FETCH_LIMIT,
-    onlyWithPictures: true,
   };
 
   return fetchRequest<PagedResponse<Project>>(`${API_URL}/projects`, { params });

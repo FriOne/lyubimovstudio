@@ -17,6 +17,7 @@
       <tr>
         <th scope="col" class="cell">#</th>
         <th scope="col" class="cell">Название</th>
+        <th scope="col" class="cell">Опубликовано</th>
         <th scope="col" class="cell cell_desktop">Дата создания</th>
         <th scope="col" class="cell cell_desktop">Дата обновления</th>
         <th scope="col" class="cell"></th>
@@ -28,6 +29,7 @@
         [ngClass]="{ 'list-row_deleted': deletedBeforeAndAfter.has(singleBeforeAndAfter.id) }" (click)="onRowClick(singleBeforeAndAfter)">
         <td class="cell">{{singleBeforeAndAfter.id}}</td>
         <td class="cell">{{singleBeforeAndAfter.ruTitle || singleBeforeAndAfter.project.ruTitle}}</td>
+        <td class="cell">{{singleBeforeAndAfter.isPublished ? 'Да' : 'Нет'}}</td>
         <td class="cell cell_desktop">{{singleBeforeAndAfter.createdAt | date: 'short'}}</td>
         <td class="cell cell_desktop">{{singleBeforeAndAfter.updatedAt | date: 'short'}}</td>
 

@@ -3,10 +3,10 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { ProjectPictureEntity } from '../../entities/project-picture.entity';
-import { TagEntity } from '../../entities/tag.entity';
 
 export type Filters = {
   tagId?: number;
+  isPublished?: boolean;
 };
 
 @Injectable()
@@ -14,12 +14,10 @@ export class ProjectsPicturesService {
   constructor(
     @InjectRepository(ProjectPictureEntity)
     private projectPictureRepository: Repository<ProjectPictureEntity>,
-    @InjectRepository(TagEntity)
-    private tagsRepository: Repository<TagEntity>,
   ) {}
 
   async findAll(page: number, limit: number, filters?: Filters) {
-    const { tagId } = filters;
+    const { tagId, isPublished } = filters;
 
     let query = this.projectPictureRepository
       .createQueryBuilder('projectPicture')
@@ -33,6 +31,10 @@ export class ProjectsPicturesService {
 
     if (tagId) {
       query = query.where('"projectPicture_tags"."tagId" = :tagId', { tagId });
+    }
+
+    if (isPublished !== undefined) {
+      query = query.andWhere('"project"."isPublished" = :isPublished', { isPublished });
     }
 
     const [rows, total] = await query.getManyAndCount();

@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsString, ValidateNested, IsOptional } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString, ValidateNested, IsOptional, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 
 import { ProjectPictureDto } from './project-picture.dto';
@@ -22,6 +22,9 @@ export class ProjectDto {
   @IsString()
   @IsOptional()
   enDescription?: string;
+
+  @IsBoolean()
+  isPublished: boolean;
 
   @ValidateNested()
   @IsArray()

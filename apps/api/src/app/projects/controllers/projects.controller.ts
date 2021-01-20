@@ -1,10 +1,11 @@
 import { Body, Controller, Delete, Get, NotFoundException, Patch, Post, Query } from '@nestjs/common';
 
 import { Public } from '../../auth/guards/is-public-route';
-import { BooleanQuery, IntParam, IntQuery } from '../../pipes';
+import { IntParam, IntQuery, User } from '../../pipes';
 import { ProjectDto } from '../dtos/project.dto';
 import { ProjectEntity } from '../../entities/project.entity';
 import { ProjectsService } from '../services/projects.service';
+import { UserInfo } from '../../users/users.service';
 
 @Controller('projects')
 export class ProjectsController {
@@ -16,9 +17,17 @@ export class ProjectsController {
     @IntQuery('page') page: number,
     @IntQuery('limit') limit: number,
     @Query('name') name: string,
-    @BooleanQuery('onlyWithPictures') onlyWithPictures: boolean,
+    @User() user: UserInfo,
   ) {
-    return this.projectsService.findAll(page, limit, name, onlyWithPictures);
+    const withPictures = Boolean(user);
+    const isPublished = user ? undefined : true;
+    const filters = {
+      name,
+      withPictures,
+      isPublished,
+    };
+
+    return this.projectsService.findAll(page, limit, filters);
   }
 
   @Public()

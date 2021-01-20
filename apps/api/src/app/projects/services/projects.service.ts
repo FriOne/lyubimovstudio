@@ -1,9 +1,15 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { JoinOptions, Raw, Repository, SelectQueryBuilder } from 'typeorm';
+import { FindOperator, Raw, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { ProjectEntity } from '../../entities/project.entity';
 import { PicturesService } from '../../pictures/pictures.service';
+
+type ProjectsFilters = {
+  name?: string;
+  isPublished?: boolean;
+  withPictures?: boolean;
+};
 
 @Injectable()
 export class ProjectsService {
@@ -13,14 +19,12 @@ export class ProjectsService {
     private picturesService: PicturesService,
   ) {}
 
-  async findAll(page = 0, limit = 10, name = '', onlyWithPictures = false) {
-    let where;
+  async findAll(page = 0, limit = 10, filters: ProjectsFilters) {
+    const { name = '', withPictures = false, isPublished } = filters;
+    let where: Record<string, any> = {};
 
-    if (name) {
-      where = [
-        { ruTitle: Raw(alias => `${alias} ILIKE '%${name}%'`) },
-        { enTitle: Raw(alias => `${alias} ILIKE '%${name}%'`) },
-      ];
+    if (isPublished !== undefined) {
+      where.isPublished = isPublished;
     }
 
     let query = this.projectsRepository
@@ -35,7 +39,16 @@ export class ProjectsService {
         'projectPicture.order': 'ASC'
       });
 
-    if (onlyWithPictures) {
+    if (name) {
+      const operator = new FindOperator('ilike', `%${name}%`);
+
+      query = query.andWhere([
+        { ruTitle: operator },
+        { enTitle: operator },
+      ] as any);
+    }
+
+    if (withPictures) {
       query = query
         .leftJoin(
           (qb: SelectQueryBuilder<any>) => qb

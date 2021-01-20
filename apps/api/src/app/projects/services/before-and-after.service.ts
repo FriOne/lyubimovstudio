@@ -4,6 +4,10 @@ import { Repository } from 'typeorm';
 
 import { BeforeAndAfterEntity } from '../../entities/before-and-after.entity';
 
+type BeforeAndAfterFilters = {
+  isPublished: boolean;
+};
+
 @Injectable()
 export class BeforeAndAfterService {
   constructor(
@@ -11,10 +15,18 @@ export class BeforeAndAfterService {
     private beforeAndAfterRepository: Repository<BeforeAndAfterEntity>,
   ) {}
 
-  async findAll(page: number, limit: number) {
+  async findAll(page: number, limit: number, filters: BeforeAndAfterFilters) {
+    const { isPublished } = filters;
+    const where: Record<string, any> = {};
+
+    if (isPublished !== undefined) {
+      where.isPublished = isPublished;
+    }
+
     const [rows, total] = await this.beforeAndAfterRepository.findAndCount({
       take: limit,
       skip: page * limit,
+      where,
       relations: ['before', 'after', 'project'],
       order: {
         createdAt: 'DESC',

@@ -38,7 +38,7 @@ export class AuthPageComponent implements OnInit {
 
   onAuthError(responseError: HttpErrorResponse) {
     if (responseError.status === 401) {
-      this.error$.next('Неверные имя ползователя или пароль');
+      this.error$.next('Неверные имя пользователя или пароль');
     }
     else {
       this.error$.next('Неизвестная ошибка');

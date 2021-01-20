@@ -22,6 +22,7 @@ export class BeforeAndAfterFormComponent implements OnInit {
     enTitle: [''],
     ruDescription: [''],
     enDescription: [''],
+    isPublished: [true],
     before: [null, [Validators.required]],
     after: [null, [Validators.required]],
     project: ['', [Validators.required, validateObjectAutocomplete]],

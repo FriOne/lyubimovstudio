@@ -11,7 +11,8 @@ type Link = {
 @Component({
   selector: 'ls-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
+  host: { 'class': 'navbar navbar-expand-lg navbar-dark bg-dark' },
 })
 export class MenuComponent {
   @Input() links: Link[];

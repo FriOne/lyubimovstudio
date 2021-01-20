@@ -14,7 +14,7 @@ export type Option = string | number | {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => SelectComponent),
     multi: true,
-  }]
+  }],
 })
 export class SelectComponent implements ControlValueAccessor {
   @Input() size: 'sm' | 'lg';

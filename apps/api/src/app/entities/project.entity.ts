@@ -19,6 +19,9 @@ export class ProjectEntity implements Project {
   @Column({ default: '' })
   enDescription?: string;
 
+  @Column({ default: false, type: 'boolean' })
+  isPublished: boolean;
+
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: string;
 

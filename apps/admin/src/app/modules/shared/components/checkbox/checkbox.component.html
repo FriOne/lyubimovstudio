@@ -1,0 +1,13 @@
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value=""
+    [checked]="checked"
+    [id]="id"
+    (change)="onCheckboxChange($event)"
+  >
+  <label class="form-check-label" [for]="id">
+    <ng-content></ng-content>
+  </label>
+</div>

@@ -27,6 +27,9 @@ export class BeforeAndAfterEntity implements BeforeAndAfter {
   @Column({ default: '' })
   enDescription?: string;
 
+  @Column({ default: false, type: 'boolean' })
+  isPublished: boolean;
+
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: string;
 

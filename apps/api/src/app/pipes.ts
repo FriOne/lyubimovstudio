@@ -1,4 +1,4 @@
-import { DefaultValuePipe, Param, ParseBoolPipe, ParseIntPipe, Query } from '@nestjs/common';
+import { createParamDecorator, DefaultValuePipe, ExecutionContext, Param, ParseBoolPipe, ParseIntPipe, Query } from '@nestjs/common';
 
 export const IntParam = (name: string) => Param(
   name,
@@ -14,6 +14,13 @@ export const IntQuery = (name: string) => Query(
 
 export const BooleanQuery = (name: string) => Query(
   name,
-  new DefaultValuePipe(false),
   new ParseBoolPipe()
+);
+
+export const User = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+
+    return request.user;
+  },
 );

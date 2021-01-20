@@ -4,7 +4,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from '../../auth/guards/is-public-route';
 import { ProjectPictureEntity } from '../../entities/project-picture.entity';
 import { PicturesService } from '../../pictures/pictures.service';
-import { IntParam, IntQuery } from '../../pipes';
+import { IntParam, IntQuery, User } from '../../pipes';
+import { UserInfo } from '../../users/users.service';
 import { ProjectPictureDto } from '../dtos/project-picture.dto';
 import { ProjectsPicturesService } from '../services/projects-pictures.service';
 
@@ -21,8 +22,15 @@ export class ProjectsPicturesController {
     @IntQuery('page') page: number,
     @IntQuery('limit') limit: number,
     @IntQuery('tagId') tagId: number,
+    @User() user: UserInfo,
   ) {
-    return this.projectsPicturesService.findAll(page, limit, { tagId });
+    const isPublished = user ? undefined : true;
+    const filters = {
+      tagId,
+      isPublished,
+    };
+
+    return this.projectsPicturesService.findAll(page, limit, filters);
   }
 
   @Post()

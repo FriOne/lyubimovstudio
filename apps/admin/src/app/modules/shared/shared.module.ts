@@ -14,6 +14,7 @@ import { ToastsService } from './services/toasts.service';
 import { PicturesService } from './services/pictures.service';
 import { PicturePathPipe } from './picture-path.pipe';
 import { ProjectsService } from './services/projects.service';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 @NgModule({
   imports: [
@@ -31,12 +32,14 @@ import { ProjectsService } from './services/projects.service';
     SelectComponent,
     AppToastsComponent,
     PicturePathPipe,
+    CheckboxComponent,
   ],
   declarations: [
     SpinnerComponent,
     SelectComponent,
     AppToastsComponent,
     PicturePathPipe,
+    CheckboxComponent,
   ],
 })
 export class SharedModule {

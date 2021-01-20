@@ -19,6 +19,7 @@ export class ProjectFormComponent implements OnInit {
     enTitle: [''],
     ruDescription: [''],
     enDescription: [''],
+    isPublished: [true],
     pictures: [[]],
   });
 

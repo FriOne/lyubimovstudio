@@ -2,7 +2,8 @@ import { Body, Controller, Delete, Get, NotFoundException, Patch, Post } from '@
 
 import { Public } from '../../auth/guards/is-public-route';
 import { BeforeAndAfterEntity } from '../../entities/before-and-after.entity';
-import { IntParam, IntQuery } from '../../pipes';
+import { IntParam, IntQuery, User } from '../../pipes';
+import { UserInfo } from '../../users/users.service';
 import { BeforeAndAfterDto } from '../dtos/before-and-after.dto';
 import { BeforeAndAfterService } from '../services/before-and-after.service';
 
@@ -17,8 +18,14 @@ export class BeforeAndAfterController {
   findAll(
     @IntQuery('page') page: number,
     @IntQuery('limit') limit: number,
+    @User() user: UserInfo,
   ) {
-    return this.beforeAndAfterService.findAll(page, limit);
+    const isPublished = user ? undefined : true;
+    const filters = {
+      isPublished,
+    };
+
+    return this.beforeAndAfterService.findAll(page, limit, filters);
   }
 
   @Public()

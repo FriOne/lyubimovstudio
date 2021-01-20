@@ -4,6 +4,7 @@ export interface Project {
   enTitle: string;
   ruDescription?: string;
   enDescription?: string;
+  isPublished: boolean;
   pictures: ProjectPicture[];
   createdAt?: string;
   updatedAt?: string;
@@ -43,6 +44,7 @@ export interface BeforeAndAfter {
   enTitle?: string;
   ruDescription?: string;
   enDescription?: string;
+  isPublished: boolean;
   before: Picture;
   after: Picture;
   project: Project;

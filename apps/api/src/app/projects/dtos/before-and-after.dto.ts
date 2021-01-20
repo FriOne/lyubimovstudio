@@ -1,4 +1,4 @@
-import { IsString, ValidateNested, IsDefined, IsOptional, IsArray, IsInt } from 'class-validator';
+import { IsString, ValidateNested, IsDefined, IsOptional, IsArray, IsInt, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 
 import { PictureDto } from './picture.dto';
@@ -24,6 +24,9 @@ export class BeforeAndAfterDto {
   @IsString()
   @IsOptional()
   enDescription?: string;
+
+  @IsBoolean()
+  isPublished: boolean;
 
   @IsDefined()
   @ValidateNested()

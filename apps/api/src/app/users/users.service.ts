@@ -5,12 +5,12 @@ import { Repository } from 'typeorm';
 
 import { UserEntity } from '../entities/user.entity';
 
-export type User = {
+export type UserInfo = {
   id: number;
   email: string;
 };
 
-export type UserWithPassword = Omit<User, 'id'> & { password: string; };
+export type UserWithPassword = Omit<UserInfo, 'id'> & { password: string; };
 
 const SALT_ROUNDS = 10;
 
