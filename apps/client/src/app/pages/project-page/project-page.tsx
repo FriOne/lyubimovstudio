@@ -1,14 +1,14 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useSSR } from 'use-ssr';
+import { toast } from 'react-toastify';
 
 import './project-page.css';
 
 import { Project } from '@lyubimovstudio/api-interfaces';
 
 import { fetchProject } from '../../api';
-import { bemClassName } from '../../utils/helpers';
-import { Alert } from '../../components/alert/alert';
+import { bemClassName, loadPicture } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { ProjectView } from '../../components/project-view/project-view';
 import { FC } from '../../utils/types';
@@ -34,7 +34,6 @@ export const ProjectPage: FC<Project> = () => {
 
   const [project, setProject] = useState<Project>(initialState);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     if (initialState) {
@@ -44,24 +43,24 @@ export const ProjectPage: FC<Project> = () => {
     setLoading(true);
 
     ProjectPage.fetchInitialData(params)
-      .then(setProject)
-      .catch(setError)
+      .then((project) => {
+        setProject(project);
+
+        return project;
+      })
+      .then((project) => loadPicture(project.pictures[0].image))
+      .catch(() => toast.error('Произошла ошибка при загрузке проекта'))
       .then(() => setLoading(false));
+  // eslint-disable-next-line
   }, []);
 
   return (
     <div className={cls()}>
-      {error && (
-        <Alert className={cls('error')}>
-          {error.message}
-        </Alert>
-      )}
-
       {loading && (
         <Spinner className={cls('spinner')}/>
       )}
 
-      {!loading && !error && project && (
+      {!loading && project && (
         <ProjectView
           className={cls('project-view')}
           project={project}

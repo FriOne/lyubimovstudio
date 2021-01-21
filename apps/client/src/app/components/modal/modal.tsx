@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 import ReactModal, { Props as ModalProps } from 'react-modal';
 
 import './modal.css';
@@ -23,7 +23,7 @@ if (typeof window !== 'undefined') {
 
 const cls = bemClassName('modal');
 
-export const Modal: FunctionComponent<Props> = (props) => {
+export const Modal: FunctionComponent<Props> = memo((props) => {
   const { className = '', ...restProps } = props;
 
   return (
@@ -35,4 +35,4 @@ export const Modal: FunctionComponent<Props> = (props) => {
       {...restProps}
     />
   );
-};
+});

@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { Raw, Repository, WhereExpression } from 'typeorm';
+import { Raw, Repository } from 'typeorm';
 
 import { Tag } from '@lyubimovstudio/api-interfaces';
 
@@ -19,7 +19,7 @@ export class TagsService {
 
   async findAll(filters?: Filters) {
     const { name } = filters || {};
-    const where: Record<string, any> = {};
+    const where: Record<string, unknown> = {};
 
     if (name) {
       where.name = Raw(alias => `${alias} ILIKE '%${name}%'`);

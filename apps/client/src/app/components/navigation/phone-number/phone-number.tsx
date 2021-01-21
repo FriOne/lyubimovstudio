@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent, memo, useMemo } from 'react';
 
 import './phone-number.css';
 
@@ -12,7 +12,7 @@ type Props = {
 
 const cls = bemClassName('phone-number');
 
-export const PhoneNumber: FunctionComponent<Props> = (props) => {
+export const PhoneNumber: FunctionComponent<Props> = memo((props) => {
   const { className= '', phoneNumber } = props;
 
   const plainPhoneNumber = useMemo(() => {
@@ -30,4 +30,4 @@ export const PhoneNumber: FunctionComponent<Props> = (props) => {
       </span>
     </a>
   );
-};
+});

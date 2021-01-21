@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 
 import './project-view.css';
 
 import { Project } from '@lyubimovstudio/api-interfaces';
 
-import { bemClassName, getPicturesUrl } from '../../utils/helpers';
+import { bemClassName } from '../../utils/helpers';
+import { PictureImg } from '../picture-img/picture-img';
 
 type Props = {
   className?: string;
@@ -13,7 +14,7 @@ type Props = {
 
 const cls = bemClassName('project-view');
 
-export const ProjectView: FunctionComponent<Props> = (props) => {
+export const ProjectView: FunctionComponent<Props> = memo((props) => {
   const { className = '', project } = props;
   const { ruTitle, ruDescription, pictures = [] } = project;
 
@@ -21,10 +22,11 @@ export const ProjectView: FunctionComponent<Props> = (props) => {
 
   return (
     <div className={cls(null, [className])}>
-      <img
+      <PictureImg
         key={firstPicture.id}
         className={cls('picture', { first: true })}
-        src={getPicturesUrl(firstPicture.image.name)}
+        picture={firstPicture.image}
+        dontWaitUntilLoad
       />
 
       <div className={cls('title-and-description')}>
@@ -41,13 +43,13 @@ export const ProjectView: FunctionComponent<Props> = (props) => {
 
       <div className={cls('pictures-list')}>
         {restPictures.map((picture) => (
-          <img
+          <PictureImg
             key={picture.id}
             className={cls('picture')}
-            src={getPicturesUrl(picture.image.name)}
+            picture={picture.image}
           />
         ))}
       </div>
     </div>
   );
-};
+});

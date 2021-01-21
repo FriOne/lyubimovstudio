@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 
 import './hamburger-button.css';
 
@@ -12,7 +12,7 @@ type Props = {
 
 const cls = bemClassName('hamburger-button');
 
-export const HamburgerButton: FunctionComponent<Props> = (props) => {
+export const HamburgerButton: FunctionComponent<Props> = memo((props) => {
   const { className = '', active = false, onClick } = props;
 
   return (
@@ -26,4 +26,4 @@ export const HamburgerButton: FunctionComponent<Props> = (props) => {
         </span>
     </button>
   );
-};
+});

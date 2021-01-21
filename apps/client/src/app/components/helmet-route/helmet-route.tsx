@@ -9,7 +9,7 @@ type Props = HelmetRouteProps;
 
 export const HelmetRoute: FunctionComponent<Props> = (props) => {
   const { title, component: ComponentToRender, ...routeProps } = props;
-  const routeRender = (props: RouteComponentProps<any>) => {
+  const routeRender = (props: RouteComponentProps<unknown>) => {
     const queryParams = new URLSearchParams(props.location.search);
     const computedTitle = (typeof title === 'string')
       ? title

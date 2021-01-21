@@ -1,5 +1,5 @@
 import { Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { noop } from 'rxjs';
 
@@ -24,16 +24,19 @@ import { PicturesService } from '../../shared/services/pictures.service';
 export class PictureControlComponent implements ControlValueAccessor {
   picture: Picture;
   disabled = false;
+  // eslint-disable-next-line
   private onChange = (picture?: Picture) => {};
   private onTouched = noop;
   private loadQueue = 0;
 
   constructor(private prictureService: PicturesService) {}
 
+  // eslint-disable-next-line
   registerOnChange(fn: any) {
     this.onChange = fn;
   }
 
+  // eslint-disable-next-line
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
@@ -52,8 +55,8 @@ export class PictureControlComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  validate(control: FormControl) {
-    return (this.loadQueue !== 0) && !this.picture && {
+  validate() {
+    return ((this.loadQueue !== 0) || !this.picture) && {
       invalid: true,
     };
   }

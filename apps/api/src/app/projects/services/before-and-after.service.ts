@@ -17,7 +17,7 @@ export class BeforeAndAfterService {
 
   async findAll(page: number, limit: number, filters: BeforeAndAfterFilters) {
     const { isPublished } = filters;
-    const where: Record<string, any> = {};
+    const where: Record<string, unknown> = {};
 
     if (isPublished !== undefined) {
       where.isPublished = isPublished;
@@ -36,7 +36,7 @@ export class BeforeAndAfterService {
     return { rows, total };
   }
 
-  findOne(id: string): Promise<BeforeAndAfterEntity> {
+  findOne(id: number): Promise<BeforeAndAfterEntity> {
     return this.beforeAndAfterRepository
       .createQueryBuilder('beforeAndAfter')
       .leftJoinAndSelect('beforeAndAfter.before', 'before')
@@ -47,7 +47,7 @@ export class BeforeAndAfterService {
       .getOne();
   }
 
-  async remove(id: string) {
+  async remove(id: number) {
     return this.beforeAndAfterRepository.delete(id);
   }
 

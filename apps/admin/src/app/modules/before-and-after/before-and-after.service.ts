@@ -10,7 +10,9 @@ export class BeforeAndAfterService {
   constructor(private http: HttpClient) {}
 
   fetchAllBeforeAndAfter(page = 0, limit = 10) {
-    return this.http.get<PagedResponse<BeforeAndAfter>>('/api/before-and-after');
+    const params = { page: page.toString(), limit: limit.toString() };
+
+    return this.http.get<PagedResponse<BeforeAndAfter>>('/api/before-and-after', { params });
   }
 
   fetchBeforeAndAfter(id: string) {

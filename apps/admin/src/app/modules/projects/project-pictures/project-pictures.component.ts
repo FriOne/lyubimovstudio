@@ -1,5 +1,5 @@
 import { Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { forkJoin, noop } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -28,6 +28,8 @@ import { ProjectPictureService } from '../project-picture.service';
 export class ProjectPicturesComponent implements ControlValueAccessor {
   pictures: ProjectPicture[] = [];
   disabled = false;
+
+  // eslint-disable-next-line
   private onChange = (pictures: ProjectPicture[]) => {};
   private onTouched = noop;
   private loadQueue = 0;
@@ -43,10 +45,12 @@ export class ProjectPicturesComponent implements ControlValueAccessor {
     this.updateValue(this.pictures.map((picture, index) => ({ ...picture, order: index })));
   }
 
+  // eslint-disable-next-line
   registerOnChange(fn: any) {
     this.onChange = fn;
   }
 
+  // eslint-disable-next-line
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
@@ -65,7 +69,7 @@ export class ProjectPicturesComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  validate(control: FormControl) {
+  validate() {
     return (this.loadQueue !== 0) && {
       invalid: true,
     };

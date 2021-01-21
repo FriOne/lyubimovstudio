@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, FunctionComponent } from 'react';
+import React, { DetailedHTMLProps, FunctionComponent, memo } from 'react';
 
 import './load-more-button.css';
 
@@ -8,7 +8,7 @@ type Props = DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HT
 
 const cls = bemClassName('load-more-button');
 
-export const LoadMoreButton: FunctionComponent<Props> = (props) => {
+export const LoadMoreButton: FunctionComponent<Props> = memo((props) => {
   const { className = '', ...restProps} = props;
 
   return (
@@ -16,4 +16,4 @@ export const LoadMoreButton: FunctionComponent<Props> = (props) => {
       Подгрузить еще
     </button>
   );
-}
+});

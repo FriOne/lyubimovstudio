@@ -10,7 +10,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     super();
   }
 
-  handleRequest<UserInfo>(error: Error, user: UserInfo, info: any, context: ExecutionContext) {
+  handleRequest<UserInfo>(error: Error, user: UserInfo, info: unknown, context: ExecutionContext) {
     if (error) {
       throw error;
     }

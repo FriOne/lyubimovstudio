@@ -1,25 +1,25 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, memo } from 'react';
+import { Link } from 'react-router-dom';
 import ReactCompareImage from 'react-compare-image';
 
 import './before-and-after-view.css';
 
 import { BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
 
+import { bemClassName, getPictureUrlWithSizeCheck } from '../../utils/helpers';
+
 type Props = {
   className?: string;
   beforeAndAfter: BeforeAndAfter;
 };
 
-import { bemClassName, getPicturesUrl } from '../../utils/helpers';
-import { Link } from 'react-router-dom';
-
 const cls = bemClassName('before-and-after-view');
 
-export const BeforeAndAfterView: FunctionComponent<Props> = (props) => {
+export const BeforeAndAfterView: FunctionComponent<Props> = memo((props) => {
   const { className = '', beforeAndAfter } = props;
   const { ruTitle, ruDescription, project, before, after } = beforeAndAfter;
-  const beforeUrl = getPicturesUrl(before.name);
-  const afterUrl = getPicturesUrl(after.name);
+  const beforeUrl = getPictureUrlWithSizeCheck(before.name);
+  const afterUrl = getPictureUrlWithSizeCheck(after.name);
 
   return (
     <div className={cls(null, [className])}>
@@ -44,4 +44,4 @@ export const BeforeAndAfterView: FunctionComponent<Props> = (props) => {
       </div>
     </div>
   );
-};
+});

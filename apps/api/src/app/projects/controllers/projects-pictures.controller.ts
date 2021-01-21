@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { Public } from '../../auth/guards/is-public-route';
@@ -39,11 +39,13 @@ export class ProjectsPicturesController {
     const { name, width, height } = await this.picturesService.saveFile(file);
     const image = await this.picturesService.save({ name, width, height });
 
+    // eslint-disable-next-line
     return this.projectsPicturesService.save({ image } as any);
   }
 
   @Patch(':id')
-  async update(@IntParam('id') id, @Body() projectPicture: ProjectPictureDto) {
+  async update(@IntParam('id') id: number, @Body() projectPicture: ProjectPictureDto) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _, ...projectPictureWithoutId } = projectPicture;
     const newProjectPictrure = await this.projectsPicturesService.save({ id, ...projectPictureWithoutId } as ProjectPictureEntity);
 

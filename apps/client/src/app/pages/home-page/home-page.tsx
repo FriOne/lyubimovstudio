@@ -59,6 +59,7 @@ export const HomePage: FC<PagedResponse<Project>> = () => {
       })
       .catch(() => toast.error('Произошла ошибка при загрузке проектов'))
       .then(() => setLoading(false));
+  // eslint-disable-next-line
   }, []);
 
   return (

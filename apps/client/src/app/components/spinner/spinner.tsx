@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 
 import './spinner.css';
 
@@ -11,10 +11,10 @@ type Props = {
 
 const cls = bemClassName('spinner');
 
-export const Spinner: FunctionComponent<Props> = (props) => {
+export const Spinner: FunctionComponent<Props> = memo((props) => {
   const { className = '' } = props;
 
   return (
     <SpinnerSvg className={cls(null, [className])}/>
   )
-};
+});

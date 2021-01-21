@@ -90,6 +90,7 @@ export const PortfolioPage: FC<InitialData> = () => {
         setLoading(false);
         setLoadingTags(false);
       });
+  // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -103,6 +104,7 @@ export const PortfolioPage: FC<InitialData> = () => {
       .then(({ rows }) => setPictures(rows))
       .catch(() => toast.error('Произошла ошибка при загрузке "Портфолио"'))
       .then(() => setLoading(false));
+  // eslint-disable-next-line
   }, [tagId]);
 
   return (
@@ -123,7 +125,7 @@ export const PortfolioPage: FC<InitialData> = () => {
           key={picture.id}
           className={cls('picture')}
           projectId={picture.project.id}
-          imageName={picture.image.name}
+          picture={picture.image}
         />
       ))}
 

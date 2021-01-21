@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useCallback, useState } from 'react';
+import React, { ChangeEvent, DetailedHTMLProps, FunctionComponent, memo, useCallback, useState } from 'react';
 import InputMask from 'react-input-mask';
 import { Link } from 'react-router-dom';
 
@@ -14,10 +14,11 @@ import { Spinner } from '../spinner/spinner';
 type Props = {
   onClose(result: boolean): void;
 } & Omit<ModalProps, 'className' | 'onRequestClose'>;
+type InputProps = DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 const cls = bemClassName('request-modal');
 
-export const RequestModal: FunctionComponent<Props> = (props) => {
+export const RequestModal: FunctionComponent<Props> = memo((props) => {
   const { isOpen, onClose, ...modalProps } = props;
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -110,7 +111,7 @@ export const RequestModal: FunctionComponent<Props> = (props) => {
                   value={phoneNumber}
                   onChange={onPhoneNumberChange}
                 >
-                  {(inputProps: any) => (
+                  {(inputProps: InputProps) => (
                     <input
                       className={cls('input', { phone: true })}
                       type="tel"
@@ -145,7 +146,9 @@ export const RequestModal: FunctionComponent<Props> = (props) => {
             checked={acceptPrivacy}
             onChange={onAcceptPrivacyChange}
           >
-            Нажимая "Отправить", вы соглашаетесь с <Link to="/privacy" target="_blank">политикой конфиденциальности</Link>.
+            <span className={cls('privacy-text')}>
+              Нажимая "Отправить", вы соглашаетесь с <Link to="/privacy" target="_blank">политикой конфиденциальности</Link>
+            </span>
           </Checkbox>
 
           {sending
@@ -169,4 +172,4 @@ export const RequestModal: FunctionComponent<Props> = (props) => {
       </form>
     </Modal>
   );
-};
+});

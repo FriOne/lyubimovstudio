@@ -7,11 +7,6 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { ToastsService } from '../../shared/services/toasts.service';
 import { BeforeAndAfterService } from '../before-and-after.service';
 
-type Filters = {
-  page: number;
-  pageSize: number;
-};
-
 @Component({
   selector: 'ls-before-and-after-list',
   templateUrl: './before-and-after-list.component.html',

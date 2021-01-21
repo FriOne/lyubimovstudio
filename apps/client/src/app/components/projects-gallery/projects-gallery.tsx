@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, memo, useEffect, useState } from 'react';
 import Masonry from 'react-masonry-css';
 import useSSR from 'use-ssr';
 
@@ -16,7 +16,7 @@ type Props = {
 
 const cls = bemClassName('projects-gallery');
 
-export const ProjectsGallery: FunctionComponent<Props> = (props) => {
+export const ProjectsGallery: FunctionComponent<Props> = memo((props) => {
   const { className = '', projects } = props;
   const { isServer } = useSSR();
   const [mounted, setMounted] = useState(false)
@@ -25,7 +25,7 @@ export const ProjectsGallery: FunctionComponent<Props> = (props) => {
       key={project.id}
       className={cls('project')}
       projectId={project.id}
-      imageName={project.pictures?.[0].image.name}
+      picture={project.pictures?.[0].image}
     />
   ));
 
@@ -55,4 +55,4 @@ export const ProjectsGallery: FunctionComponent<Props> = (props) => {
       {projectsLinks}
     </Masonry>
   );
-};
+});

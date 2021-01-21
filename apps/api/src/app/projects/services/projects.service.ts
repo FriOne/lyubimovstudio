@@ -1,9 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { FindOperator, Raw, Repository, SelectQueryBuilder } from 'typeorm';
+import { FindOperator, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { ProjectEntity } from '../../entities/project.entity';
 import { PicturesService } from '../../pictures/pictures.service';
+import { ProjectPictureEntity } from '../../entities/project-picture.entity';
 
 type ProjectsFilters = {
   name?: string;
@@ -21,7 +22,7 @@ export class ProjectsService {
 
   async findAll(page = 0, limit = 10, filters: ProjectsFilters) {
     const { name = '', withPictures = false, isPublished } = filters;
-    let where: Record<string, any> = {};
+    const where: Record<string, unknown> = {};
 
     if (isPublished !== undefined) {
       where.isPublished = isPublished;
@@ -45,13 +46,14 @@ export class ProjectsService {
       query = query.andWhere([
         { ruTitle: operator },
         { enTitle: operator },
+      // eslint-disable-next-line
       ] as any);
     }
 
     if (withPictures) {
       query = query
         .leftJoin(
-          (qb: SelectQueryBuilder<any>) => qb
+          (qb: SelectQueryBuilder<ProjectPictureEntity>) => qb
             .select('COUNT("projectPicture"."id")', 'count')
             .addSelect('projectPicture.projectId', 'projectId')
             .from('project_picture', 'projectPicture')

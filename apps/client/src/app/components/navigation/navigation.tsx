@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, ReactNode, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { environment } from '../../../environments/environment';
@@ -20,7 +20,7 @@ type Props = {
 
 const cls = bemClassName('navigation');
 
-export const Navigation: FunctionComponent<Props> = (props) => {
+export const Navigation: FunctionComponent<Props> = memo((props) => {
   const { className = '', links } = props;
   const [opened, setOpened] = useState(false);
 
@@ -31,7 +31,7 @@ export const Navigation: FunctionComponent<Props> = (props) => {
 
   useEffect(() => {
     const onDocumentClick = (event: MouseEvent) => {
-      if (ref.current.contains(event.target as any)) {
+      if (ref.current.contains(event.target as HTMLElement)) {
         return;
       }
 
@@ -75,4 +75,4 @@ export const Navigation: FunctionComponent<Props> = (props) => {
       />
     </nav>
   );
-};
+});

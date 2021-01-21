@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, FunctionComponent } from 'react';
+import React, { DetailedHTMLProps, FunctionComponent, memo } from 'react';
 
 import './checkbox.css';
 
@@ -8,7 +8,7 @@ type Props = DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTML
 
 const cls = bemClassName('checkbox');
 
-export const Checkbox: FunctionComponent<Props> = (props) => {
+export const Checkbox: FunctionComponent<Props> = memo((props) => {
   const { className = '', children, checked, ...restProps } = props;
 
   return (
@@ -23,4 +23,4 @@ export const Checkbox: FunctionComponent<Props> = (props) => {
       {children}
     </label>
   );
-}
+});

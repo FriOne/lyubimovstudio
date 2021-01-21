@@ -105,6 +105,7 @@ export const AboutPage: FunctionComponent = () => {
         <img
           className={cls('photo')}
           src="/assets/photo.jpg"
+          alt="Фото Алексея Любимова"
         />
       </div>
     </div>

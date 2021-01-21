@@ -28,6 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next
       .handle(request)

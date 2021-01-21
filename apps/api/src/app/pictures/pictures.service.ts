@@ -20,7 +20,7 @@ export class PicturesService {
     private picturesRepository: Repository<PictureEntity>,
   ) {}
 
-  async findAll(page = 0, limit) {
+  async findAll(page = 0, limit = 10) {
     const [rows, total] = await this.picturesRepository.findAndCount({
       take: limit,
       skip: page * limit,
@@ -54,11 +54,12 @@ export class PicturesService {
     this.removeFile(picture.name);
   }
 
-  async saveFile(file: any) {
+  async saveFile(file) {
     const newFileName = `${uuid()}.jpg`;
     const filePath = path.resolve(`${UPLOAD_FOLDER}/${newFileName}`);
     const mobileFilePath = path.resolve(`${UPLOAD_FOLDER}/sm-${newFileName}`);
 
+    // eslint-disable-next-line
     await mkdir(UPLOAD_FOLDER, { recursive: true } as any);
 
     const { width, height } = await sharp(file.buffer)

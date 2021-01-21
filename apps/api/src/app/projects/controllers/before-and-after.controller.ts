@@ -30,7 +30,7 @@ export class BeforeAndAfterController {
 
   @Public()
   @Get(':id')
-  async findOne(@IntParam('id') id) {
+  async findOne(@IntParam('id') id: number) {
     const beforeAndAfter = await this.beforeAndAfterService.findOne(id);
 
     if (!beforeAndAfter) {
@@ -42,6 +42,7 @@ export class BeforeAndAfterController {
 
   @Post()
   async create(@Body() beforeAndAfter: BeforeAndAfterDto) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _, ...beforeAndAfterWithoutId } = beforeAndAfter;
 
     return this.beforeAndAfterService.save(beforeAndAfterWithoutId as BeforeAndAfterEntity);
@@ -49,13 +50,14 @@ export class BeforeAndAfterController {
 
   @Patch(':id')
   async update(@IntParam('id') id, @Body() beforeAndAfter: BeforeAndAfterDto) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _, ...beforeAndAfterWithoutId } = beforeAndAfter;
 
     return this.beforeAndAfterService.save({ id, ...beforeAndAfterWithoutId } as BeforeAndAfterEntity);
   }
 
   @Delete(':id')
-  async remove(@IntParam('id') id) {
+  async remove(@IntParam('id') id: number) {
     return this.beforeAndAfterService.remove(id);
   }
 }

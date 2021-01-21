@@ -62,6 +62,7 @@ export const BeforeAndAfterPage: FC<PagedResponse<BeforeAndAfter>> = () => {
       })
       .catch(() => toast.error('Произошла ошибка при загрузке "До И После"'))
       .then(() => setLoading(false));
+  // eslint-disable-next-line
   }, []);
 
   return (
@@ -70,8 +71,9 @@ export const BeforeAndAfterPage: FC<PagedResponse<BeforeAndAfter>> = () => {
         До и После
       </h1>
 
-      {!loading && beforeAndAfter.map(singleBeforeAndAfter => (
+      {!loading && beforeAndAfter.map((singleBeforeAndAfter) => (
         <BeforeAndAfterView
+          key={singleBeforeAndAfter.id}
           className={cls('before-and-after-view')}
           beforeAndAfter={singleBeforeAndAfter}
         />

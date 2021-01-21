@@ -65,6 +65,7 @@
             "outputPath": "dist/apps/api-console",
             "main": "apps/api/src/cli.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"],
             "generatePackageJson": true
           },
           "configurations": {
@@ -79,25 +80,6 @@
                 }
               ]
             }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
+import { ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
 type DialogData = {
   projectPicture: ProjectPicture;

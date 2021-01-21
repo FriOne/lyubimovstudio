@@ -9,7 +9,7 @@ type PasswordLoginResponse = {
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser: any = null;
+  currentUser: Record<string, unknown> = null;
 
   constructor(private http: HttpClient) {
     const token = localStorage.getItem('access_token');

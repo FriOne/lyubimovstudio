@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop } from 'rxjs';
 
@@ -21,6 +21,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   disabled = false;
   id = `checkbox-${checkboxNumnber++}`;
 
+  // eslint-disable-next-line
   private onChange = (checked: boolean) => {};
   private onTouched = noop;
 
@@ -29,10 +30,12 @@ export class CheckboxComponent implements ControlValueAccessor {
     this.updateValue(event.currentTarget.checked);
   }
 
+  // eslint-disable-next-line
   registerOnChange(fn: any) {
     this.onChange = fn;
   }
 
+  // eslint-disable-next-line
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }

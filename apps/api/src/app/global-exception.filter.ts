@@ -1,7 +1,9 @@
 import {
   ArgumentsHost,
-  Catch, HttpException,
-  HttpStatus, Logger
+  Catch,
+  HttpException,
+  HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 
@@ -9,6 +11,7 @@ import { BaseExceptionFilter } from '@nestjs/core';
 export class GlobalExceptionFilter extends BaseExceptionFilter {
   private readonly logger = new Logger('global');
 
+  // eslint-disable-next-line
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();

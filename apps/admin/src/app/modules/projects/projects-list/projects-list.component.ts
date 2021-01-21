@@ -9,12 +9,6 @@ import { Project } from '@lyubimovstudio/api-interfaces';
 import { ToastsService } from '../../shared/services/toasts.service';
 import { ProjectsService } from '../../shared/services/projects.service';
 
-type Filters = {
-  page: number;
-  pageSize: number;
-  name: string;
-};
-
 @Component({
   selector: 'ls-projects-list',
   templateUrl: './projects-list.component.html',

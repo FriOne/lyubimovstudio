@@ -1,43 +1,30 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 import { Link } from 'react-router-dom';
-import useSSR from 'use-ssr';
 
 import './project-image-link.css';
 
-import { bemClassName, getPicturesUrl, loadImage } from '../../utils/helpers';
+import { Picture } from '@lyubimovstudio/api-interfaces';
+
+import { bemClassName } from '../../utils/helpers';
+import { PictureImg } from '../picture-img/picture-img';
 
 type Props = {
   className?: string;
   projectId: number;
-  imageName: string;
+  picture: Picture;
 };
 
 const cls = bemClassName('project-image-link');
 
-export const ProjectImageLink: FunctionComponent<Props> = (props) => {
-  const { className = '', projectId, imageName } = props;
-  const imageUrl = getPicturesUrl(imageName);
-  const { isBrowser } = useSSR();
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  useEffect(() => {
-    loadImage(imageUrl)
-      .then(() => setImageLoaded(true))
-      .catch(error => console.log('Image load error', error));
-  }, []);
-
-  if (isBrowser && !imageLoaded) {
-    return null;
-  }
+export const ProjectImageLink: FunctionComponent<Props> = memo((props) => {
+  const { className = '', projectId, picture } = props;
 
   return (
     <Link className={cls(null, [className])} to={`/projects/${projectId}`}>
-      {imageUrl && (
-        <img
-          className={cls('picture')}
-          src={imageUrl}
-        />
-      )}
+      <PictureImg
+        className={cls('picture')}
+        picture={picture}
+      />
     </Link>
   );
-};
+});

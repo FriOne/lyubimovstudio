@@ -26,6 +26,9 @@
     "api": {
       "tags": []
     },
+    "api-console": {
+      "tags": []
+    },
     "api-interfaces": {
       "tags": []
     },
@@ -42,9 +45,6 @@
     "client-e2e": {
       "tags": [],
       "implicitDependencies": ["client"]
-    },
-    "api-console": {
-      "tags": []
     },
     "client-ssr": {
       "tags": [],

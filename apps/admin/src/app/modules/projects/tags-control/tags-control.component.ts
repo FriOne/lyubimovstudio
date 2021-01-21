@@ -39,15 +39,18 @@ export class TagsControlComponent implements ControlValueAccessor {
       ),
     );
 
+  // eslint-disable-next-line
   private onChange = (tags: Tag[]) => {};
   private onTouched = noop;
 
   constructor(private tagsService: TagsService) {}
 
+  // eslint-disable-next-line
   registerOnChange(fn: any) {
     this.onChange = fn;
   }
 
+  // eslint-disable-next-line
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }

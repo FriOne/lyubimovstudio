@@ -1,8 +1,7 @@
-import { IsString, ValidateNested, IsDefined, IsOptional, IsArray, IsInt, IsBoolean } from 'class-validator';
+import { IsString, ValidateNested, IsDefined, IsOptional, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 
 import { PictureDto } from './picture.dto';
-import { ProjectDto } from './project.dto';
 import { BeforeAndAfterProjectDto } from './before-and-after-project.dto';
 
 export class BeforeAndAfterDto {

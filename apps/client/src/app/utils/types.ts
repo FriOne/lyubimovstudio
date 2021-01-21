@@ -3,7 +3,7 @@ import { RouteProps } from 'react-router-dom';
 
 type InitialFetch<Response> = { fetchInitialData(params?: Record<string, string>, queryParams?: Record<string, string>): Promise<Response>; };
 
-export type FC<Response, Props = {}> = FunctionComponent<Props> & InitialFetch<Response>;
+export type FC<Response, Props = null> = FunctionComponent<Props> & InitialFetch<Response>;
 
 type titleFn = (queryParams: Record<string, string>) => string;
 

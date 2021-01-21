@@ -1,4 +1,5 @@
 import { withNaming } from '@bem-react/classname';
+import { Picture } from '@lyubimovstudio/api-interfaces';
 
 export const bemClassName = withNaming({
   e: '__',
@@ -6,21 +7,43 @@ export const bemClassName = withNaming({
   v: '_',
 });
 
-export function getPicturesUrl(pictureName: string) {
-  const isMobile = (typeof window === 'undefined') ? true : window.innerWidth < 1025;
-
-  return `/uploads/${isMobile ? 'sm-' : ''}${pictureName}`;
+export function getPictureUrl(pictureName: string) {
+  return `/uploads/${pictureName}`;
 }
 
-export function loadImage(url: string): Promise<string> {
+export function getPictureUrlWithSizeCheck(pictureName: string) {
+  const isMobile = (typeof window === 'undefined') ? true : window.innerWidth < 1025;
+
+  return getPictureUrl(`${isMobile ? 'sm-' : ''}${pictureName}`);
+}
+
+export function getPictureImageUrls(name: string) {
+  const large = getPictureUrl(name);
+  const small = getPictureUrl(`sm-${name}`);
+  const srcSet = `${small} 1025w, ${large}`;
+
+  return { small, large, srcSet };
+}
+
+export function loadImage(url: string, srcSet?: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const image = new Image();
 
     image.onload = () => resolve(url);
     image.onerror = (error) => reject(error);
 
+    if (srcSet) {
+      image.srcset = srcSet;
+    }
+
     image.src = url;
   });
+}
+
+export function loadPicture(pricture: Picture) {
+  const { small, srcSet } = getPictureImageUrls(pricture.name);
+
+  return loadImage(small, srcSet);
 }
 
 export function validatePhoneNumber(phoneNumber: string) {

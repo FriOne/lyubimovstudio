@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 
 import './privacy-page.css';
 
@@ -8,7 +8,7 @@ import { bemClassName } from '../../utils/helpers';
 
 const cls = bemClassName('privacy-page');
 
-export const PrivacyPage: FunctionComponent = () => {
+export const PrivacyPage: FunctionComponent = memo(() => {
   return (
     <div className={cls()}>
       <h1 className={cls('title')}>
@@ -18,4 +18,4 @@ export const PrivacyPage: FunctionComponent = () => {
       {privacyText}
     </div>
   );
-};
+}, () => true);

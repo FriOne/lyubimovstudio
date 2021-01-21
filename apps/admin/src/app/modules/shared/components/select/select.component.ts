@@ -24,13 +24,16 @@ export class SelectComponent implements ControlValueAccessor {
 
   disabled = false;
 
+  // eslint-disable-next-line
   private onChange = (value: string | number) => {};
   private onTouched = noop;
 
+  // eslint-disable-next-line
   registerOnChange(fn: any) {
     this.onChange = fn;
   }
 
+  // eslint-disable-next-line
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }

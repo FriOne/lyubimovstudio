@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const nrwlReactConfig = require('@nrwl/react/plugins/webpack.js');
-const { config } = require('process');
 
 module.exports = (config) => {
   const isDevelopment = (config.mode === 'development');

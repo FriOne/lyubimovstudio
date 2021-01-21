@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires, no-undef */
 const webpack = require('webpack');
 const reactWebpack = require('@nrwl/react/plugins/webpack.js');
 

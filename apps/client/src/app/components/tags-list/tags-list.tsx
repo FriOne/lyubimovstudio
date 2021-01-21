@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import './tags-list.css';
@@ -14,7 +14,7 @@ type Props = {
 
 const cls = bemClassName('tags-list');
 
-export const TagsList: FunctionComponent<Props> = (props) => {
+export const TagsList: FunctionComponent<Props> = memo((props) => {
   const { className = '', tags } = props;
 
   return (
@@ -34,4 +34,4 @@ export const TagsList: FunctionComponent<Props> = (props) => {
       ))}
     </div>
   );
-}
+});

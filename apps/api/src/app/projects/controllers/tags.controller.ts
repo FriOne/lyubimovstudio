@@ -17,6 +17,7 @@ export class TagsController {
 
   @Post()
   async create(@Body() tag: TagDto) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _, ...tagWithoutId } = tag;
 
     const exists = await this.tagsService.exists(tagWithoutId.name);
@@ -29,7 +30,7 @@ export class TagsController {
   }
 
   @Delete(':id')
-  async remove(@IntParam('id') id) {
+  async remove(@IntParam('id') id: number) {
     return this.tagsService.remove(id);
   }
 }
