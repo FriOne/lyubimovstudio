@@ -2,13 +2,16 @@
 @import '~bootstrap/scss/variables';
 
 :host {
-  display: block;
   padding-right: 30px;
   padding-left: 30px;
 }
 
 .navbar-nav {
   width: 100%;
+}
+
+.navbar-collapse {
+  padding: 10px 0;
 }
 
 .logout-link {
@@ -29,6 +32,10 @@
   .general-links,
   .navbar-nav {
     display: flex;
+  }
+
+  .navbar-collapse {
+    padding: 0;
   }
 
   .navbar-nav {

@@ -1,7 +1,7 @@
 {
   "name": "LyubimovStudio Admin",
   "short_name": "LS Admin",
-  "theme_color": "#343a40",
+  "theme_color": "#212529",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/admin",
