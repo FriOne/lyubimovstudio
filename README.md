@@ -1,6 +1,12 @@
 # Lyubimovstudio
 
 Create volume uploads!!
+Add certs for prod builds!!
+nginx ssl_passwords.txt
+```bash
+cd docker/init && openssl req -x509 -newkey rsa:2048 -keyout site.key -out site.crt -days 365 && cd ../../
+```
+Add .prod.env from .env!!
 
 This project was generated using [Nx](https://nx.dev).
 

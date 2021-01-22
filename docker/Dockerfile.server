@@ -2,10 +2,16 @@
 FROM lyubimovstudio-build:latest as builder
 FROM nginx:stable
 
+COPY docker/init/ssl_passwords.txt /usr/share/nginx/
+COPY docker/init/site.crt /usr/local/share/ca-certificates/
+COPY docker/init/site.key /etc/ssl/private/
+RUN update-ca-certificates
+
 COPY docker/init/nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=builder /home/node/app/dist/apps/client /usr/share/nginx/html/client/
 COPY --from=builder /home/node/app/dist/apps/admin /usr/share/nginx/html/admin/
 
-CMD ["/etc/init.d/nginx", "restart;"]
+EXPOSE 443
+
 CMD ["nginx", "-g", "daemon off;"]

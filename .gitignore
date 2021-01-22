@@ -39,3 +39,7 @@ testem.log
 Thumbs.db
 
 .prod.env
+
+docker/init/site.crt
+docker/init/site.key
+docker/init/ssl_passwords.txt
