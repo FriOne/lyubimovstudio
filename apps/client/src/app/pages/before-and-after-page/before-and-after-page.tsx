@@ -11,7 +11,7 @@ import { fetchBeforeAndAfter } from '../../api';
 import { bemClassName } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
-import { InitialDataContext } from '../../../initial-data-context';
+import { InitialDataContext } from '../../initial-data-context';
 import { BeforeAndAfterView } from '../../components/before-and-after-view/before-and-after-view';
 import { LoadMoreButton } from '../../components/load-more-button/load-more-button';
 

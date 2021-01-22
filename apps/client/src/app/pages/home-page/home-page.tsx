@@ -11,7 +11,7 @@ import { bemClassName } from '../../utils/helpers';
 import { ProjectsGallery } from '../../components/projects-gallery/projects-gallery';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
-import { InitialDataContext } from '../../../initial-data-context';
+import { InitialDataContext } from '../../initial-data-context';
 import { LoadMoreButton } from '../../components/load-more-button/load-more-button';
 
 const cls = bemClassName('home-page');

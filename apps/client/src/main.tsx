@@ -2,8 +2,8 @@ import React from 'react';
 import { hydrate, render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './app/app';
-import { InitialDataContext } from './initial-data-context';
+import { App } from './app/app';
+import { InitialDataContext } from './app/initial-data-context';
 
 const root = document.getElementById('root');
 const method = root.hasChildNodes() ? hydrate : render;

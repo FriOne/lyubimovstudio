@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode, memo, useCallback, useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 
 import { environment } from '../../../environments/environment';
 import { bemClassName } from '../../utils/helpers';
@@ -9,8 +9,9 @@ import { PhoneNumber } from './phone-number/phone-number';
 import './navigation.css';
 
 export type Link = {
-  to: string;
-  children: ReactNode;
+  to: NavLinkProps['to'];
+  children: NavLinkProps['children'];
+  isActive: NavLinkProps['isActive'];
 };
 
 type Props = {

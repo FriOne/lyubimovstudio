@@ -2,7 +2,7 @@ type Props = {
     stylesheets: string;
     scripts: string;
     title: string;
-    initialData: any;
+    initialData: unknown;
 };
 
 export function getHtmlPageStartAndEnd(props: Props) {

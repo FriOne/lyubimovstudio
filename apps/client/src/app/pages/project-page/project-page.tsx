@@ -8,11 +8,11 @@ import './project-page.css';
 import type { Project } from '@lyubimovstudio/api-interfaces';
 
 import { fetchProject } from '../../api';
+import { InitialDataContext } from '../../initial-data-context';
 import { bemClassName, loadPicture } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { ProjectView } from '../../components/project-view/project-view';
 import { FC } from '../../utils/types';
-import { InitialDataContext } from '../../../initial-data-context';
 
 type PageParams = { id: string };
 

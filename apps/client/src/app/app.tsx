@@ -6,11 +6,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import './app.css';
 
 import { environment } from '../environments/environment';
+import { routes } from './routes';
 import { bemClassName } from './utils/helpers';
 import { Link, Navigation } from './components/navigation/navigation';
-import { routes } from './routes';
 import { HelmetRoute } from './components/helmet-route/helmet-route';
 import { RequestModal } from './components/request-modal/request-modal';
+import { HelmetRouteProps } from './utils/types';
 
 const cls = bemClassName('app');
 
@@ -30,8 +31,9 @@ export function App() {
     return routes
       .filter(route => route.navTitle)
       .map(route => ({
-        to: route.path,
+        to: route.navPath || route.path as string,
         children: route.navTitle,
+        isActive: route.navIsActive,
       }));
   }, []);
 
@@ -44,7 +46,7 @@ export function App() {
 
       <div className={cls('content')}>
         <Switch>
-          {routes.map(route => <HelmetRoute key={route.path} {...route}/>)}
+          {routes.map((route) => <HelmetRoute key={getRouteKey(route)} {...route}/>)}
         </Switch>
       </div>
 
@@ -73,4 +75,10 @@ export function App() {
   );
 }
 
-export default App;
+function getRouteKey(route: HelmetRouteProps) {
+  if (!route.path) {
+    return '404';
+  }
+
+  return Array.isArray(route.path) ? route.path[0] : route.path;
+}

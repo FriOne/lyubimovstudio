@@ -11,7 +11,7 @@ import { fetchPicturesByTag, fetchTags } from '../../api';
 import { bemClassName } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
-import { InitialDataContext } from '../../../initial-data-context';
+import { InitialDataContext } from '../../initial-data-context';
 import { ProjectImageLink } from '../../components/project-image-link/project-image-link';
 import { TagsList } from '../../components/tags-list/tags-list';
 import { LoadMoreButton } from '../../components/load-more-button/load-more-button';

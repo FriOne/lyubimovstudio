@@ -1,16 +1,21 @@
 import express, { Request, Response } from 'express';
-import fs from 'fs';
 import { promisify } from 'util';
-import React from 'react';
 import { renderToStaticNodeStream } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router';
+import React from 'react';
+import fs from 'fs';
 import fetch from 'node-fetch';
 
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { routes } from './../../client/src/app/routes';
 import { App } from './../../client/src/app/app';
-import { InitialDataContext } from './../../client/src/initial-data-context';
+import { FC } from './../../client/src/app/utils/types';
+import { InitialDataContext } from './../../client/src/app/initial-data-context';
+/* eslint-enable @nrwl/nx/enforce-module-boundaries */
+
 import { getHtmlPageStartAndEnd } from './html';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 global.fetch = fetch as any;
 
 const readFile = promisify(fs.readFile);
@@ -28,10 +33,6 @@ async function initServer() {
   const assets = await getIndexHtmlAssets(clientHtmlFile);
 
   const app = express();
-
-  app.get('/', (req, res) => {
-    res.redirect('/projects', 308);
-  });
 
   app.get('*', getSSRRoute(assets));
 
@@ -66,12 +67,12 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
       }
     }
 
-    let initialData: any;
-    const fetchInitialData = (currentRoute?.component as any)?.fetchInitialData;
+    let initialData: unknown;
+    const fetchInitialData = (currentRoute?.component as FC<unknown>)?.fetchInitialData;
 
     if (fetchInitialData) {
       try {
-        initialData = await fetchInitialData(currentRouteMatch.params, req.query);
+        initialData = await fetchInitialData(currentRouteMatch.params, req.query as Record<string, string>);
       }
       catch (error) {
         console.error(error);
@@ -93,7 +94,7 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
        initialData,
     });
 
-    res.status(currentRouteMatch ? 200 : 404);
+    res.status(currentRoute.path ? 200 : 404);
     res.write(hrmlPageStart);
 
     const stream = renderToStaticNodeStream(

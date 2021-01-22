@@ -1,0 +1,32 @@
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding-bottom: 110px;
+
+  &__404 {
+    font-size: 230px;
+    line-height: normal;
+    font-weight: 500;
+  }
+
+  &__text {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .not-found-page {
+    padding-bottom: 50px;
+
+    &__404 {
+      font-size: 140px;
+    }
+
+    &__text {
+      font-size: 18px;
+    }
+  }
+}
