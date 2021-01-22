@@ -94,7 +94,7 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
        initialData,
     });
 
-    res.status(currentRoute.path ? 200 : 404);
+    res.status(currentRoute?.path ? 200 : 404);
     res.write(hrmlPageStart);
 
     const stream = renderToStaticNodeStream(

@@ -39,3 +39,6 @@ testem.log
 Thumbs.db
 
 .prod.env
+
+docker/init/site.req.pem
+docker/init/site.key.pem

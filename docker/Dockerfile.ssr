@@ -12,6 +12,6 @@ COPY --from=builder /home/node/app/dist/apps/client-ssr /home/node/app/client-ss
 
 ENV CLIENT_HTML_FILE=/home/node/app/client-ssr/index.html
 
-CMD node main.js
+CMD node main.js --enable-source-maps
 
 EXPOSE 4444
