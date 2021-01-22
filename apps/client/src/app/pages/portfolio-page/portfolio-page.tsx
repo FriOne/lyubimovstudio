@@ -5,7 +5,7 @@ import { useSSR } from 'use-ssr';
 
 import './portfolio-page.css';
 
-import { PagedResponse, ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
+import type { PagedResponse, ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
 import { fetchPicturesByTag, fetchTags } from '../../api';
 import { bemClassName } from '../../utils/helpers';

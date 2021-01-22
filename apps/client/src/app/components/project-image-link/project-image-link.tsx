@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './project-image-link.css';
 
-import { Picture } from '@lyubimovstudio/api-interfaces';
+import type { Picture } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName } from '../../utils/helpers';
 import { PictureImg } from '../picture-img/picture-img';

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
+import type { BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
 import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 

@@ -2,7 +2,7 @@ import React, { FunctionComponent, memo } from 'react';
 
 import './project-view.css';
 
-import { Project } from '@lyubimovstudio/api-interfaces';
+import type { Project } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName } from '../../utils/helpers';
 import { PictureImg } from '../picture-img/picture-img';

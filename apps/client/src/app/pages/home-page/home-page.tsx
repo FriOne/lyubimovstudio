@@ -4,7 +4,7 @@ import { useSSR } from 'use-ssr';
 
 import './home-page.css';
 
-import { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
+import type { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
 
 import { fetchProjects } from '../../api';
 import { bemClassName } from '../../utils/helpers';

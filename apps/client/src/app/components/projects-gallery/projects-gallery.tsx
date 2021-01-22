@@ -4,7 +4,7 @@ import useSSR from 'use-ssr';
 
 import './projects-gallery.css';
 
-import { Project } from '@lyubimovstudio/api-interfaces';
+import type { Project } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName } from '../../utils/helpers';
 import { ProjectImageLink } from '../project-image-link/project-image-link';

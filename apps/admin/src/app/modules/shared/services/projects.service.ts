@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
+import type { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
 
 @Injectable({
   providedIn: 'root',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, of } from 'rxjs';
 
-import { Picture } from '@lyubimovstudio/api-interfaces';
+import type { Picture } from '@lyubimovstudio/api-interfaces';
 
 import { PicturesService } from '../../shared/services/pictures.service';
 

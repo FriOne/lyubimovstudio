@@ -11,7 +11,7 @@ import {
   JoinTable
 } from 'typeorm';
 
-import { Project, ProjectPicture, Picture, Tag } from '@lyubimovstudio/api-interfaces';
+import type { Project, ProjectPicture, Picture, Tag } from '@lyubimovstudio/api-interfaces';
 
 @Entity({ name: 'project_picture' })
 export class ProjectPictureEntity implements ProjectPicture {

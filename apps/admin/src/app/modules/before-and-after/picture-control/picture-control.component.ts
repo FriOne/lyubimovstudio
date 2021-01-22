@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { noop } from 'rxjs';
 
-import { Picture } from '@lyubimovstudio/api-interfaces';
+import type { Picture } from '@lyubimovstudio/api-interfaces';
 
 import { PicturesService } from '../../shared/services/pictures.service';
 

@@ -3,7 +3,7 @@ import useSSR from 'use-ssr';
 
 import './picture-img.css';
 
-import { Picture } from '@lyubimovstudio/api-interfaces';
+import type { Picture } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName, getPictureImageUrls, loadImage } from '../../utils/helpers';
 

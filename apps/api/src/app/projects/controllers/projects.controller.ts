@@ -5,7 +5,7 @@ import { IntParam, IntQuery, User } from '../../pipes';
 import { ProjectDto } from '../dtos/project.dto';
 import { ProjectEntity } from '../../entities/project.entity';
 import { ProjectsService } from '../services/projects.service';
-import { UserInfo } from '../../users/users.service';
+import type { UserInfo } from '../../users/users.service';
 
 @Controller('projects')
 export class ProjectsController {

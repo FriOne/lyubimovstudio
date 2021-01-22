@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { ProjectPicture } from '@lyubimovstudio/api-interfaces';
+import type { ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
 import { PicturesService } from '../../shared/services/pictures.service';
 

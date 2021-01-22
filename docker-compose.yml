@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.api
     volumes:
-      - uploads:/home/node/app/api/uploads
+      - uploads:/home/node/app/uploads
     depends_on:
       - db
     networks:

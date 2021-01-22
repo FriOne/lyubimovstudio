@@ -1,23 +1,20 @@
 FROM lyubimovstudio-build:latest as builder
 FROM node:15.3.0-alpine
 
-WORKDIR /home/node/app/api
+WORKDIR /home/node/app
 
-RUN mkdir -p /home/node/app/api/uploads
+RUN mkdir -p /home/node/app/uploads
 
-COPY --from=builder /home/node/app/dist/apps/api-console/package.json /home/node/app/api-console/package.json
-RUN cd /home/node/app/api-console && yarn install --no-lockfile && yarn add pg --no-lockfile
-
-COPY --from=builder /home/node/app/dist/apps/api/package.json /home/node/app/api/package.json
+COPY --from=builder /home/node/app/dist/apps/api/package.json /home/node/app/package.json
 RUN yarn install --no-lockfile
 RUN yarn add pg --no-lockfile
-RUN yarn add passport --no-lockfile && yarn cache clean
+RUN yarn add passport --no-lockfile
+RUN yarn cache clean
 
-COPY --from=builder /home/node/app/dist/apps/api-console /home/node/app/api-console/
-COPY --from=builder /home/node/app/dist/apps/api /home/node/app/api/
+COPY --from=builder /home/node/app/dist/apps/api /home/node/app/
 
 COPY .prod.env ./.env
 
-CMD node main.js
+CMD node main.js --enable-source-maps
 
 EXPOSE 3333

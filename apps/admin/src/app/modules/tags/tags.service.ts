@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Tag } from '@lyubimovstudio/api-interfaces';
+import type { Tag } from '@lyubimovstudio/api-interfaces';
 
 @Injectable({
   providedIn: 'root'

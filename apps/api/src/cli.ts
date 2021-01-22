@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
+import { INestApplicationContext } from '@nestjs/common';
 import inquirer, { Question } from 'inquirer';
 
 import { AppModule } from './app/app.module';
 import { UsersModule } from './app/users/users.module';
 import { UsersService } from './app/users/users.service';
-import { INestApplicationContext } from '@nestjs/common';
 
 (async () => {
   const command = await askCommand();

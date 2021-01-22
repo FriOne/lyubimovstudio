@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 
-import { ProjectPicture } from '@lyubimovstudio/api-interfaces';
+import type { ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
 import { ProjectPictureModalFormComponent } from '../project-picture-modal-form/project-picture-modal-form.component';
 import { ProjectPictureService } from '../project-picture.service';

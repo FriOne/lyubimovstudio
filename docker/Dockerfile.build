@@ -14,7 +14,6 @@ RUN yarn nx build admin --prod
 
 COPY apps/api ./apps/api/
 RUN yarn nx build api --prod
-RUN yarn nx build api-console --prod
 
 COPY apps/client ./apps/client/
 RUN yarn nx build client --prod

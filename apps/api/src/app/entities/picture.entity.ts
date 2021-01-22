@@ -7,7 +7,7 @@ import {
   OneToOne,
 } from 'typeorm';
 
-import { BeforeAndAfter, Picture, ProjectPicture } from '@lyubimovstudio/api-interfaces';
+import type { BeforeAndAfter, Picture, ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
 @Entity({ name: 'picture' })
 export class PictureEntity implements Picture {

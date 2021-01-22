@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
 
-import { Project } from '@lyubimovstudio/api-interfaces';
+import type { Project } from '@lyubimovstudio/api-interfaces';
 
 import { ToastsService } from '../../shared/services/toasts.service';
 import { ProjectsService } from '../../shared/services/projects.service';

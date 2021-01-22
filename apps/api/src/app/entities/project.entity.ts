@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-import { Project, ProjectPicture } from '@lyubimovstudio/api-interfaces';
+import type { Project, ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
 @Entity({ name: 'project' })
 export class ProjectEntity implements Project {

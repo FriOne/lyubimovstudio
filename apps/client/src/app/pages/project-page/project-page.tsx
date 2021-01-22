@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import './project-page.css';
 
-import { Project } from '@lyubimovstudio/api-interfaces';
+import type { Project } from '@lyubimovstudio/api-interfaces';
 
 import { fetchProject } from '../../api';
 import { bemClassName, loadPicture } from '../../utils/helpers';

@@ -1,5 +1,5 @@
 import { withNaming } from '@bem-react/classname';
-import { Picture } from '@lyubimovstudio/api-interfaces';
+import type { Picture } from '@lyubimovstudio/api-interfaces';
 
 export const bemClassName = withNaming({
   e: '__',

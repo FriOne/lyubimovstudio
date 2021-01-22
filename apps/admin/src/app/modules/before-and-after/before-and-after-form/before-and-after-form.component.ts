@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Project } from '@lyubimovstudio/api-interfaces';
+import type { Project } from '@lyubimovstudio/api-interfaces';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { debounceTime, filter, finalize, map, startWith, switchMap, tap } from 'rxjs/operators';
 

@@ -2,7 +2,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { Raw, Repository } from 'typeorm';
 
-import { Tag } from '@lyubimovstudio/api-interfaces';
+import type { Tag } from '@lyubimovstudio/api-interfaces';
 
 import { TagEntity } from '../../entities/tag.entity';
 

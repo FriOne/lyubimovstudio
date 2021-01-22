@@ -8,7 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import { BeforeAndAfter, Picture, Project } from '@lyubimovstudio/api-interfaces';
+import type { BeforeAndAfter, Picture, Project } from '@lyubimovstudio/api-interfaces';
 
 @Entity({ name: 'before_and_after' })
 export class BeforeAndAfterEntity implements BeforeAndAfter {

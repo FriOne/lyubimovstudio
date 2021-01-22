@@ -5,7 +5,7 @@ import { useSSR } from 'use-ssr';
 
 import './before-and-after-page.css';
 
-import { PagedResponse, BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
+import type { PagedResponse, BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
 
 import { fetchBeforeAndAfter } from '../../api';
 import { bemClassName } from '../../utils/helpers';

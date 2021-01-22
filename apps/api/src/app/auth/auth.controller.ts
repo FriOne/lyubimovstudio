@@ -4,7 +4,7 @@ import { User } from '../pipes';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Public } from './guards/is-public-route';
-import { UserInfo } from '../users/users.service';
+import type { UserInfo } from '../users/users.service';
 
 @Controller('login')
 export class AuthController {

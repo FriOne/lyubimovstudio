@@ -3,7 +3,7 @@ import { Body, Controller, Delete, Get, NotFoundException, Patch, Post } from '@
 import { Public } from '../../auth/guards/is-public-route';
 import { BeforeAndAfterEntity } from '../../entities/before-and-after.entity';
 import { IntParam, IntQuery, User } from '../../pipes';
-import { UserInfo } from '../../users/users.service';
+import type { UserInfo } from '../../users/users.service';
 import { BeforeAndAfterDto } from '../dtos/before-and-after.dto';
 import { BeforeAndAfterService } from '../services/before-and-after.service';
 

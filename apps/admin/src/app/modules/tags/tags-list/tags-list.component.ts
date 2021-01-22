@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Tag } from '@lyubimovstudio/api-interfaces';
+import type { Tag } from '@lyubimovstudio/api-interfaces';
 
 import { ToastsService } from '../../shared/services/toasts.service';
 import { TagsService } from '../tags.service';

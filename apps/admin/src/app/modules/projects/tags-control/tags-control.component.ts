@@ -4,7 +4,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { BehaviorSubject, noop } from 'rxjs';
 import { debounceTime, finalize, map, switchMap, tap } from 'rxjs/operators';
 
-import { Tag } from '@lyubimovstudio/api-interfaces';
+import type { Tag } from '@lyubimovstudio/api-interfaces';
 
 import { TagsService } from '../../tags/tags.service';
 

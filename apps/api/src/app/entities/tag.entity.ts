@@ -7,7 +7,7 @@ import {
   ManyToMany,
 } from 'typeorm';
 
-import { ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
+import type { ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
 @Entity({ name: 'tag' })
 export class TagEntity implements Tag {

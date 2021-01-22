@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './tags-list.css';
 
-import { Tag } from '@lyubimovstudio/api-interfaces';
+import type { Tag } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName } from '../../utils/helpers';
 

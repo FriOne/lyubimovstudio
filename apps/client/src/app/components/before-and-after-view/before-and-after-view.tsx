@@ -4,7 +4,7 @@ import ReactCompareImage from 'react-compare-image';
 
 import './before-and-after-view.css';
 
-import { BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
+import type { BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
 
 import { bemClassName, getPictureUrlWithSizeCheck } from '../../utils/helpers';
 

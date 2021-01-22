@@ -1,4 +1,4 @@
-import { BeforeAndAfter, PagedResponse, Project, ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
+import type { BeforeAndAfter, PagedResponse, Project, ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
 type Params = Record<string, string | number | boolean>;
 type FetchInit = {
