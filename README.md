@@ -1,110 +1,69 @@
 # Lyubimovstudio
 
-Create volume uploads!!
-Add certs for prod builds!!
-nginx ssl_passwords.txt
-https://stackoverflow.com/a/27931596/2918518
+This project was generated using [Nx](https://nx.dev/angular).
+
+Project consist of 4 parts:
+- [Admin](apps/admin/README.md) is Angular application for administration part.
+- [Client](apps/client/README.md) is React application for the site frontend.
+- [API](apps/client/README.md) is NestJS application for the project API.
+- [SSR Server](apps/client/README.md) is Express server that renders client app on a server.
+
+## Development
+
+### Before start
+
+Run this command to pull all necessary docker containers.
+
 ```bash
-cd docker/init && \
-openssl req -config docker/init/openssl.conf -new -sha256 -newkey rsa:2048 -nodes \
--keyout site.key.pem -days 365 -out site.req.pem
-cd ../../
+  npm run docker-pull-all-images
 ```
-Add .prod.env from .env!!
 
-This project was generated using [Nx](https://nx.dev).
+### Launch
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+To launch dev development use command:
+```bash
+  npm run dev
+```
+This launch all project parts except SSR in watch mode (SRR is used only on prod). Also it creates two docker images: postgres db image and pgamin for this db.
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+ - Admin part url is [http://localhost:4300](http://localhost:4300)
 
-## Quick Start & Documentation
+ - Client url is [http://localhost:4200](http://localhost:4200)
 
-[Nx Documentation](https://nx.dev/angular)
+ - API url is [http://localhost:3333](http://localhost:3333), but it is proxied for admin and client as `/api` the same as the `/uploads` folder.
 
-[10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
+## Production images
 
-[Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
+### Before start
 
-## Adding capabilities to your workspace
+Before start building prod docker images, you need to make several steps to launch it.
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+1. Create uploads volume. It will be containing images uploaded from the admin part.
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+```bash
+  docker volume create uploads
+```
 
-Below are our core plugins:
+2. Create self-signed ssl certificate and its private key or put existed ones to `docker/init/site.req.pem` and `docker/init/site.key.pem`.
+More detailed about how to create self-signed certificates look [here](https://stackoverflow.com/a/27931596/2918518). Also you can use this command.
+```bash
+  npm run generate-cert
+```
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+3. Set up enviroment variables. Clone `.env` file to `.prod.env`.
+ - DB_SYNCHRONIZE is [typeorm](https://typeorm.io/#/connection-options/common-connection-options) `synchronize` option.
+ - DB_LOGGING is [typeorm](https://typeorm.io/#/connection-options/common-connection-options) `logging` option.
+ - GMAIL_USER is user that will be used to send mail from.
+ - GMAIL_PASSWORD is password of the prev user.
+ - OWNER_EMAIL is the email to where mail will be sent.
 
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
+### Launch
 
-## Generate an application
+To create production build you need to run this command:
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
+```bash
+  npm run prod
+```
 
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are sharable across libraries and applications. They can be imported from `@lyubimovstudio/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-## ☁ Nx Cloud
-
-### Computation Memoization in the Cloud
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+It creates one intermediate image called `lyubimovstudio-build` and four images that is necessary to launch the project. These four images are `lyubimovstudio-db`, `lyubimovstudio-api`, `lyubimovstudio-server`,
+`lyubimovstudio-ssr`.
