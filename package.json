@@ -152,6 +152,7 @@
     "jest-preset-angular": "8.3.2",
     "null-loader": "^4.0.1",
     "postcss-nested": "4.2.3",
+    "postcss-simple-vars": "5.0.2",
     "prettier": "2.2.1",
     "react-refresh": "^0.9.0",
     "start-server-webpack-plugin": "^2.2.5",
