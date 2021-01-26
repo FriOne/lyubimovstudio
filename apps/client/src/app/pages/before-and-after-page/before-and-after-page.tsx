@@ -1,7 +1,5 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSSR } from 'use-ssr';
 
 import './before-and-after-page.css';
 
@@ -11,26 +9,14 @@ import { fetchBeforeAndAfter } from '../../api';
 import { bemClassName } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
-import { InitialDataContext } from '../../initial-data-context';
 import { BeforeAndAfterView } from '../../components/before-and-after-view/before-and-after-view';
 import { LoadMoreButton } from '../../components/load-more-button/load-more-button';
+import { useInitialState } from '../../utils/hooks';
 
 const cls = bemClassName('before-and-after-page');
 
 export const BeforeAndAfterPage: FC<PagedResponse<BeforeAndAfter>> = () => {
-  const location = useLocation();
-  const initialData = useContext(InitialDataContext);
-  const { isBrowser, isServer } = useSSR();
-
-  let initialState = { rows: [], total: 0 };
-
-  if (isBrowser && window.__initialData__) {
-    initialState = window.__initialData__;
-
-    delete window.__initialData__;
-  } else if (isServer && initialData) {
-    initialState = initialData;
-  }
+  const initialState = useInitialState<PagedResponse<BeforeAndAfter>>({ rows: [], total: 0 });
 
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(initialState.total);

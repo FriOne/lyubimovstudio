@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSSR } from 'use-ssr';
 
 import './home-page.css';
 
@@ -11,23 +10,13 @@ import { bemClassName } from '../../utils/helpers';
 import { ProjectsGallery } from '../../components/projects-gallery/projects-gallery';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
-import { InitialDataContext } from '../../initial-data-context';
 import { LoadMoreButton } from '../../components/load-more-button/load-more-button';
+import { useInitialState } from '../../utils/hooks';
 
 const cls = bemClassName('home-page');
 
 export const HomePage: FC<PagedResponse<Project>> = () => {
-  const initialData = useContext(InitialDataContext);
-  const { isBrowser , isServer } = useSSR();
-  let initialState = { rows: [], total: 0 };
-
-  if (isBrowser && window.__initialData__) {
-    initialState = window.__initialData__;
-
-    delete window.__initialData__;
-  } else if (isServer && initialData) {
-    initialState = initialData;
-  }
+  const initialState = useInitialState<PagedResponse<Project>>({ rows: [], total: 0 });
 
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(initialState.total);

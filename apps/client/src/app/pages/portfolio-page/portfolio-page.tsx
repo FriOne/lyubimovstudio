@@ -1,7 +1,6 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
-import { useSSR } from 'use-ssr';
 
 import './portfolio-page.css';
 
@@ -11,10 +10,10 @@ import { fetchPicturesByTag, fetchTags } from '../../api';
 import { bemClassName } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
-import { InitialDataContext } from '../../initial-data-context';
 import { ProjectImageLink } from '../../components/project-image-link/project-image-link';
 import { TagsList } from '../../components/tags-list/tags-list';
 import { LoadMoreButton } from '../../components/load-more-button/load-more-button';
+import { useInitialState } from '../../utils/hooks';
 
 type PageParams = Partial<{
   tagId: string;
@@ -30,18 +29,7 @@ export const PortfolioPage: FC<InitialData> = () => {
   const tagId = searchParams.get('tagId')
     ? Number(searchParams.get('tagId'))
     : undefined;
-  const initialData = useContext(InitialDataContext);
-  const { isBrowser, isServer } = useSSR();
-
-  let initialState: InitialData = [[], { rows: [], total: 0 }];
-
-  if (isBrowser && window.__initialData__) {
-    initialState = window.__initialData__;
-
-    delete window.__initialData__;
-  } else if (isServer && initialData) {
-    initialState = initialData;
-  }
+  const initialState = useInitialState<InitialData>([[], { rows: [], total: 0 }]);
 
   const [initialTags, innitialProjects] = initialState;
   const [page, setPage] = useState(1);
