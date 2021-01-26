@@ -1,5 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import React from 'react';
 
 import './home-page.css';
 
@@ -11,45 +10,24 @@ import { ProjectsGallery } from '../../components/projects-gallery/projects-gall
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
 import { LoadMoreButton } from '../../components/load-more-button/load-more-button';
-import { useInitialState } from '../../utils/hooks';
+import { useInitialState, usePagedEntities } from '../../utils/hooks';
 
 const cls = bemClassName('home-page');
 
 export const HomePage: FC<PagedResponse<Project>> = () => {
   const initialState = useInitialState<PagedResponse<Project>>({ rows: [], total: 0 });
-
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(initialState.total);
-  const [projects, setProjects] = useState<Project[]>(initialState.rows);
-  const [loading, setLoading] = useState(false);
-
-  const onLoadMoreClick = useCallback(async () => {
-    setLoading(true);
-
-    const { rows, total } = await fetchProjects(page);
-
-    setPage(page + 1);
-    setProjects([...projects, ...rows]);
-    setTotal(total);
-    setLoading(false);
-  }, [page, projects]);
-
-  useEffect(() => {
-    if (initialState.rows.length > 0) {
-      return;
-    }
-
-    setLoading(true);
-
-    HomePage.fetchInitialData()
-      .then(({ rows, total }) => {
-        setProjects(rows);
-        setTotal(total);
-      })
-      .catch(() => toast.error('Произошла ошибка при загрузке проектов'))
-      .then(() => setLoading(false));
-  // eslint-disable-next-line
-  }, []);
+  const {
+    loading,
+    isLoadMoreShown,
+    entities: projects,
+    onLoadMoreClick,
+  } = usePagedEntities({
+    initialTotal: initialState.total,
+    initialEntities: initialState.rows,
+    loadingErrorText: 'Произошла ошибка при загрузке проектов',
+    fetchInitialData: HomePage.fetchInitialData,
+    fetchEntities: fetchProjects,
+  });
 
   return (
     <div className={cls()}>
@@ -62,7 +40,7 @@ export const HomePage: FC<PagedResponse<Project>> = () => {
         <Spinner className={cls('spinner')}/>
       )}
 
-      {!loading && total > projects.length && (
+      {isLoadMoreShown && (
         <LoadMoreButton
           className={cls('load-more-button')}
           disabled={loading}

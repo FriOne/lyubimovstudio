@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
 import './portfolio-page.css';
@@ -13,7 +12,7 @@ import { FC } from '../../utils/types';
 import { ProjectImageLink } from '../../components/project-image-link/project-image-link';
 import { TagsList } from '../../components/tags-list/tags-list';
 import { LoadMoreButton } from '../../components/load-more-button/load-more-button';
-import { useInitialState } from '../../utils/hooks';
+import { useInitialState, useUrlSearchParams } from '../../utils/hooks';
 
 type PageParams = Partial<{
   tagId: string;
@@ -24,21 +23,22 @@ type InitialData = [Tag[], PagedResponse<ProjectPicture>];
 const cls = bemClassName('portfolio-page');
 
 export const PortfolioPage: FC<InitialData> = () => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  const searchParams = useUrlSearchParams();
   const tagId = searchParams.get('tagId')
     ? Number(searchParams.get('tagId'))
     : undefined;
-  const initialState = useInitialState<InitialData>([[], { rows: [], total: 0 }]);
 
+  const initialState = useInitialState<InitialData>([[], { rows: [], total: 0 }]);
   const [initialTags, innitialProjects] = initialState;
+
+  const [loadingTags, setLoadingTags] = useState(false);
+  const [tags, setTags] = useState<Tag[]>(initialTags);
+
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(innitialProjects.total);
   const [firstLoad, setFirstLoad] = useState<boolean>(true);
-  const [tags, setTags] = useState<Tag[]>(initialTags);
-  const [pictures, setPictures] = useState<ProjectPicture[]>(innitialProjects.rows);
-  const [loadingTags, setLoadingTags] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [pictures, setPictures] = useState<ProjectPicture[]>(innitialProjects.rows);
 
   const onLoadMoreClick = useCallback(async () => {
     setLoading(true);
