@@ -34,7 +34,6 @@ function addHMR(config) {
   config.devServer = {
     ...config.devServer,
     hot: true,
-    inline: true,
     historyApiFallback: true,
   };
 

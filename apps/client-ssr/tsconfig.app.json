@@ -10,6 +10,6 @@
     "../../apps/client/src/typings/window.d.ts",
     "../../apps/client/src/typings/global.d.ts"
   ],
-  "exclude": ["**/*.spec.ts"],
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts", "**/*.tsx"]
 }
