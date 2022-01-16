@@ -38,7 +38,6 @@ function addHMR(config) {
   };
 
   config.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
   );
 }
