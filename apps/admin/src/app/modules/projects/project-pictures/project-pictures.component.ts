@@ -90,7 +90,7 @@ export class ProjectPicturesComponent implements ControlValueAccessor {
     this.loadQueue++;
 
     forkJoin(
-      event.addedFiles.map(this.loadProjectPictureWithFile.bind(this))
+      event.addedFiles.map<ProjectPicture>(this.loadProjectPictureWithFile.bind(this))
     ).subscribe(pictures => {
       this.loadQueue--;
       this.updateValue([...this.pictures, ...pictures]);
