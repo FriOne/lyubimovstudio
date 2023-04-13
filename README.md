@@ -22,6 +22,7 @@ Run this command to pull all necessary docker containers.
 
 To launch dev development use command:
 ```bash
+  npm install
   npm run dev
 ```
 This launch all project parts except SSR in watch mode (SRR is used only on prod). Also it creates two docker images: postgres db image and pgamin for this db.

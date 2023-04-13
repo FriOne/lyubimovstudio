@@ -1,6 +1,6 @@
 <mat-form-field class="form-field">
   <mat-label></mat-label>
-  <mat-chip-list #chipList>
+  <mat-chip-grid #chipList>
     <mat-basic-chip
       *ngFor="let tag of tags"
       class="tag-badge badge bg-secondary"
@@ -20,14 +20,14 @@
       [matAutocomplete]="tagsAutocomplete"
       [matChipInputFor]="chipList"
     >
-  </mat-chip-list>
+  </mat-chip-grid>
 
   <mat-autocomplete
     #tagsAutocomplete="matAutocomplete"
     [displayWith]="displayTag"
     (optionSelected)="onTagSelect($event)"
   >
-    <mat-option *ngIf="tagsAreloading$ | async">
+    <mat-option *ngIf="tagsAreLoading$ | async">
       <ls-spinner class="tags-spinner"></ls-spinner>
     </mat-option>
     <mat-option *ngFor="let tag of filteredTags$ | async" [value]="tag">

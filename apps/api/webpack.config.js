@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/no-var-requires, no-undef */
-const path = require('path');
-const webpack = require('webpack');
+const { composePlugins, withNx } = require('@nrwl/webpack');
 
-module.exports = (config) => {
+// Nx plugins for webpack.
+module.exports = composePlugins(withNx(), (config) => {
   const isDevelopment = (config.mode === 'development');
 
   if (!isDevelopment) {
     addCliEntry(config);
   }
-
+  // Update the webpack config as needed here.
+  // e.g. `config.plugins.push(new MyPlugin())`
   return config;
-};
+});
 
 function addCliEntry(config) {
   config.entry = {

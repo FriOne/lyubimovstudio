@@ -22,7 +22,7 @@ export class UsersService {
   ) {}
 
   async findByEmail(email: string) {
-    return this.usersRepository.findOne({ email });
+    return this.usersRepository.findOneBy({ email });
   }
 
   async save(user: UserWithPassword) {

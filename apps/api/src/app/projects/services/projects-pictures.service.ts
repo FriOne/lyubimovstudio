@@ -43,7 +43,7 @@ export class ProjectsPicturesService {
   }
 
   findById(id: number) {
-    return this.projectPictureRepository.findOne(id);
+    return this.projectPictureRepository.findOneBy({ id });
   }
 
   save(projectPicture: Partial<ProjectPictureEntity>) {

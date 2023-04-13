@@ -75,7 +75,16 @@ export class BeforeAndAfterFormComponent implements OnInit {
       switchMap(id => this.beforeAndAfterService.fetchBeforeAndAfter(id)),
     ).subscribe(
       (beforeAndAfter) => {
-        const newValue = {};
+        const newValue = {
+          ruTitle: '',
+          enTitle: '',
+          ruDescription: '',
+          enDescription: '',
+          isPublished: true,
+          before: null,
+          after: null,
+          project: '',
+        };
 
         for (const valueKey of Object.keys(this.beforeAndAfterForm.value)) {
           newValue[valueKey] = beforeAndAfter[valueKey];
@@ -103,7 +112,7 @@ export class BeforeAndAfterFormComponent implements OnInit {
       return;
     }
 
-    const beforeAndAfter = this.beforeAndAfterForm.value;
+    const beforeAndAfter = this.beforeAndAfterForm.getRawValue();
 
     this.loading$.next(true);
     this.beforeAndAfterService

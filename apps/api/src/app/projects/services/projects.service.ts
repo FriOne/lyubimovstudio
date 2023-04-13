@@ -84,7 +84,7 @@ export class ProjectsService {
   }
 
   async exists(id: number): Promise<boolean> {
-    const project = await this.projectsRepository.findOne(id);
+    const project = await this.projectsRepository.findOneBy({ id });
 
     return Boolean(project);
   }

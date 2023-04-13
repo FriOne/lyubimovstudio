@@ -19,7 +19,7 @@ export class BeforeAndAfterService {
     return this.http.get<BeforeAndAfter>(`/api/before-and-after/${id}`);
   }
 
-  saveBeforeAndAfter(beforeAndAfter: BeforeAndAfter, id?: number) {
+  saveBeforeAndAfter(beforeAndAfter: Partial<Omit<BeforeAndAfter, 'project'> & { project: string }>, id?: number) {
     return id
       ? this.http.patch<BeforeAndAfter>(`/api/before-and-after/${id}`, beforeAndAfter)
       : this.http.post<BeforeAndAfter>(`/api/before-and-after`, beforeAndAfter);

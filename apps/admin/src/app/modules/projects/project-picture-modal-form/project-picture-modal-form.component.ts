@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import type { ProjectPicture } from '@lyubimovstudio/api-interfaces';
+import type { ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
 type DialogData = {
   projectPicture: ProjectPicture;
@@ -19,7 +19,7 @@ export class ProjectPictureModalFormComponent implements OnInit {
     enTitle: [''],
     ruDescription: [''],
     enDescription: [''],
-    tags: [[]],
+    tags: <Tag[][]>[[]],
   });
 
   constructor(
@@ -29,7 +29,7 @@ export class ProjectPictureModalFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const newValue = Object.keys(this.projectPictureForm.value).reduce((acc, key) => {
+    const newValue = Object.keys(this.projectPictureForm.getRawValue()).reduce((acc, key) => {
       acc[key] = this.data.projectPicture[key];
 
       return acc;

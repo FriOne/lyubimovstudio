@@ -105,8 +105,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": []
+      }
     },
     "admin-e2e": {
       "root": "apps/admin-e2e",
@@ -134,62 +133,7 @@
           "outputs": ["{options.outputFile}"]
         }
       },
-      "tags": [],
       "implicitDependencies": ["admin"]
-    },
-    "api": {
-      "root": "apps/api",
-      "sourceRoot": "apps/api/src",
-      "projectType": "application",
-      "prefix": "api",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api",
-            "main": "apps/api/src/main.ts",
-            "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"],
-            "webpackConfig": "apps/api/webpack.config.js",
-            "generatePackageJson": true
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/src/environments/environment.ts",
-                  "with": "apps/api/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
-          },
-          "outputs": ["{options.outputFile}"]
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
     },
     "api-interfaces": {
       "root": "libs/api-interfaces",
@@ -289,8 +233,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": []
+      }
     },
     "client-e2e": {
       "root": "apps/client-e2e",
@@ -318,7 +261,6 @@
           "outputs": ["{options.outputFile}"]
         }
       },
-      "tags": [],
       "implicitDependencies": ["client"]
     },
     "client-ssr": {
@@ -328,7 +270,7 @@
       "prefix": "client-ssr",
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "@nrwl/webpack:webpack",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/client-ssr",
@@ -368,7 +310,6 @@
           }
         }
       },
-      "tags": [],
       "implicitDependencies": ["client"]
     }
   }

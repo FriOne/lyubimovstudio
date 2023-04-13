@@ -5,6 +5,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
+import { ProjectPicture } from '@lyubimovstudio/api-interfaces';
+
 import { ToastsService } from '../../shared/services/toasts.service';
 import { ProjectsService } from '../../shared/services/projects.service';
 
@@ -20,7 +22,7 @@ export class ProjectFormComponent implements OnInit {
     ruDescription: [''],
     enDescription: [''],
     isPublished: [true],
-    pictures: [[]],
+    pictures: <ProjectPicture[][]>[],
   });
 
   id: number;
@@ -53,7 +55,14 @@ export class ProjectFormComponent implements OnInit {
       switchMap(id => this.projectsService.fetchProject(id)),
     ).subscribe(
       (project) => {
-        const newValue = { pictures: [] };
+        const newValue = {
+          ruTitle: '',
+          enTitle: '',
+          ruDescription: '',
+          enDescription: '',
+          isPublished: true,
+          pictures: <ProjectPicture[]>[],
+        };
 
         for (const valueKey of Object.keys(this.projectForm.value)) {
           newValue[valueKey] = project[valueKey];
@@ -77,7 +86,7 @@ export class ProjectFormComponent implements OnInit {
       return;
     }
 
-    const project = this.projectForm.value;
+    const project = this.projectForm.getRawValue();
 
     for (const picture of project.pictures) {
       picture.tags = picture.tags || [];

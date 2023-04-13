@@ -33,11 +33,11 @@ export class PicturesService {
   }
 
   findOne(id: number): Promise<PictureEntity> {
-    return this.picturesRepository.findOne(id);
+    return this.picturesRepository.findOneBy({ id });
   }
 
-  async exists(id: string): Promise<boolean> {
-    const picture = await this.picturesRepository.findOne(id);
+  async exists(id: number): Promise<boolean> {
+    const picture = await this.picturesRepository.findOneBy({ id });
 
     return Boolean(picture);
   }

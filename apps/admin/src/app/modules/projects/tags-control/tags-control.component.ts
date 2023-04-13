@@ -24,17 +24,17 @@ export class TagsControlComponent implements ControlValueAccessor {
   tagInputControl = new FormControl('');
   tags: Tag[] = [];
   disabled = false;
-  tagsAreloading$ = new BehaviorSubject<boolean>(false);
+  tagsAreLoading$ = new BehaviorSubject<boolean>(false);
   filteredTags$ = this.tagInputControl
     .valueChanges
     .pipe(
       debounceTime(300),
-      tap(() => this.tagsAreloading$.next(true)),
+      tap(() => this.tagsAreLoading$.next(true)),
       switchMap(name => this.tagsService
         .fetchTags(name)
         .pipe(
           map(tags => this.removeExistedTags(tags)),
-          finalize(() => this.tagsAreloading$.next(false))
+          finalize(() => this.tagsAreLoading$.next(false))
         ),
       ),
     );
