@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
 
 import { AuthService } from '../auth.service';
-import { finalize, map } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ls-auth-page',
@@ -13,19 +13,15 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent implements OnInit {
-  authForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+  authForm = new FormGroup({
+    email: new FormControl('', { validators: [Validators.required, Validators.email] }),
+    password: new FormControl('', { validators: [Validators.required] }),
   });
 
   authorizing$ = new BehaviorSubject(false);
   error$ = new BehaviorSubject<string | null>(null);
 
-  constructor(
-    private router: Router,
-    private fb: FormBuilder,
-    private authService: AuthService
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     this.authForm.valueChanges.subscribe(() => this.error$.next(null));

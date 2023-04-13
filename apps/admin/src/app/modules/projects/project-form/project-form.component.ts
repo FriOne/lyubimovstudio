@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest } from 'rxjs';
@@ -16,13 +16,13 @@ import { ProjectsService } from '../../shared/services/projects.service';
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent implements OnInit {
-  projectForm = this.fb.group({
-    ruTitle: ['', [Validators.required]],
-    enTitle: [''],
-    ruDescription: [''],
-    enDescription: [''],
-    isPublished: [true],
-    pictures: <ProjectPicture[][]>[],
+  projectForm = new FormGroup({
+    ruTitle: new FormControl('', { validators: [Validators.required] }),
+    enTitle: new FormControl(''),
+    ruDescription: new FormControl(''),
+    enDescription: new FormControl(''),
+    isPublished: new FormControl(true),
+    pictures: new FormControl<ProjectPicture[]>([]),
   });
 
   id: number;
@@ -40,7 +40,6 @@ export class ProjectFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder,
     private projectsService: ProjectsService,
     private toastsService: ToastsService,
   ) {}

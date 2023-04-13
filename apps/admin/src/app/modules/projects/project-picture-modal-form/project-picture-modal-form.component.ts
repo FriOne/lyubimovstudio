@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import type { ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
@@ -14,18 +14,18 @@ type DialogData = {
   styleUrls: ['./project-picture-modal-form.component.scss']
 })
 export class ProjectPictureModalFormComponent implements OnInit {
-  projectPictureForm = this.fb.group({
-    ruTitle: [''],
-    enTitle: [''],
-    ruDescription: [''],
-    enDescription: [''],
-    tags: <Tag[][]>[[]],
+
+  projectPictureForm = new FormGroup({
+    ruTitle: new FormControl('', { validators: [Validators.required] }),
+    enTitle: new FormControl(''),
+    ruDescription: new FormControl(''),
+    enDescription: new FormControl(''),
+    tags: new FormControl<Tag[]>([]),
   });
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private dialogRef: MatDialogRef<ProjectPictureModalFormComponent>,
-    private fb: FormBuilder,
   ) {}
 
   ngOnInit() {

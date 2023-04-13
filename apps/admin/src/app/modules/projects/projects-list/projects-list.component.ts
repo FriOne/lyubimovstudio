@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
 
@@ -34,8 +34,8 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     map(([projects, loading]) => !loading && projects.length > 0),
   );
 
-  filtersForm = this.fb.group({
-    name: [''],
+  filtersForm = new FormGroup({
+    name: new FormControl(''),
   });
 
   pageSizeOptions = [10, 20, 50];
@@ -46,7 +46,6 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder,
     private projectsService: ProjectsService,
     private toastsService: ToastsService,
   ) {}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,9 @@ import { TagsService } from '../tags.service';
   styleUrls: ['./tags-list.component.scss']
 })
 export class TagsListComponent implements OnInit {
-  newTagForm = this.fb.group({ name: [''] });
+  newTagForm = new FormGroup({
+    name: new FormControl(''),
+  });
 
   tags$ = new BehaviorSubject<Tag[]>([]);
   addingNewTag$ = new BehaviorSubject<boolean>(false);
@@ -30,7 +32,6 @@ export class TagsListComponent implements OnInit {
   deletedTags = new Set<number>();
 
   constructor(
-    private fb: FormBuilder,
     private tagsService: TagsService,
     private toastsService: ToastsService,
   ) {}

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import type { Project } from '@lyubimovstudio/api-interfaces';
 import { BehaviorSubject, combineLatest } from 'rxjs';
@@ -17,15 +17,15 @@ import { BeforeAndAfterService } from '../before-and-after.service';
   styleUrls: ['./before-and-after-form.component.scss']
 })
 export class BeforeAndAfterFormComponent implements OnInit {
-  beforeAndAfterForm = this.fb.group({
-    ruTitle: [''],
-    enTitle: [''],
-    ruDescription: [''],
-    enDescription: [''],
-    isPublished: [true],
-    before: [null, [Validators.required]],
-    after: [null, [Validators.required]],
-    project: ['', [Validators.required, validateObjectAutocomplete]],
+  beforeAndAfterForm = new FormGroup({
+    ruTitle: new FormControl(''),
+    enTitle: new FormControl(''),
+    ruDescription: new FormControl(''),
+    enDescription: new FormControl(''),
+    isPublished: new FormControl(true),
+    before: new FormControl(null, { validators: [Validators.required] }),
+    after: new FormControl(null, { validators: [Validators.required] }),
+    project: new FormControl('', { validators: [Validators.required, validateObjectAutocomplete] }),
   });
 
   id: number;
@@ -59,7 +59,6 @@ export class BeforeAndAfterFormComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder,
     private beforeAndAfterService: BeforeAndAfterService,
     private projectsService: ProjectsService,
     private toastsService: ToastsService,
