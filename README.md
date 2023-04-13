@@ -25,13 +25,22 @@ To launch dev development use command:
   npm install
   npm run dev
 ```
-This launch all project parts except SSR in watch mode (SRR is used only on prod). Also it creates two docker images: postgres db image and pgamin for this db.
+This launch all project parts except SSR in watch mode (SRR is used only on prod). Also, it creates two docker images: postgres db image and pgadmin for this db.
 
  - Admin part url is [http://localhost:4300](http://localhost:4300)
 
  - Client url is [http://localhost:4200](http://localhost:4200)
 
  - API url is [http://localhost:3333](http://localhost:3333), but it is proxied for admin and client as `/api` the same as the `/uploads` folder.
+
+### Users
+
+Project admin user can be created with cli part of the `api` project, after project start you need to run this command:
+```bash
+  node dist/apps/api/cli.js
+```
+
+Users for pgadmin panel and database can be found inside .env file.
 
 ## Production images
 
