@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 
 import type { Project } from '@lyubimovstudio/api-interfaces';
 
@@ -15,24 +15,16 @@ import { ProjectsService } from '../../shared/services/projects.service';
   styleUrls: ['./projects-list.component.scss']
 })
 export class ProjectsListComponent implements OnInit, OnDestroy {
-  params$ = this.route.queryParams.pipe(
-    map(params => ({ page: 1, pageSize: 10, name: '',  ...params })),
-  );
-  page$ = this.params$.pipe(map(params => params.page));
-  pageSize$ = this.params$.pipe(map(params => params.pageSize));
-  total$ = new BehaviorSubject<number>(0);
-  hasMoreThanOnePage$ = combineLatest(this.total$, this.params$).pipe(
-    map(([total, { pageSize }]) => (total > pageSize)),
-  );
-
   projects$ = new BehaviorSubject<Project[]>([]);
   loading$ = new BehaviorSubject<boolean>(false);
-  noProjects$ = combineLatest(this.projects$, this.loading$).pipe(
-    map(([projects, loading]) => !loading && projects.length === 0),
-  );
-  hasProjects$ = combineLatest(this.projects$, this.loading$).pipe(
-    map(([projects, loading]) => !loading && projects.length > 0),
-  );
+  total$ = new BehaviorSubject<number>(0);
+
+  params$: Observable<{ page: 1, pageSize: 10, name?: string; [key: string]: unknown }>;
+  $page: Observable<number>;
+  pageSize$: Observable<number>;
+  hasMoreThanOnePage$: Observable<boolean>;
+  noProjects$: Observable<boolean>;
+  hasProjects$: Observable<boolean>;
 
   filtersForm = new FormGroup({
     name: new FormControl(''),
@@ -48,14 +40,27 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private projectsService: ProjectsService,
     private toastsService: ToastsService,
-  ) {}
+  ) {
+    this.params$ = this.route.queryParams.pipe(map(params => ({ page: 1, pageSize: 10, ...params })));
+    this.$page = this.params$.pipe(map(params => params.page));
+    this.pageSize$ = this.params$.pipe(map(params => params.pageSize));
+    this.hasMoreThanOnePage$ = combineLatest(this.total$, this.params$).pipe(
+      map(([total, { pageSize }]) => (total > pageSize)),
+    );
+    this.noProjects$ = combineLatest(this.projects$, this.loading$).pipe(
+      map(([projects, loading]) => !loading && projects.length === 0),
+    );
+    this.hasProjects$ = combineLatest(this.projects$, this.loading$).pipe(
+      map(([projects, loading]) => !loading && projects.length > 0),
+    );
+  }
 
   ngOnInit(): void {
     this.paramsSubscription = this.params$
       .pipe(
         tap(filters => {
           this.filtersForm.setValue(
-            { name: filters.name },
+            { name: filters.name ?? '' },
             { emitEvent: false },
           );
           this.loading$.next(true);
