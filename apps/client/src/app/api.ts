@@ -14,7 +14,7 @@ type RequestBody = {
 const API_URL = process.env.API_URL || '/api';
 const FETCH_LIMIT = 10;
 
-function appendParamsToUrl(url: string, params: Params) {
+function appendParamsToUrl(url: string, params?: Params) {
   if (!params) {
     return url;
   }
@@ -65,11 +65,14 @@ export function fetchProjects(page = 0) {
 }
 
 export function fetchPicturesByTag(page = 0, tagId?: number) {
-  const params = {
+  const params: Record<string, any> = {
     page,
     limit: FETCH_LIMIT,
-    tagId,
   };
+
+  if (tagId) {
+    params.tagId = tagId;
+  }
 
   return fetchRequest<PagedResponse<ProjectPicture>>(`${API_URL}/projects/pictures`, { params });
 }

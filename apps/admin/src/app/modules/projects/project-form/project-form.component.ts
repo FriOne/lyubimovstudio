@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 
 import { ProjectPicture } from '@lyubimovstudio/api-interfaces';
 
@@ -26,29 +26,37 @@ export class ProjectFormComponent implements OnInit {
   });
 
   id: number;
-  id$ = this.route.params.pipe(map(params => params.id));
-  isNew$ = this.id$.pipe(map(id => id === 'new'));
-  title$ = this.isNew$.pipe(map(isNew => isNew ? 'Новый проект' : 'Редактирование проекта'));
-  buttonText$ = this.isNew$.pipe(map(isNew => isNew ? 'Создать' : 'Сохранить'));
   loading$ = new BehaviorSubject<boolean>(false);
   error$ = new BehaviorSubject<string | null>(null);
-  formShouldBeRendered$ = combineLatest(this.loading$, this.error$).pipe(
-    map(([loading, error]) => !loading && !error),
-    startWith(true),
-  );
+  id$: Observable<'new' | string>;
+  isNew$: Observable<boolean>;
+  title$: Observable<string>;
+  buttonText$: Observable<string>;
+  formShouldBeRendered$: Observable<boolean>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private projectsService: ProjectsService,
     private toastsService: ToastsService,
-  ) {}
+  ) {
+    this.id$ = this.route.params.pipe(map(params => params.id));
+    this.isNew$ = this.id$.pipe(map(id => id === 'new'));
+    this.title$ = this.isNew$.pipe(map(isNew => isNew ? 'Новый проект' : 'Редактирование проекта'));
+    this.buttonText$ = this.isNew$.pipe(map(isNew => isNew ? 'Создать' : 'Сохранить'));
+    this.loading$ = new BehaviorSubject<boolean>(false);
+    this.error$ = new BehaviorSubject<string | null>(null);
+    this.formShouldBeRendered$ = combineLatest(this.loading$, this.error$).pipe(
+      map(([loading, error]) => !loading && !error),
+      startWith(true),
+    );
+  }
 
   ngOnInit() {
     this.id$.pipe(
       filter(id => id !== 'new'),
       tap((id) => {
-        this.id = id;
+        this.id = Number(id);
         this.loading$.next(true);
       }),
       switchMap(id => this.projectsService.fetchProject(id)),

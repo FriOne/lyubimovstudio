@@ -1,46 +1,24 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const { composePlugins, withNx } = require('@nrwl/webpack');
+const { withReact } = require('@nrwl/react');
 const webpack = require('webpack');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-const nrwlReactConfig = require('@nrwl/react/plugins/webpack.js');
-
-module.exports = (config) => {
-  const isDevelopment = (config.mode === 'development');
-
-  nrwlReactConfig(config);
+// Nx plugins for webpack.
+module.exports = composePlugins(withNx(), withReact(), (config) => {
   postcssConfigInFile(config);
   addTextFileLoader(config);
   fixStyleLoader(config);
 
   config.plugins.push(
-      new webpack.EnvironmentPlugin({
-        API_URL: '',
-      }),
+    new webpack.EnvironmentPlugin({
+      API_URL: '',
+    }),
   );
 
-  if (isDevelopment) {
-    addHMR(config);
-  }
-
+  // Update the webpack config as needed here.
+  // e.g. `config.plugins.push(new MyPlugin())`
   return config;
-};
-
-function addHMR(config) {
-  config.entry = {
-    ...config.entry,
-    main: ['webpack/hot/dev-server', ...config.entry.main],
-  };
-
-  config.devServer = {
-    ...config.devServer,
-    hot: true,
-    historyApiFallback: true,
-  };
-
-  config.plugins.push(
-    new ReactRefreshWebpackPlugin(),
-  );
-}
+});
 
 function addTextFileLoader(config) {
   config.module.rules.push({

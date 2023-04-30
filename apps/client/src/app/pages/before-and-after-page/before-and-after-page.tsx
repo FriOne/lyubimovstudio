@@ -1,11 +1,12 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import './before-and-after-page.css';
 
 import type { PagedResponse, BeforeAndAfter } from '@lyubimovstudio/api-interfaces';
 
 import { fetchBeforeAndAfter } from '../../api';
-import { bemClassName } from '../../utils/helpers';
+import { bemClassName, getTitleByKey } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
 import { BeforeAndAfterView } from '../../components/before-and-after-view/before-and-after-view';
@@ -31,6 +32,10 @@ export const BeforeAndAfterPage: FC<PagedResponse<BeforeAndAfter>> = () => {
 
   return (
     <div className={cls()}>
+      <Helmet>
+        <title>{getTitleByKey('projects')}</title>
+      </Helmet>
+
       <h1 className={cls('title')}>
         До и После
       </h1>
@@ -47,7 +52,7 @@ export const BeforeAndAfterPage: FC<PagedResponse<BeforeAndAfter>> = () => {
         <Spinner className={cls('spinner')}/>
       )}
 
-      {!isLoadMoreShown && (
+      {isLoadMoreShown && (
         <LoadMoreButton
           className={cls('load-more-button')}
           disabled={loading}

@@ -1,9 +1,11 @@
 {
-  "presets": ["@nrwl/react/babel"],
-  "plugins": [],
-  "env": {
-    "dev": {
-      "plugins": ["react-refresh/babel"]
-    }
-  }
+  "presets": [
+    [
+      "@nrwl/react/babel",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  ],
+  "plugins": []
 }

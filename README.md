@@ -18,6 +18,12 @@ Run this command to pull all necessary docker containers.
   npm run docker-pull-all-images
 ```
 
+Create uploads volume. It will be containing images uploaded from the admin part.
+
+```bash
+  docker volume create uploads
+```
+
 ### Launch
 
 To launch dev development use command:
@@ -48,19 +54,13 @@ Users for pgadmin panel and database can be found inside .env file.
 
 Before start building prod docker images, you need to make several steps to launch it.
 
-1. Create uploads volume. It will be containing images uploaded from the admin part.
-
-```bash
-  docker volume create uploads
-```
-
-2. Create self-signed ssl certificate and its private key or put existed ones to `docker/init/site.req.pem` and `docker/init/site.key.pem`.
-More detailed about how to create self-signed certificates look [here](https://stackoverflow.com/a/27931596/2918518). Also you can use this command.
+1. Create self-signed ssl certificate and its private key or put existed ones to `docker/init/site.req.pem` and `docker/init/site.key.pem`.
+More detailed about how to create self-signed certificates look [here](https://stackoverflow.com/a/27931596/2918518). Also, you can use this command.
 ```bash
   npm run generate-cert
 ```
 
-3. Set up enviroment variables. Clone `.env` file to `.prod.env`.
+2. Set up enviroment variables. Clone `.env` file to `.prod.env`.
  - DB_SYNCHRONIZE is [typeorm](https://typeorm.io/#/connection-options/common-connection-options) `synchronize` option.
  - DB_LOGGING is [typeorm](https://typeorm.io/#/connection-options/common-connection-options) `logging` option.
  - GMAIL_USER is user that will be used to send mail from.

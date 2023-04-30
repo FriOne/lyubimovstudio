@@ -1,11 +1,12 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import './home-page.css';
 
 import type { PagedResponse, Project } from '@lyubimovstudio/api-interfaces';
 
 import { fetchProjects } from '../../api';
-import { bemClassName } from '../../utils/helpers';
+import { bemClassName, getTitleByKey } from '../../utils/helpers';
 import { ProjectsGallery } from '../../components/projects-gallery/projects-gallery';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
@@ -31,6 +32,10 @@ export const HomePage: FC<PagedResponse<Project>> = () => {
 
   return (
     <div className={cls()}>
+      <Helmet>
+        <title>{getTitleByKey('projects')}</title>
+      </Helmet>
+
       <ProjectsGallery
         className={cls('gallery')}
         projects={projects}

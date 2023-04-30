@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { toast } from 'react-toastify';
 
 import './portfolio-page.css';
@@ -6,7 +7,7 @@ import './portfolio-page.css';
 import type { PagedResponse, ProjectPicture, Tag } from '@lyubimovstudio/api-interfaces';
 
 import { fetchPicturesByTag, fetchTags } from '../../api';
-import { bemClassName } from '../../utils/helpers';
+import { bemClassName, getTitleByKey } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { FC } from '../../utils/types';
 import { ProjectImageLink } from '../../components/project-image-link/project-image-link';
@@ -29,16 +30,16 @@ export const PortfolioPage: FC<InitialData> = () => {
     : undefined;
 
   const initialState = useInitialState<InitialData>([[], { rows: [], total: 0 }]);
-  const [initialTags, innitialProjects] = initialState;
+  const [initialTags, initialProjects] = initialState;
 
   const [loadingTags, setLoadingTags] = useState(false);
   const [tags, setTags] = useState<Tag[]>(initialTags);
 
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(innitialProjects.total);
+  const [total, setTotal] = useState(initialProjects.total);
   const [firstLoad, setFirstLoad] = useState<boolean>(true);
   const [loading, setLoading] = useState(false);
-  const [pictures, setPictures] = useState<ProjectPicture[]>(innitialProjects.rows);
+  const [pictures, setPictures] = useState<ProjectPicture[]>(initialProjects.rows);
 
   const onLoadMoreClick = useCallback(async () => {
     setLoading(true);
@@ -54,11 +55,11 @@ export const PortfolioPage: FC<InitialData> = () => {
   useEffect(() => {
     setFirstLoad(false);
 
-    if (innitialProjects.rows.length > 0) {
+    if (initialProjects.rows.length > 0) {
       return;
     }
 
-    const queryParams: PageParams = {};
+    const queryParams: Record<string, string> = {};
 
     searchParams.forEach((value, key) => {
       queryParams[key] = value;
@@ -67,7 +68,7 @@ export const PortfolioPage: FC<InitialData> = () => {
     setLoading(true);
     setLoadingTags(true);
 
-    PortfolioPage.fetchInitialData(null, queryParams)
+    PortfolioPage.fetchInitialData(undefined, queryParams)
       .then(([tags, { rows, total }]) => {
         setTotal(total);
         setTags(tags);
@@ -97,6 +98,10 @@ export const PortfolioPage: FC<InitialData> = () => {
 
   return (
     <div className={cls()}>
+      <Helmet>
+        <title>{getTitleByKey('portfolio')}</title>
+      </Helmet>
+
       <h1 className={cls('title')}>
         Портфолио
       </h1>
@@ -109,6 +114,7 @@ export const PortfolioPage: FC<InitialData> = () => {
       )}
 
       {pictures?.map(picture => (
+        picture.project?.id &&
         <ProjectImageLink
           key={picture.id}
           className={cls('picture')}

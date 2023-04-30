@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires, no-undef */
 const webpack = require('webpack');
+const { composePlugins, withNx } = require('@nrwl/webpack');
+const { withReact } = require('@nrwl/react');
 const reactWebpack = require('@nrwl/react/plugins/webpack.js');
 
-module.exports = (config) => {
+module.exports = composePlugins(withNx(), withReact(), (config) => {
   reactWebpack(config);
 
   for (const rule of config.module.rules) {
@@ -28,4 +30,4 @@ module.exports = (config) => {
   config.optimization.minimize = true;
 
   return config;
-};
+});

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, FunctionComponent, memo, useCallback, useState } from 'react';
+import React, { ChangeEvent, DetailedHTMLProps, FormEventHandler, FunctionComponent, memo, useCallback, useState } from 'react';
 import InputMask from 'react-input-mask';
 import { Link } from 'react-router-dom';
 
@@ -34,27 +34,27 @@ export const RequestModal: FunctionComponent<Props> = memo((props) => {
 
   const onNameChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);
-    setError(null);
+    setError(false);
   }, []);
   const onPhoneNumberChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumberIsValid(validatePhoneNumber(event.currentTarget.value));
     setPhoneNumber(event.currentTarget.value);
-    setError(null);
+    setError(false);
   }, []);
   const onMessageChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(event.currentTarget.value);
-    setError(null);
+    setError(false);
   }, []);
   const onAcceptPrivacyChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setAcceptPrivacy(event.currentTarget.checked);
-    setError(null);
+    setError(false);
   }, []);
 
-  const onSubmit = useCallback(async (event) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
 
     setSending(true);
-    setError(null);
+    setError(false);
 
     try {
       await sendRequest({ name, phoneNumber, message });
@@ -67,11 +67,11 @@ export const RequestModal: FunctionComponent<Props> = memo((props) => {
       onClose(true);
     }
     catch (error) {
-      setError(error);
+      setError(true);
     }
 
     setSending(false);
-  }, [onClose, name, phoneNumber, message]);
+  }
 
   return (
     <Modal
@@ -111,15 +111,12 @@ export const RequestModal: FunctionComponent<Props> = memo((props) => {
                   value={phoneNumber}
                   onChange={onPhoneNumberChange}
                 >
-                  {(inputProps: InputProps) => (
-                    <input
-                      className={cls('input', { phone: true })}
-                      type="tel"
-                      name="phoneNumber"
-                      required
-                      {...inputProps}
-                    />
-                  )}
+                  <input
+                    className={cls('input', { phone: true })}
+                    type="tel"
+                    name="phoneNumber"
+                    required
+                  />
                 </InputMask>
 
                 <span className={cls('required-mark')}>*</span>

@@ -21,6 +21,7 @@ export const ProjectsGallery: FunctionComponent<Props> = memo((props) => {
   const { isServer } = useSSR();
   const [mounted, setMounted] = useState(false)
   const projectsLinks = projects.map((project) => (
+    project.id &&
     <ProjectImageLink
       key={project.id}
       className={cls('project')}
@@ -31,7 +32,7 @@ export const ProjectsGallery: FunctionComponent<Props> = memo((props) => {
 
   useEffect(() => setMounted(true), []);
 
-  // On the server side Masonry doesn't work so we make plain links.
+  // On the server side Masonry doesn't work, so we make plain links.
   if (isServer) {
     return (
       <div className={cls(null, [className])}>

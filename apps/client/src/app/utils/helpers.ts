@@ -1,6 +1,8 @@
 import { withNaming } from '@bem-react/classname';
 import type { Picture } from '@lyubimovstudio/api-interfaces';
 
+import { getRouteTitleByKey } from '../routes';
+
 export const bemClassName = withNaming({
   e: '__',
   m: '_',
@@ -58,4 +60,17 @@ export function convertUrlSearchParamsToObject(searchParams: URLSearchParams) {
   });
 
   return params;
+}
+
+export function getTitleByKey(key: string) {
+  if (window === undefined) {
+    return '';
+  }
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const title = getRouteTitleByKey(key);
+
+  return (typeof title === 'string')
+    ? title
+    : title(convertUrlSearchParamsToObject(queryParams));
 }

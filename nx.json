@@ -18,11 +18,7 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "lint",
-          "test",
-          "e2e"
-        ],
+        "cacheableOperations": ["lint", "test", "e2e"],
         "parallel": 1
       }
     }
@@ -62,6 +58,7 @@
       "application": {
         "style": "css",
         "linter": "eslint",
+        "bundler": "webpack",
         "babel": true
       },
       "component": {

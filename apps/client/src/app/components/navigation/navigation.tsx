@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, memo, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 
 import { environment } from '../../../environments/environment';
@@ -8,15 +8,9 @@ import { PhoneNumber } from './phone-number/phone-number';
 
 import './navigation.css';
 
-export type Link = {
-  to: NavLinkProps['to'];
-  children: NavLinkProps['children'];
-  isActive: NavLinkProps['isActive'];
-};
-
 type Props = {
   className?: string;
-  links: Link[];
+  links: NavLinkProps[];
 };
 
 const cls = bemClassName('navigation');
@@ -28,11 +22,11 @@ export const Navigation: FunctionComponent<Props> = memo((props) => {
   const onTogglerClick = useCallback(() => setOpened(!opened), [opened, setOpened]);
   const onLinkClick = useCallback(() => setOpened(false), [setOpened]);
 
-  const ref = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onDocumentClick = (event: MouseEvent) => {
-      if (ref.current.contains(event.target as HTMLElement)) {
+      if (ref.current?.contains(event.target as HTMLElement)) {
         return;
       }
 
@@ -50,14 +44,15 @@ export const Navigation: FunctionComponent<Props> = memo((props) => {
     <nav className={cls({ opened }, [className])}>
       <div className={cls('sidenav')} ref={ref}>
         <div className={cls('menu')}>
-          {links.map(link => (
+          {links.map((link, index) => (
             <NavLink
-              key={link.to}
-              className={cls('link')}
-              activeClassName={cls('link', { active: true })}
+              key={typeof link.to === 'string' ? link.to : index}
+              className={({ isActive }) => cls('link', { active: isActive })}
               onClick={onLinkClick}
               {...link}
-            />
+            >
+              {link.title}
+            </NavLink>
           ))}
         </div>
 

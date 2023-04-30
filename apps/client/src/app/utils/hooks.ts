@@ -1,4 +1,5 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { Params } from 'react-router';
 import { useLocation, useParams } from 'react-router-dom';
 import useSSR from 'use-ssr';
 import { toast } from 'react-toastify';
@@ -7,10 +8,10 @@ import { PagedResponse } from '@lyubimovstudio/api-interfaces';
 
 import { InitialDataContext } from '../initial-data-context';
 
-export type InitialEntitySettings<Entity, PageParams = unknown> = {
+export type InitialEntitySettings<Entity> = {
   initialEntity: Entity | null;
   loadingErrorText: string;
-  fetchInitialData(params: PageParams): Promise<Entity>;
+  fetchInitialData(params: Params): Promise<Entity>;
   beforeShow?(entity: Entity): Promise<unknown>;
 };
 
@@ -47,7 +48,7 @@ export function useUrlSearchParams() {
   );
 }
 
-export function useInitialEntity<Entity, PageParams>(settings: InitialEntitySettings<Entity, PageParams>) {
+export function useInitialEntity<Entity>(settings: InitialEntitySettings<Entity>) {
   const {
     initialEntity,
     loadingErrorText,
@@ -55,7 +56,7 @@ export function useInitialEntity<Entity, PageParams>(settings: InitialEntitySett
     beforeShow,
   } = settings;
 
-  const params = useParams<PageParams>();
+  const params = useParams();
   const [entity, setEntity] = useState(initialEntity);
   const [loading, setLoading] = useState(false);
 
@@ -130,7 +131,7 @@ export function usePagedEntities<Entity>(settings: PagedEntitiesSettings<Entity>
     loading,
     page,
     entities,
-    isLoadMoreShown: !loading && (total > entities.length),
+    isLoadMoreShown: total !== 0 && !loading && (total > entities.length),
     onLoadMoreClick,
   };
 }

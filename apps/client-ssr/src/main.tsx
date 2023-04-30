@@ -1,13 +1,15 @@
 import express, { Request, Response } from 'express';
 import { promisify } from 'util';
 import { renderToStaticNodeStream } from 'react-dom/server';
-import { StaticRouter, matchPath } from 'react-router';
+import { StaticRouter } from 'react-router-dom/server';
+import { matchPath } from 'react-router';
+import { Helmet } from 'react-helmet';
 import React from 'react';
 import fs from 'fs';
 import fetch from 'node-fetch';
 
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import { routes } from './../../client/src/app/routes';
+import { routesWithTitle } from '../../client/src/app/routes';
 import { App } from './../../client/src/app/app';
 import { FC } from './../../client/src/app/utils/types';
 import { InitialDataContext } from './../../client/src/app/initial-data-context';
@@ -58,8 +60,8 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
     let currentRoute = null;
     let currentRouteMatch = null;
 
-    for (const route of routes) {
-      const match = matchPath(req.url, route);
+    for (const route of routesWithTitle) {
+      const match = matchPath(req.url, route.path);
 
       if (match) {
         currentRoute = route;
@@ -99,11 +101,13 @@ function getSSRRoute(assets: { scripts: string, stylesheets: string }) {
 
     const stream = renderToStaticNodeStream(
       <InitialDataContext.Provider value={initialData}>
-        <StaticRouter location={req.url} context={{}}>
+        <StaticRouter location={req.url}>
           <App />
         </StaticRouter>
       </InitialDataContext.Provider>
     );
+    // Called to prevent memory leak.
+    Helmet.renderStatic();
 
     stream.pipe(res, { end: false });
     stream.on('end', () => {

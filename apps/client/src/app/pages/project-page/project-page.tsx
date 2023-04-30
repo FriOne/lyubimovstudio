@@ -1,11 +1,12 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import './project-page.css';
 
 import type { Project } from '@lyubimovstudio/api-interfaces';
 
 import { fetchProject } from '../../api';
-import { bemClassName, loadPicture } from '../../utils/helpers';
+import { bemClassName, getTitleByKey, loadPicture } from '../../utils/helpers';
 import { Spinner } from '../../components/spinner/spinner';
 import { ProjectView } from '../../components/project-view/project-view';
 import { FC } from '../../utils/types';
@@ -29,6 +30,10 @@ export const ProjectPage: FC<Project> = () => {
 
   return (
     <div className={cls()}>
+      <Helmet>
+        <title>{getTitleByKey('projects')}</title>
+      </Helmet>
+
       {loading && (
         <Spinner className={cls('spinner')}/>
       )}

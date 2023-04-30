@@ -1,16 +1,8 @@
 import { FunctionComponent } from 'react';
-import { NavLinkProps, RouteProps } from 'react-router-dom';
+import { Params } from 'react-router';
 
-type InitialFetch<Response> = { fetchInitialData(params?: Record<string, string>, queryParams?: Record<string, string>): Promise<Response>; };
+type InitialFetch<Response> = { fetchInitialData(params?: Params, queryParams?: Record<string, string>): Promise<Response>; };
 
-export type FC<Response, Props = null> = FunctionComponent<Props> & InitialFetch<Response>;
-
-type titleFn = (queryParams: Record<string, string>) => string;
-
-export type HelmetRouteProps = RouteProps & {
-  title: string | titleFn;
-  navTitle?: string;
-  navPath?: string;
-  path?: string | string[];
-  navIsActive?: NavLinkProps['isActive'];
-};
+// Rule is here because need tot copy react rule
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type FC<Response, Props = {}> = FunctionComponent<Props> & InitialFetch<Response>;

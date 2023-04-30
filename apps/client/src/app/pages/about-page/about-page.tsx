@@ -1,14 +1,19 @@
 import React, { FunctionComponent } from 'react';
+import { Helmet } from 'react-helmet';
 
 import './about-page.css';
 
-import { bemClassName } from '../../utils/helpers';
+import { bemClassName, getTitleByKey } from '../../utils/helpers';
 
 const cls = bemClassName('about-page');
 
 export const AboutPage: FunctionComponent = () => {
   return (
     <div className={cls()}>
+      <Helmet>
+        <title>{getTitleByKey('projects')}</title>
+      </Helmet>
+
       <div className={cls('description')}>
         <h2 className={cls('title', { about: true })}>
           О компании
